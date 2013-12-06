@@ -1,7 +1,19 @@
 const mysql = require("mysql2");
 const dbConfig = require("../config/db.config.js");
 
-// TODO: Change over to sequelize 
+// TODO: Change over to sequelize for ORM and to prevent SQL injection
+
+// const Sequelize = require("sequelize");
+// const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
+//   host: dbConfig.HOST,
+//   dialect: dbConfig.dialect,
+// });
+
+// const db = {};
+
+// db.Sequelize = Sequelize;
+// db.sequelize = sequelize;
+
 
 const connection = mysql.createConnection({
     host: dbConfig.HOST,
@@ -16,6 +28,14 @@ connection.connect(error => {
   console.log("Successfully connected to the database.");
 });
 
+module.exports = connection;
+
+
+// const db = {};
+
+// db.Sequelize = Sequelize;
+// db.sequelize = sequelize;
+
 // db.users = require("./user.model.js")(sequelize, Sequelize);
 // db.companies = require("./company.model.js")(sequelize, Sequelize);
 // db.jobs = require("./job.model.js")(sequelize, Sequelize);
@@ -28,4 +48,3 @@ connection.connect(error => {
 
 // hasOne belongsTo hasMany
 
-module.exports = connection;
