@@ -37,3 +37,4 @@
 - create user and tables
 - insert some test records
 3. Need assistance / figure things out
+- figuer out how to encrypt user password and save the password to the database
