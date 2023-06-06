@@ -1,0 +1,39 @@
+2023-06-06 DUSTIN
+1. Done/Not done
+- Create mockups of the website
+- Home Page
+- Employee Dashboard
+- Employer Dashboard
+2. To do until next scrum
+- Install libraries and coordinate github when working together
+- Begin creating backend folder structure with Lewis
+- Create database connection with Jing and Lewis   
+- Initial setup of server file
+3. Need help
+- How do controllers and models work on such a big project
+- How much is too much or too little to plan for a day?
+- How to share libraries
+
+2023-06-06 (D-DAY) LEWIS
+1. Done / not done since last scrum:
+- Wrote project proposal intro
+- create use case diagram
+- consolidated team's project proposal contributions
+- met with manager (Gregory)
+2. To do until next Scrum:
+- work on building node api with dustin
+- connect node api to mysql DB created by Jing
+- submit final project proposal 
+3. Need assistance / figure things out
+- how will we build models/controllers for this project? does each resource get its own model/controller?
+- what should the deadline be for having the back-end finished
+- how to properly divide work to maximize productivity and reduce 'waiting around'
+
+2023-06-06 Jing Wei 
+1. Done / not dont since last scrum:
+- create entity relation diagram
+2. To do until next Scrum:
+- set up zurue server 
+- create user and tables
+- insert some test records
+3. Need assistance / figure things out
