@@ -1,23 +1,22 @@
-// server.js //
-
 const express = require('express');
+
 const app = express();
-const PORT = process.env.PORT || 7077;
-const dbConfig = require("./app/models/db.js");
 
-app.use(express.urlencoded({extended: true}));
 
+// parse requests of content-type - application/json
 app.use(express.json());
 
-app.use(express.static('public'));
+// parse requests of content-type - application/x-www-form-urlencoded
+app.use(express.urlencoded({ extended: true }));
 
-const apiRouter = require('./app/routes/api');
+require("./app/routes/api.js")(app);
+require("./app/routes/jobsRouter.js");
 
-app.use('/api', apiRouter);
+app.use(express.static('views'));
 
-
-
+// set port, listen for requests
+const PORT = process.env.PORT || 7077;
 app.listen(PORT, () => {
-  console.log(`The server is now running on ${PORT}`);
+  console.log(`Server is running on port ${PORT}.`);
 });
 

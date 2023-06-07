@@ -10,21 +10,13 @@ const users = require("../controllers/user.controller.js");
 //     .route('../addItem.html')
 //     .get()
 
-//TODO add .me method in controllers/model
-//this retrieves user's specific page if logged in correctly
-router
-    .route('/me')
-    .get(users.me)
-
 router
     .route('/users')
-    .get(users.findAll) // -ADMIN ONLY
+    .get(users.findAll)
     .post(users.create) //mispelling enum got a data truncated message
     
 router
-    .route('/users/:id([0-9]+)') // ADMIN and USER can fetch their own data only
+    .route('/users/:id([0-9]+)')
     .get(users.findOne)
     .patch(users.update)
 
-
-    module.exports = router;
