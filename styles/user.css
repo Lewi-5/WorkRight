@@ -1,0 +1,23 @@
+body {
+    background-color: #9fe8f5;
+}
+div {
+    border: none;
+    margin: 12px 5px;
+}
+#listedContent {
+    width: 840px;
+    padding: 20px;
+    margin: 020px auto;
+    background-color: white;
+}
+#listPane {
+    
+    width: 340px;
+    display: inline-table;
+}
+#viewAddEditPane {
+    
+    width: 340px;
+    display: inline-table;
+}
