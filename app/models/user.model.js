@@ -83,8 +83,8 @@ const User = function(newUser) {
   
 User.updateById = (id, patch, result) => {
     mysql.query(
-      "UPDATE workrighttest SET password = ?, firstName = ?, lastName = ? WHERE id = ?", // changey table name after UPDATE
-      [patch.password, patch.firstName, patch.lastName, id],
+      "UPDATE users SET password = ? WHERE id = ?", // changey table name after UPDATE
+      [patch.password, id],
       (err, res) => {
         if (err) {
           console.log("error: ", err);
@@ -98,8 +98,8 @@ User.updateById = (id, patch, result) => {
           return;
         }
   
-        console.log("updated User: ", { id: id, lastBid: patch.password, firstName: patch.firstName, lastName: patch.lastName});
-        result(null, { id: id, lastBid: patch.password, firstName: patch.firstName, lastName: patch.lastName});
+        console.log("updated User: ", { id: id, password: patch.password});
+        result(null, "your new account details: " + { id: id, password: patch.password}); // why doesnt this get sent as response to patch but the res.send of the controller DOES?
       }
     );
   };
