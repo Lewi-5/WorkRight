@@ -5,7 +5,7 @@ module.exports = {
     DB: "workrightdb"
   };
 
-// Lewis' test database
+//Lewis' test database
 // module.exports = {
 //     HOST: "fsd08lewis.mysql.database.azure.com",
 //     USER: "dbAdmin",

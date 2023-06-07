@@ -1,5 +1,5 @@
 const { response } = require('express');
-const sql = require('../db.js');
+const sql = require('./db.js');
 
 
 const Job = function(newJob) {
@@ -15,7 +15,7 @@ const Job = function(newJob) {
     this.last_update = newJob.last_update;
 };
 
-module.exports = Job;
+
 
 
 Job.find = (offset, limit, result) => {
@@ -31,4 +31,4 @@ Job.find = (offset, limit, result) => {
     });
 };
 
-module.exports = Jobs;
+module.exports = Job;

@@ -5,6 +5,12 @@ router.use(bodyParser.text());
 
 const users = require("../controllers/user.controller.js");
 
+//TODO add .me method in controllers/model
+//this retrieves user's specific page if logged in correctly
+// router
+//     .route('/me')
+//     .get(users.me)
+
 //TODO: how to put static files in router? use app.get in server for now
 // router
 //     .route('../addItem.html')
@@ -20,3 +26,4 @@ router
     .get(users.findOne)
     .patch(users.update)
 
+module.exports = router;
