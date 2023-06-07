@@ -2,7 +2,7 @@
   "name": "workright",
   "version": "1.0.0",
   "description": "Project for FSD-08 Web Services",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "start": "node server",
     "dev": "nodemon server"
