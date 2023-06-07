@@ -9,10 +9,14 @@ app.use(express.json());
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
 
-require("./app/routes/api.js")(app);
-require("./app/routes/jobsRouter.js");
-
 app.use(express.static('views'));
+
+const apiRouter = require("./app/routes/api.js");
+const jobsRouter = require("./app/routes/jobsrouter.js");
+
+app.use('/api', apiRouter);
+app.use('/jobs', jobsRouter);
+
 
 // set port, listen for requests
 const PORT = process.env.PORT || 7077;
