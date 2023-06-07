@@ -11,9 +11,9 @@ app.use(express.json());
 
 app.use(express.static('public'));
 
-// const apiRouter = require('./app/routes/api');
+const apiRouter = require('./app/routes/api');
 
-// app.use('/api', apiRouter);
+app.use('/api', apiRouter);
 
 
 
