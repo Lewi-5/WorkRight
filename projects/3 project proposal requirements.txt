@@ -1,0 +1,63 @@
+Project proposal requirements
+=============================
+
+Page 1 content:
+---------------
+
+* Title of the project
+* Names of members of the team
+* Project description in 2-3 paragraphs
+(usually 10-15 lines) - do NOT copy&paste from Wikipedia or other sources.
+* Bullet-point list of:
+- technologies used,
+- special features,
+- additional libraries,
+- challenging items that were not done in class, etc.
+
+NOTE: Proposal is NOT A COMMITMENT.
+This is a basis for discussion.
+Put in rather more than less.
+
+NOTE: No copy&paste from Wikipedia or other such sources.
+
+IMPORTANT: You must list the URLs (include API calls) you'll be handling.
+/login
+/register
+/ (index)
+/admin/users CRUD
+
+
+Page 2 content:
+---------------
+
+Design of the database. You may use Visual Studio
+or MS SQL database designer and take a screenshot
+similar to http://i.stack.imgur.com/yQxfY.png
+
+Try to keep it simple - no more than 3-4 tables.
+
+
+Page 3 content:
+---------------
+
+Use case diagram with one or more actors performing actions on the system
+
+
+Page 4-5 content (2 pages):
+--------------------------------
+
+Mockups or screenshot of web pages that illustrate how user will interact with the program.
+
+Do NOT put Login or three-field registration pages here.
+
+
+Questions to the teacher
+------------------------
+
+On the last page you can put a list of questions to discuss with the teacher.
+
+LATER: UPLOAD IT TO LEA AS WELL (for the record)
+*AFTER* APPROVED BY THE TEACHER.
+
+
+Grading: Completeness, correctness and professional presentation are graded.

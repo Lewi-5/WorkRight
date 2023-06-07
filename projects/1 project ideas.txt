@@ -1,0 +1,40 @@
+PROJECT IDEAS:
+* Daycare (image capture on registration, charts for analysis, calendar for scheduling, different classes/roles users e.g. parent, educator, manager)
+* Recipe site, multiple users, sharing recipies, search, suggested, likes, categories, tags, meal planner, calendar, single or multiple picture upload
+* Online booking system for car rental (wizard for booking, calendar view of cars for manager, statistics about use displayed as charts)
+* Online restaurant ordering system, either generic restaruant with a menu or specialized for pizza (with configuration of ingredients)
+* Kijiji clone, eBay clone, Amazon clones (marketplace)
+* Reddit clone with improvements
+* Social network clone (FB, LinkedIn, Google+), dating site (maybe chat using NodeJS - advanced)
+* Medical clinic(s) scheduling / appointment system
+* Buy / sell real estate online (duProprio or realtor.ca clone)
+* exams online / surveys online (clone of SurveyMonkey or https://socrative.com/ or https://quizlet.com/)
+(not sure it's a good idea) * office software - e.g. Zoho clone, including CRM, Mail client with IMAP and SMTP php modules
+
+PROJECT TECHNOLOGIES AND FUNCTIONALITIES
+* All projects must use: PHP Slim, MeekroDB, Twig, Monolog (or use Laravel)
+* AJAX (for variety of uses: cart, login/register, charts, pagination, etc.)
+* Other libraries, (use Packagist to find them) e.g.
+- Facebook login (PHP, and NOT JS), Google maps, ReCaptcha (at registration and/or login)
+- email "click to activate account", email password reset link (and encrypt passwords always)
+- jQuery libraries, e.g. menus, mobile devices support (e.g. jQuery mobile or similar)
+- Bootstrap or alternative REQUIRED
+- CSS for printing
+- multiple languages support (multiple templates in subdirecties 'en' 'fr') or gettext, maybe boronczyk/localization-middleware (search for solutions online) https://twig-extensions.readthedocs.io/en/latest/i18n.html
+- HTML 5 canvas, camera support, GPS/location services
+- charts in HTML5 usually
+- calendar library e.g. https://fullcalendar.io/demos
+- Recommended: online payment processing (e.g. https://stripe.com/en-ca in test mode,  https://developer.paypal.com/docs/integration/direct/payments/test-the-api/)
+OTHER:
+- php slim controller testing (~unit testing), Selenium (maybe https://packagist.org/packages/phpunit/phpunit-selenium)
+- cart, email password recovery, email to activate account ...
+
+NOT ALLOWED:
+* use of JavaScript Facebook library to implement login - it must be done in PHP Facebook library (note, it will only work with actual hosting, not on your own computer)
+* eCommerce carts implemented in JavaScript only - cart items must be stored in the database, associated with user's session and/or account
+
+
+NOTES:
+* Real-time chats are hard
+  - you'd need a message-passing system, perhaps written in NodeJS to do it right.
+  - You could use WebSockets with PHP or polling every few seconds

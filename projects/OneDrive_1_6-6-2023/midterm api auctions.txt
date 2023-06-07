@@ -1,0 +1,123 @@
+RESTful APIs (NodeJS + JavaScript/jQuery + Java/Swing
+=====================================================
+
+
+Using VSCode create project 'finalapiauctions', MySQL database 'finalapiauctions' with user 'finalapiauctions'.
+
+In the database create one table 'auctions' as follows:
+- id INT PK AI
+- itemCode VC(20) UNIQ
+- itemDesc VC(200)
+- sellerEmail VC(340)
+- lastBid DECIMAL(10,2)   (may be NULLable if you prefer)
+- lastBidderEmail VC(250) (may be NULLable if you prefer)
+
+
+NodeJS/Express API Server
+-------------------------
+
+On the server side you will implement the following RESTful api calls:
+
+- GET /api/auctions    and    GET /api/auctions?sortBy=itemDesc (or any other column)
+
+- GET /api/auctions/{id}  - returns all data of a single record, 404 if not found
+The id in the URL must be numerical.
+
+- POST /api/auctions - create a record, make sure seller email is valid and itemDesc is 1-200 characters long.
+lastBid is set to 0 (or NULL) when record is first created; lastBid is NOT sent with the POST request.
+lastBidderEmail is "" (or NULL) when record is created and it too is NOT sent with the POST request.
+
+Note that itemCode is a string with length 2-20 characters made up of letters, digits, dashes, dots or spaces.
+If an item with such itemCode already exists API must return 409 (conflict) code with error explanation in the body.
+
+- PATCH /api/auctions/{id} - modify a record, but ONLY lastBid and lastBidderEmail fields are supplied,
+no other data is sent. No other data is accepted. 
+The id in the URL must be numerical.
+
+The server must verify that the new lastBid is higher than the existing lastBid (if not it rejects the bid with 400 http code)
+The server must verify that lastBidderEmail is a valid email.
+If it is not then a 400 error is generated and the new bid is rejected.
+In both cases of 400 error message with the case needs to be provided in the body and shown to the user on the client side.
+
+If the new lastBid is higher than existing lastBid then lastBid in database is updated to the new lastBid and lastBidderEmail is also updated.
+
+DELETE is not implemented.
+
+Note: you are not required to lock tables for update or use transactions.
+
+Note: every operation that modifes the database (so not GET) must be *logged* using npmlog.
+Every log entry must also include client's IP address (try: const ipAddress = req.socket.remoteAddress;  )
+
+
+Web Client HTML/CSS/JS/jQuery
+-----------------------------
+
+* additem.html will present a single div with inputs as follows:
+
+Add new item for auction
+
+Item code : [ ________ ]
+Description 
+[ _______________ ]
+[ _______________ ]   /// (this is text area) ///
+[ _______________ ]
+Seller email: [ _______________ ]
+[[ Place item for auction ]]
+
+When the button is pressed data is sent to the server via a AJAX POST request.
+Make sure you handle the possible errors.
+On success display a message box and clear the description field.
+
+Note: description is plain text.
+
+
+* index.html will present a list (html table) of items available on auction and form for bidding on a particular one.
+When user clicks on an item form appears and allows user to place a new bid on that item.
+
+My email [ ______________________ ]
+[[sort by code ]] [[ sort by description ]]   [[ sort by last bid ]]
+# | item code    | description    | owner email     | last bid | last bidder email |
+3 | AABB123.3    | the vase       | own@er.com      | $98.61   | bid@er.com        |
+5 | 678 96.HG-23 | something      | ot@her.org      | $9.77    | som@one.com       |
+
+
+/// (this part below appears only when an item has been selected) ///
+You're bidding on item #_3_ which is _the vase_ with item code AABB123.3
+put up for auction by _own@er.com_, current bid is $_98.61_ by _bid@er.com_.
+
+Place your bid: [ _____________ ] [[ Place bid ]]
+
+
+Note: if description contains things that may be interpreted as html tags you must make sure to escape them (not remove them) so the rest of html is not messed up.
+
+When [[ Place bid ]] is pressed and AJAX PATCH call is made.
+It either comes back with 4** error in which case the error is shown to the user in a message
+or 200 code in which case the list is refreshed.
+
+
+A minimal CSS use is required to ensure those two html pages are readable and not awful looking.
+You may use Bootstrap of a similar library/tool if you like.
+
+
+Java Swing Client
+-----------------
+
+Implement a single window that displays the list of items on the left side.
+
+On the right hand side user may bid on an action.
+
+Adding a new auction is NOT implemented in this Java client.
+Sorting is NOT implemetned in this Java client.
+
+On top of the list there needs to be "Refresh" button to fetch the latest data from the API.
+
+Note: as always, to obtain full marks, you must use all the best practices you've learned about in this and related courses.
+
+
+SUBMISSION:
+* You MUST TAKE SEVERAL SCREENSHOTS of your application clients (both web and java/desktop) that demonstrate how it looks and works.
+In the api server project create a subdiretory "screenshots" and put them there.
+* Export your database and save in the main directory of your api server project.
+* ZIP-up both (api server and java/desktp) project directory and upload ZIP(s) as your solution.
+(Please do not use RAR, 7ZIP or any other archiver, just plain old ZIP)
+​

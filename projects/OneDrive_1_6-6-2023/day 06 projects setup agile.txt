@@ -1,0 +1,36 @@
+Project setup
+=============
+
+Watch: "Intro to Scrum in Under 10 Minutes"
+https://www.youtube.com/watch?v=XU0llRltyFM
+
+Agile Development Process
+* Git
+* Daily Scrum
+* Trello Board (Kanban)
+
+
+STEPS:
+>> Trello
+1. Register for Trello account
+2. *Leader* creates one Trello board for the project (private), invites the other participants (teammates).
+Trello Board columns:
+> Backlog/Planning
+> WorkingOnIt/InProgress
+> DoneNeedsTesting
+> Finished
+
+>> Git, .gitignore, project setup, and Daily Scrum
+3. *Leader* create one Git repository for the project (private), invites the other participants (teammates).
+4. *Leader* adds senditaway@hotmail.com to both Git repository and Trello board (Teacher's account).
+5. *Leader* creates "dailyscrum.txt" file in the Git repository (use the online access).
+6. Each team member clones the Git repository locally.
+7. *Leader* creates the VSCode/NodeJS project inside of that repository, directly under, no subdirectory.
+8. *Leader* verifies that .gitignore in the main directory of the project exists and is configured for NodeJS projects.
+9. *Leader* committs/pushes the inital code. Then other team members fetch/update their working copies.
+
+>> Database cloud-hosted
+https://azure.microsoft.com/en-ca/free/students/
+
+*Leader* creates azure database for the project and shares credentials (DNS name, username, password) with the other teammates.
+

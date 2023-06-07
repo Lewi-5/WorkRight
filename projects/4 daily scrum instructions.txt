@@ -1,0 +1,38 @@
+DAILY SCRUM - EVERY DAY AT 9AM (as soon as  you arrive)
+==========================================================
+
+In your shared Git repository create file "dailyscrum.txt".
+Both members of the team will write to this one file every morning at 9am.
+
+Each member writes down answers to 3 questions in the following format:
+
+<< current date goes here >>
+1. What I have done / not done since last Scrum?
+2. What I plan to do from this scrum to next? (next 24 hours)
+3. Where do I need assistance? What do I need to figure out?
+
+Example entries for one day, both team members:
+
+2018/02/28 Gregory
+1. Done / not done since last scrum:
+- created project plan
+- created database mockup
+- did not write the description yet
+2. To do until next Scrum:
+- finish the description
+- setup the initial project
+- create the custom dialog for user login
+- setup the database
+3. Need assistance / figure things out
+- find and test a library for PDF printouts
+- find out how to fetch data from URL and parse JSON
+
+2018/02/28 Jerry
+1. Done since last scrum
+- lkjsadf
+- asldkfj
+2. Plan until next Scrum
+- lkjasdf
+- asfdasfd
+3. Need assistance / figure things out
+- laksdjfl
