@@ -10,6 +10,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 require("./app/routes/api.js")(app);
+require("./app/routes/jobsRouter.js");
 
 app.use(express.static('views'));
 
