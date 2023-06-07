@@ -6,35 +6,21 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-        <link rel="stylesheet" href="../styles/user.css">
+        <link rel="stylesheet" href="styles/users.css">
     </head>
     <body>
         <div id="listedContent">
             <div id="listPane">
-                <div id="listPane">
-                    <div>
-                    <button id="addItem">Add item</button>
-                </div>
-                    <label>My Email: </label>
-                    <input type="email" id = "myEmail" placeholder="Enter your Email" required>
-                    <div>
-                        <button id="sortbycode">Sort By Code</button>
-                        <button id="sortbydesc" >Sort By Description</button>
-                        <button id="sortbylastbid">Sort By Last Bid</button>
-                        
-                    </div>
+
+                    <label>User Name: </label>
+                    <input type="text" id = "username" placeholder="Enter Username" required>
+                    <label>Password: </label>
+                    <input type="password" id = "password" placeholder="Enter Password" required>
+                    
+                    
                     <table id="listTable" border="1"></table>
             </div>
         </div>
-        <div id="viewAutionPane">
-            <h4 id="showitem">
-                You're bi<br>dding on item 
-            </h4>
-            <div>
-                <label>Place your dib: </label>
-                <input type="number" id="bidnumber">
-                <button id="placebid">Place bid</button>
-            </div>
-        </div>
+        
     </body>
 </html>
