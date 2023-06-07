@@ -11,7 +11,7 @@ app.use(express.urlencoded({ extended: true }));
 
 require("./app/routes/api.js")(app);
 
-app.use(express.static('public'));
+app.use(express.static('views'));
 
 // set port, listen for requests
 const PORT = process.env.PORT || 7077;
