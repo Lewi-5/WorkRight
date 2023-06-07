@@ -38,3 +38,43 @@
 - insert some test records
 3. Need assistance / figure things out
 - figuer out how to encrypt user password and save the password to the database
+
+
+2023-06-07 (D-DAY) LEWIS
+1. Done / not done since last scrum:
+- submitted proposal
+- started node js app
+- got test database working to test http requests
+2. To do until next Scrum:
+- finishe models and controllers
+- test http requests on primary database
+- submit final project proposal 
+3. Need assistance / figure things out
+- how to populate page with only owned information from database
+- validation of input
+
+2023-06-07 Dustin
+1. Done / Not Done
+- Finalized minor mockup errors
+- Install libraries
+- Wrote the db.config.js and db.js
+- Research on Parsing a pdf to txt and adding it as a string in an array
+2. To do until next scrum
+- Start work on the html static pages
+- Find the best option for load more feature
+3. Need help figuring out
+- the structure of each table’s page
+- is the url a query or is that done in a frame in the page?
+
+2023-06-07 Jing Wei 
+1. Done / not dont since last scrum:
+  - set up azure server 
+- create user and tables
+- insert some test records
+2. To do until next Scrum:
+- insert new users' data into database
+- update users' data.
+- encrypt users' password.
+3. Need assistance / figure things out
+- can we skip some column in model.
+
