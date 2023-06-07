@@ -1,0 +1,18 @@
+Teams:
+
+1: Nick*, Miral, Pejman
+
+2: Alex*, Ehsan, Meredith.
+
+3: Soli*, Xiaoxing, Dominique
+
+4: Lewis*, Dustin, Jing
+
+5: Shiyuan Xu*, Shiyu Cai, Xuerun Wang
+
+6: Brian*, Eric, Shaunpaul
+
+7: Li Qian*, qianfeng sun, chang liu
+
+8: Mohamad*, Ayman
+

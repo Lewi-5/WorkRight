@@ -33,7 +33,8 @@
 1. Done / not dont since last scrum:
 - create entity relation diagram
 2. To do until next Scrum:
-- set up zurue server 
+- set up azure server 
 - create user and tables
 - insert some test records
 3. Need assistance / figure things out
+- figuer out how to encrypt user password and save the password to the database
