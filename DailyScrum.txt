@@ -59,6 +59,7 @@
 - Install libraries
 - Wrote the db.config.js and db.js
 - Research on Parsing a pdf to txt and adding it as a string in an array
+-Didn’t get sequelize working yet, might drop it until we’re further along
 2. To do until next scrum
 - Start work on the html static pages
 - Find the best option for load more feature
