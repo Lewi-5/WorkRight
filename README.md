@@ -15,3 +15,10 @@ npm i express body-parser mysql2 sequelize
 npm i nodemon -D (on macOS: npm install nodemon --save-dev)
 -change script "start": "node server","dev": "nodemon server"
 npm run dev
+
+
+DATABASE:
+hostname=fsd08workright.mysql.database.azure.com
+username=workright01
+password=FYxskC0aeL1pjh9t
+dbName=workrightdb

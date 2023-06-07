@@ -1,6 +1,8 @@
 const mysql = require("mysql2");
 const dbConfig = require("../config/db.config.js");
 
+
+
 // TODO: Change over to sequelize for ORM and to prevent SQL injection
 
 // const Sequelize = require("sequelize");
