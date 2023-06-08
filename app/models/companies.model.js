@@ -12,6 +12,7 @@ const Company = function(company) {
     this.street = company.street;
     this.city = company.city;
     this.province = company.province;
+    this.postcode = company.postcode;
     this.create_date = company.create_date;
     this.last_update = company.last_update;
 };
