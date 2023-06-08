@@ -1,26 +1,69 @@
-<!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Users</title>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-        <link rel="stylesheet" href="styles/users.css">
-    </head>
-    <body>
-        <div id="listedContent">
-            <div id="listPane">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="./styles/styles.css">
+        <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+        <script src="./scripts/users.js">
+            // $(document).ready(function () {
 
-                    <label>User Name: </label>
-                    <input type="text" id = "username" placeholder="Enter Username" required>
-                    <label>Password: </label>
-                    <input type="password" id = "password" placeholder="Enter Password" required>
-                    
-                    
-                    <table id="listTable" border="1"></table>
+            //         const tableBody = $("#tableBody");
+                                
+            //         $.get("http://localhost:7077/api/users", (data) => { //http:// is required!
+            //             for (let i = 0; i < data.length; i++) {
+            //                 let tableRow = $("<tr></tr>");
+                        
+            //                 let idCell = $("<td></td>").text(data[i].ID);
+            //                 let usernameCell = $("<td></td>").text(data[i].username);
+            //                 let passwordCell = $("<td></td>").text(data[i].password);
+            //                 let firstNameCell = $("<td></td>").text(data[i].firstName);
+            //                 let lastNameCell = $("<td></td>").text(data[i].lastName);
+                        
+            //                 tableRow.append(idCell, usernameCell, passwordCell, firstNameCell, lastNameCell);
+            //                 tableBody.append(tableRow);
+            //           }
+            //         }).fail((jqXHR, textStatus, errorThrown) => {
+            //             console.error("Error:", errorThrown);
+            //           });
+            //         });
+        </script>
+    </head>
+
+    <body>
+        <div class="usersTable container">
+                    <div class="row"> 
+                            <div class="col-4">
+                            <!--empty space-->
+                            </div>
+                            <div class="col-4">
+                            
+                                    <h1>Users</h1>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>username</th>
+                                    <th>password</th>
+                                    <th>first name</th>
+                                    <th>last name</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tableBody">
+
+                            </tbody>
+                        </table>
+
+                    </div>
+                    <div class="col-4">
+                    <!--empty space-->
+                    </div>  
             </div>
         </div>
-        
     </body>
+
 </html>

@@ -9,7 +9,9 @@ app.use(express.json());
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
 
+app.use(express.static('static'));
 app.use(express.static('views'));
+
 
 const apiRouter = require("./app/routes/api.js");
 // const jobsRouter = require("./app/routes/jobs.js");
