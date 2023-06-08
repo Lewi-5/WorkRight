@@ -20,3 +20,16 @@ div {
     width: 340px;
     display: inline-table;
 }
+
+
+header {
+    background-color: #f7f5f5;
+    color: #000000;
+    padding: 10px 0;
+}
+
+header img {
+    height: 150px;
+    width: 150px;
+    margin-left: 20px;
+}
