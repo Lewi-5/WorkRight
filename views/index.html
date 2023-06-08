@@ -10,7 +10,12 @@
         <script>
             $(document).ready(function () {
                 $("#user").on("click",function(){
-                    window.open('users.html', '');
+                    window.open('users.html', '_self');
+                    });
+            });
+            $(document).ready(function () {
+                $("#company").on("click",function(){
+                    window.open('companies.html', '_self');
                     });
             });
         </script>

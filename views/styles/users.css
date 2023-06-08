@@ -13,11 +13,10 @@ div {
 }
 #listPane {
     
-    width: 340px;
+    width: 140px;
     display: inline-table;
 }
 #viewAddEditPane {
-    
     width: 340px;
     display: inline-table;
 }
