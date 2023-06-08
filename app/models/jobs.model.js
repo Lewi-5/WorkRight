@@ -1,3 +1,5 @@
+// ctrl+F 'changey' for some of the easier to miss fields that need to be changed for a new model
+
 const { response } = require('express');
 const sql = require('./db.js');
 
@@ -20,7 +22,7 @@ const Job = function(newJob) {
 
 
 Job.find = (offset, limit, result) => {
-    sql.query(`SELECT * FROM jobs LIMIT ${limit} OFFSET ${offset}`, (err, res) => {
+    sql.query(`SELECT * FROM jobs LIMIT ${limit} OFFSET ${offset}`, (err, res) => { // changey dont forget to change the table name
         if (err) {
             console.log("error: ", err);
             result(err, null);
