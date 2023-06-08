@@ -21,4 +21,12 @@ $(document).ready(function () {
     }).fail((jqXHR, textStatus, errorThrown) => {
         console.error("Error:", errorThrown);
       });
+
+      $.post("http://localhost:7077/api/users", (data) => {
+        
+      }).fail((jqXHR, textStatus, errorThrown) => {
+        console.error("Error:", errorThrown);
+      });
+ 
+
 });
