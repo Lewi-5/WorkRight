@@ -19,20 +19,28 @@ const companiesController = require('../controllers/companies.controller');
 //     .route('../addItem.html')
 //     .get()
 
+router.route('^/$|/index.html')
+  .get((req, res) => {
+    res.sendFile('index.html', { root: 'views' });
+  });
+
+// ROUTER for USERS
 router
     .route('/users')
     .get(users.findAll)
     .post(users.create) //mispelling enum got a data truncated message
-    
+
 router
     .route('/users/:id([0-9]+)')
     .get(users.findOne)
     .patch(users.update)
 
+// ROUTER for JOBS
 router
     .route('/jobs')
     .get(jobsController.getJobs);
 
+// ROUTER for COMPANIES
 router
     .route('/companies')
     .get(companiesController.getCompanies);
