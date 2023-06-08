@@ -11,6 +11,7 @@ exports.create = (req, res) => {
         street : req.body.street,
         city : req.body.city,
         province : req.body.province,
+        postcode : req.body.postcode,
         ceate_date : req.body.ceate_date,
         last_update : req.body.last_update,
         });
@@ -97,9 +98,7 @@ exports.update = (req, res) => {
 
 // GET /api/Company get all Company
 exports.findAll = (req, res) => {
-
     const sortBy = req.query.sortBy ? req.query.sortBy : "id"; // sort by id if no sortOrder provided
-
     Company.getAll(sortBy, (err, data)=>{
     if (err)
     res.status(500).send({
@@ -111,7 +110,6 @@ exports.findAll = (req, res) => {
     res.send(data);
     }
     })
-
 }
 
 // get all Companies for Companies.html search page
