@@ -1,9 +1,45 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: Roboto, sans-serif;
     margin: 0;
     padding: 0;
     background-color: #f4f4f4;
 }
+
+div {
+    border: none;
+    margin: 5px 5px;
+}
+
+// keep main from going under the footer //
+main {
+    width: 100%;
+    overflow: hidden;
+    padding-bottom: 50px;
+
+}
+
+
+#listedContent {
+    width: 540px;
+    padding: 20px;
+    margin: 20px auto;
+    background-color: white;
+}
+
+
+#listPane {
+    
+    width: 140px;
+    display: inline-table;
+}
+
+
+
+#viewAddEditPane {
+    width: 340px;
+    display: inline-table;
+}
+
 
 header {
     background-color: #f7f5f5;
@@ -12,7 +48,8 @@ header {
 }
 
 header img {
-    height: 100px;
+    height: 150px;
+    width: 150px;
     margin-left: 20px;
 }
 
@@ -33,22 +70,22 @@ nav ul li {
 }
 
 nav ul li a {
-    color: #fff;
+    color: #000000;
     text-decoration: none;
 }
 
 .container {
-    width: 80%;
+    width: 90%;
     margin: 0 auto;
     overflow: hidden;
 }
 
 #jobListings {
-    margin: 20px 0;
+    margin: 10px 0;
 }
 
 #jobListings .row {
-    border: 1px solid #ccc;
+    /* border: 1px solid #ccc; */
     padding: 20px;
     margin-bottom: 20px;
     background-color: #fff;
@@ -57,6 +94,8 @@ nav ul li a {
 #loadMore {
     display: block;
     width: 100%;
+    // align this button to the center //
+    text-align: center;
 }
 
 footer {
