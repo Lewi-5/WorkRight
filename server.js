@@ -12,10 +12,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static('views'));
 
 const apiRouter = require("./app/routes/api.js");
-const jobsRouter = require("./app/routes/jobsrouter.js");
+// const jobsRouter = require("./app/routes/jobs.js");
 
 app.use('/api', apiRouter);
-app.use('/jobs', jobsRouter);
+// app.use('/jobs', jobsRouter);
 
 
 // set port, listen for requests

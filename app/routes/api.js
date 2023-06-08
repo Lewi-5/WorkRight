@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 router.use(bodyParser.text());
 
 const users = require("../controllers/user.controller.js");
+const jobsController = require('../controllers/jobs.controller');
 
 //TODO add .me method in controllers/model
 //this retrieves user's specific page if logged in correctly
@@ -26,5 +27,10 @@ router
     .route('/users/:id([0-9]+)')
     .get(users.findOne)
     .patch(users.update)
+
+router
+    .route('/jobs')
+    .get(jobsController.getJobs);
+
 
 module.exports = router;
