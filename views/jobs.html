@@ -8,34 +8,143 @@
     <link rel="stylesheet" href="styles/styles.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <link rel="icon" href="/images/favicon.png" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script src="./scripts/jobs.js"></script>
+
+
+    <script>
+        $(document).ready(function () {
+            $("#addnew").on("click", function(){
+                const companyId = $("#company_id").val();                    
+                const title = $("#title").val();
+                const description = $("#description").val();
+
+                const postCode = $("#post_code").val();                    
+                const salary = $("#salary").val();
+                const type = $("#type").val();
+
+                const status = $("#status").val();
+
+                const currentdate = new Date();
+                const createDate = currentdate.toLocaleString();
+                console.log("createdate = " + createDate);
+
+                var job = {
+                    company_id : companyId,
+                    title : title,
+                    description : description,
+                    post_code : postCode,
+                    salary : salary,
+                    type : type,
+                    status : status,
+                    create_date : createDate
+                };
+
+                $.ajax({
+                    url:"/api/jobs/",
+                    type:"post",
+                    dataType:"json",
+                    data:job,
+                    error: function (jqxhr, status, errorThrown) {
+                    alert("AJAX error: " + jqxhr.responseText);
+                    }
+                }).done(function(job){
+                    $("#addsuccess").modal("show");
+                });
+            });
+        });
+
+    </script>
+
+
+
 </head>
 <body>
     <header>
         <div>
-            <img src="/images/logo.png" alt="Logo" width="200pxs">
+            <img src="/images/logo_transparent.png" alt="Logo">
             <nav>
                 <ul>
-                    <li><a href="#">Job Listings</a>Test1</li>
-                    <li><a href="#">Job Seekers</a>Test2</li>
-                    <li><a href="#">Employers</a>Test3</li>
+                    <li><a href="#">Job Listings</a></li>
+                    <li><a href="#">Job Seekers</a></li>
+                    <li><a href="#">Employers</a></li>
                 </ul>
             </nav>
         </div>
     </header>
+
+
     <main>
         <div class="container">
             <div id="jobListings" class="row">
                 <!-- // jobs listings apended here -->
             </div>
-            <button id="loadMore" class="btn btn-primary">Load More</button>
+            <button id="loadMore" class="btn btn-secondary">Load More</button>
         </div>
     </main>
-    <footer>
-        <div>
-            <p>WorkRight &copy; 2023</p>
+
+        <!-- Modal -->
+        <div class="modal fade" id="addsuccess" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      </div>
+                    <div class="modal-body">
+                        <p>Thank you, your job is added.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="confirmed" class="btn btn-primary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
         </div>
+        <div id="listedContent">
+            <div id="listPane">
+                    <label for="company_id">Company ID: </label>
+                    <input type="text" id = "company_id" required>
+
+                    <label for="title">Title: </label>
+                    <input type="text" id = "title" required>
+
+                    <label for="description">Description: </label>
+                    <textarea id = "description" ></textarea>
+
+                    <label for="post_code">Post Code: </label>
+                    <input type="text" id = "post_code" required>
+
+                    <label for="salary">Salary: </label>
+                    <input type="text" id = "salary" required>
+
+                    <label for="type">Type: </label>
+                    <select id="type">
+                        <option value="Full-Time">Full-Time</option>
+                        <option value="Part-Time">Part-Time</option>
+                        <option value="Contract">Contract</option>
+                    </select>
+
+                    <label for="status">Status: </label>
+                    <select id="status">
+                        <option value="Open">Open</option>
+                        <option value="Filled">Filled</option>
+                        <option value="Closed">Closed</option>
+                    </select>
+
+                    <button id="addnew">Add</button>
+
+            </div>
+        </div>
+
+        <footer>
+            <div>
+                <p>WorkRight &copy; 2023</p>
+            </div>
+
+
 </body>
 </html>
