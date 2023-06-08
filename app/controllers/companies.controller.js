@@ -42,7 +42,7 @@ exports.create = (req, res) => {
 
 //  - retrieve a single company data by primary key (id)
 exports.findOne = (req, res) => {
-    console.log("req.params.id " + req.params.id);
+console.log("req.params.id " + req.params.id);
     Company.findById(req.params.id, (err, data) => {
             
         if (err) {

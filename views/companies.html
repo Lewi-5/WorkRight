@@ -9,8 +9,71 @@
         <link rel="stylesheet" href="styles/companies.css">
         <script>
             $(document).ready(function () {
+                //get url params : id
+                const queryString = window.location.search;
+console.log("queryString = "+queryString);
+                const urlParams = new URLSearchParams(queryString);
+                const id = urlParams.get('id')
+console.log("id = " + id);
+                if(id !== null || id !==""){
+                    $("#addnew").text("Update");
+                    getCompany(id);
+                }else{
+                    $("#addnew").text("Add New");
+                }
                 $("#addnew").on("click", function(){
-                    const name = $("#companyname").val();                    
+                    if($("#addnew").text() === "Update"){
+                        updateCpmpany(id);
+                    }else{
+                        addNew();
+                    }
+                    
+                });
+            });
+
+            //update company
+            function updateCpmpany(id) {
+                const name = $("#companyname").val();                    
+                const desc = $("#desc").val();
+                const industry = $("#industry").val();
+
+                const streetno = $("#streetno").val();                    
+                const street = $("#street").val();
+                const city = $("#city").val();
+
+                const province = $("#province").val();
+                const postcode = $("#postcode").val();
+
+                const currentdate = new Date();
+                const createdate = currentdate.toLocaleString();
+                var company = {
+                    name : name,
+                    description : desc,
+                    industry : industry,
+                    streetno : streetno,
+                    street : street,
+                    city : city,
+                    province : province,
+                    postcode : postcode,
+                    ceate_date : createdate,
+                };
+
+                $.ajax({
+                    url:"/api/companies/"+id,
+                    type:"put",
+                    dataType:"json",
+                    data:company,
+                    error: function (jqxhr, status, errorThrown) {
+                    alert("AJAX error: " + jqxhr.responseText);
+                    }
+                }).done(function(company){
+                    $("#addsuccess").modal("show");
+                });
+            }
+
+            //add new company
+            function addNew() {
+                const name = $("#companyname").val();                    
                     const desc = $("#desc").val();
                     const industry = $("#industry").val();
 
@@ -23,7 +86,6 @@
 
                     const currentdate = new Date();
                     const createdate = currentdate.toLocaleString();
-console.log("createdate = " + createdate);
                     var company = {
                         name : name,
                         description : desc,
@@ -47,9 +109,27 @@ console.log("createdate = " + createdate);
                     }).done(function(company){
                         $("#addsuccess").modal("show");
                     });
+            }
+            //get company
+            function getCompany(id) {
+                $.ajax({
+                    url:"/api/Companies/"+id,
+                    type:"GET",
+                    dataType:"json",
+                    error: function (jqxhr, status, errorThrown) {
+                        alert("AJAX error: " + jqxhr.responseText);
+                        }
+                }).done(function(company){
+                    $("#companyname").val(company.name);
+                    $("#desc").val(company.description);
+                    $("#industry").val(company.industry);
+                    $("#streetno").val(company.streetno);
+                    $("#street").val(company.street);
+                    $("#city").val(company.city);
+                    $("#province").val(company.province);
+                    $("#postcode").val(company.postcode);
                 });
-            });
-
+            }
         </script>
     </head>
     <body>
