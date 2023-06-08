@@ -43,7 +43,12 @@ router
 // ROUTER for COMPANIES
 router
     .route('/companies')
-    .get(companiesController.getCompanies);
+    .get(companiesController.findAll)
+    .post(companiesController.create)
 
+router
+  .route('/companies/:id([0-9]+)')
+  .get(companiesController.findOne)
+  .put(companiesController.update)
 
 module.exports = router;
