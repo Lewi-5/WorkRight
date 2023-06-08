@@ -40,7 +40,7 @@
 - figuer out how to encrypt user password and save the password to the database
 
 
-2023-06-07 (D-DAY) LEWIS
+2023-06-07 LEWIS
 1. Done / not done since last scrum:
 - submitted proposal
 - started node js app
@@ -48,7 +48,6 @@
 2. To do until next Scrum:
 - finishe models and controllers
 - test http requests on primary database
-- submit final project proposal 
 3. Need assistance / figure things out
 - how to populate page with only owned information from database
 - validation of input
@@ -78,4 +77,51 @@
 - encrypt users' password.
 3. Need assistance / figure things out
 - can we skip some column in model.
+
+2023-06-08 LEWIS
+1. Done / not done since last scrum:
+- finished alpha version of models and controllers 
+- routing finished
+- http GET requests from html pages working (used Jquery)
+2. To do until next Scrum:
+- implement other http requests from front end
+- front end and back end validation w Jing
+- header and footer styling html
+3. Need assistance / figure things out
+- populating database with records
+- creating stylizable cards into which http response data is injected
+- validation of input on front end and validation of input on back end
+
+2023-06-08 Jing Wei 
+1. Done / not dont since last scrum:
+  -modified model and controller
+  -create company page.
+  -create css file for company page.
+  -tested add, update, get all.
+2. To do until next Scrum:
+- validate input data
+- update web page connect to server retrieve data
+- style page a little
+3. Need assistance / figure things out
+- use a weather api and show result
+
+2023-06-08 Dustin
+
+Done
+Started the html/css/js  for jobs
+Controller/model/routes for jobs
+Jobs listings show 10 pagination code added to front and back
+Haven’t got the AJAZ query for jobs working
+Need to cover validation and sql injection
+
+2. To do until next scrum
+
+Finish AJAX jobs query with Jing
+Big push to get all pages connected to DB
+Sorting and randomizing listings
+Start on front-end styling
+
+3. Need help figuring out
+
+Why the AJAX query isn’t working yet
 
