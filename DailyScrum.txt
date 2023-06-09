@@ -125,3 +125,14 @@ Start on front-end styling
 
 Why the AJAX query isn’t working yet
 
+2023-06-09 LEWIS
+1. Done / not done since last scrum:
+- finished http request POST for web client
+- fixed validation bug
+- began authentication incorporation
+2. To do until next Scrum:
+- finish implementing authentication
+- try to finish majority of front-end/back end validation
+3. Need assistance / figure things out
+- header a footer styling, page styling generally
+- html z layer for validation interaction

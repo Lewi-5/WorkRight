@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/styles.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            $("#registerButton").click(function () {
+                var newUsername = $("input[name=newUsername]").val();
+                var newPass1 = $("input[name=newPass1]").val();
+                var newPass2 = $("input[name=newPass2]").val();
+                if (newPass1 != newPass2) {
+                    alert("Both passwords must be the same");
+                    return;
+                }
+                var userObj = { username: newUsername, password: newPass1 };
+                $("#waitForIt").show();
+                // NOTE: if currId = 0 then adding, otherwise updating
+                $.ajax({ // FIXME: escape special characters using urlencode
+                    url: "/api/users",
+                    type: "POST",
+                    dataType: "json",
+                    data: userObj,
+                    error: function (jqxhr, status, errorThrown) {
+                        alert("AJAX error: " + jqxhr.responseText);
+                    }
+                }).done(function () {
+                    // TODO: alerts are obsolete, instead use HTML z-layer popup that shows up for 2-3 seconds
+                    alert("User registered successfully. You may now login.");
+                    $("input[name=newUsername]").val("");
+                    $("input[name=newPass1]").val("");
+                    $("input[name=newPass2]").val("");
+                }).always(function () {
+                    $("#waitForIt").hide();
+                });
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div id="centerContent">
+        <div id="loginPane">
+            Username: <input type="text" name="username"><br>
+            Password: <input type="password" name="password"><br>
+            <button id="loginButton">Login</button>
+        </div>
+        <div id="registerPane">
+            Username: <input type="text" name="newUsername"><br>
+            Password: <input type="password" name="newPass1"><br>
+            Password (repeated): <input type="password" name="newPass2"><br>
+            <button id="registerButton">Register</button>
+        </div>
+    </div>
+</body>
+
+</html>
