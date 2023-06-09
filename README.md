@@ -11,7 +11,7 @@ in terminal:
 
 npm init -y
 npm install
-npm i express body-parser mysql2 sequelize
+npm i express body-parser mysql2 sequelize npmlog
 npm i nodemon -D (on macOS: npm install nodemon --save-dev)
 -change script "start": "node server","dev": "nodemon server"
 npm run dev

@@ -17,16 +17,53 @@ $(document).ready(function () {
             tableRow.append(usernameCell, passwordCell, firstNameCell, lastNameCell);
             tableRow.css("background-color", "aqua");
             tableBody.append(tableRow);
-      }
-    }).fail((jqXHR, textStatus, errorThrown) => {
-        console.error("Error:", errorThrown);
+        }
       });
+    // }).fail((jqXHR, textStatus, errorThrown) => {
+    //     console.error("Error:", errorThrown);
+    //   });
 
-      $.post("http://localhost:7077/api/users", (data) => {
+    //   $.post("http://localhost:7077/api/users", (data) => {
         
-      }).fail((jqXHR, textStatus, errorThrown) => {
-        console.error("Error:", errorThrown);
-      });
- 
+    //   }).fail((jqXHR, textStatus, errorThrown) => {
+    //     console.error("Error:", errorThrown);
+    //   });
+      
 
+    
 });
+
+$("#addBtn").on("click", () => {
+  console.log("button clicked");
+  const requestData = {
+    username: $("#username").val(),
+    password: $("#password").val(),
+    firstName: $("#firstName").val(),
+    lastName: $("#lastName").val()
+  };
+
+  fetch("http://localhost:7077/api/users", {
+    method: 'POST',
+    headers: {
+      'Content-type': 'application/json',
+    },
+    body: JSON.stringify(requestData),
+  })
+    .then(response => {
+      if (response.ok){
+        return response.json().then(data => {
+          $("#resultMessage").text("your new username is " + data.username);
+        });
+      } else {
+        return response.json().then(data => {
+          $("#resultMessage").text(data.message);
+      });
+    }
+
+
+  })
+  .catch(error => {
+    console.log(error);
+  })
+
+})

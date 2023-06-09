@@ -94,7 +94,7 @@ nav ul li a {
 #loadMore {
     display: block;
     width: 100%;
-    /** align this button to the center */
+    // align this button to the center //
     text-align: center;
 }
 
