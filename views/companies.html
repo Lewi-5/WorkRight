@@ -39,16 +39,18 @@
                     console.log("modalclose clicked, return to index");
                     window.open('index.html', '_self');
                 });
+                $('.postalCodeWarning').hide();
+                $('.nameWarning').hide();
             });
 
             //update company
             function updateCpmpany(id) {
-                const name = $("#companyname").val();    
+                const name = $("#companyname").val();  
                 console.log("name= "+ name );
                 if (name == null || name ==""){
                     $(".nameWarning").show();
                     return false;
-                }                  
+                } 
                 const desc = $("#desc").val();
                 const industry = $("#industry").val();
 
@@ -208,7 +210,6 @@
                     </div>
                         <label for="desc">Description: </label>
                         <textarea id = "desc" ></textarea>
-
                     <div>
                     <label for="industry">Industry: </label>
                         <select id="industry">
@@ -257,7 +258,9 @@
                         <input type="text" id = "postcode" >
                         <p class="postalCodeWarning">Not a valid postal code</p>
                     </div>
-                    <button id="addnew">Add</button>
+                    <div class="centercontent">
+                        <button id="addnew">Add</button>
+                    </div>
 
             </div>
         </div>

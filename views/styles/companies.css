@@ -5,6 +5,10 @@ div {
     border: none;
     margin: 12px 5px;
 }
+
+div label{
+    width: 150px;
+}
 #listedContent {
     width: 540px;
     padding: 20px;
@@ -51,4 +55,20 @@ header img {
     height: 150px;
     width: 150px;
     margin-left: 20px;
+}
+.centercontent {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+#addnew{
+    margin: 30px;
+    padding: auto;
+    width: 90px;
+    height: 40px;
+}
+
+textarea{
+    width: 250px;
 }
