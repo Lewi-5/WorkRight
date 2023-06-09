@@ -43,7 +43,12 @@
 
             //update company
             function updateCpmpany(id) {
-                const name = $("#companyname").val();                    
+                const name = $("#companyname").val();    
+                console.log("name= "+ name );
+                if (name == null || name ==""){
+                    $(".nameWarning").show();
+                    return false;
+                }                  
                 const desc = $("#desc").val();
                 const industry = $("#industry").val();
 
@@ -84,8 +89,9 @@
             //add new company
             function addNew() {
                 const name = $("#companyname").val();     
+                console.log("name= "+ name );
                 if (name == null || name ==""){
-                    $("#nameWarning").show();
+                    $(".nameWarning").show();
                     return false;
                 }               
                     const desc = $("#desc").val();
