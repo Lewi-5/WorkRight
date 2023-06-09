@@ -12,6 +12,7 @@ exports.create = (req, res) => {
     var isValidResult = isValidPost(req, res);
     console.log('isValidResult',isValidResult);
     if (isValidResult === true) {
+        console.log('Creating a new user...');
         // Create a User
         const user = new User({
             username: req.body.username, // ! changey you need to put req.body.body.<<property>>
@@ -29,7 +30,7 @@ exports.create = (req, res) => {
                 });
             else res.status(201).send(data);
         });
-    } 
+    } return false;
 };
 
 exports.findAll = (req, res) => {
