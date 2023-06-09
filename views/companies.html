@@ -13,10 +13,10 @@
             $(document).ready(function () {
                 //get url params : id
                 const queryString = window.location.search;
-console.log("queryString = "+queryString);
+
                 const urlParams = new URLSearchParams(queryString);
                 const id = urlParams.get('id')
-console.log(`id = ${id}`);
+    //console.log(`id = ${id}`);
                 if(id === 0 ){
                     $("#addnew").text("Update");
                      getCompany(id);
@@ -30,6 +30,10 @@ console.log(`id = ${id}`);
                         addNew();
                     }
                     
+                });
+                $("#modalclose").on("click",function(){
+                    console.log("modalclose clicked, return to index");
+                    window.open('index.html', '_self');
                 });
             });
 
@@ -155,55 +159,75 @@ console.log(`id = ${id}`);
                 <!-- Modal content-->
                 <div class="modal-content">
                     <div class="modal-header">
+                        <h5 class="modal-title">Congratulations</h5>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                       </div>
                     <div class="modal-body">
                         <p>Think you, your company is added.</p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" id="confirmed" class="btn btn-primary" data-dismiss="modal">Close</button>
+                        <button type="button" id="modalclose" class="btn btn-primary" data-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
         </div>
         <div id="listedContent">
             <div id="listPane">
-                    <label for="companyname">Company Name: </label>
-                    <input type="text" id = "companyname" required>
-
-                    <label for="desc">Description: </label>
-                    <textarea id = "desc" ></textarea>
-
+                    <div>
+                        <label for="companyname">Company Name: </label>
+                        <input type="text" id = "companyname" required>
+                    </div>
                     
+                        <label for="desc">Description: </label>
+                        <textarea id = "desc" ></textarea>
+                    
+                    
+                    <div>
                     <label for="industry">Industry: </label>
-                    <select id="industry">
-                        <option value="Finance">Finance</option>
-                        <option value="Chemical">Chemical</option>
-                        <option value="Agriculture">Agriculture</option>
-                        <option value="Manufacturing">Manufacturing</option>
-                        <option value="Jewelry">Jewelry</option>
-                        <option value="Publishing">Publishing</option>
-                        <option value="Technology">Technology</option>
-                        <option value="Automotive">Automotive</option>
-                        <option value="Education">Education</option>
-                        <option value="Hospitality">Hospitality</option>
-                    </select>
-
-                    <label for="streetno">Street No: </label>
-                    <input type="text" id = "streetno" required>
-
-                    <label for="street">Street: </label>
-                    <input type="text" id = "street" required>
-
-                    <label for="city">City: </label>
-                    <input type="text" id = "city" required>
-
-                    <label for="province">Province: </label>
-                    <input type="text" id = "province" required>
-
-                    <label for="postcode">Postcode: </label>
-                    <input type="text" id = "postcode" required>
-
+                        <select id="industry">
+                            <option value="Finance">Finance</option>
+                            <option value="Chemical">Chemical</option>
+                            <option value="Agriculture">Agriculture</option>
+                            <option value="Manufacturing">Manufacturing</option>
+                            <option value="Jewelry">Jewelry</option>
+                            <option value="Publishing">Publishing</option>
+                            <option value="Technology">Technology</option>
+                            <option value="Automotive">Automotive</option>
+                            <option value="Education">Education</option>
+                            <option value="Hospitality">Hospitality</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="streetno">Street No: </label>
+                        <input type="text" id = "streetno" >
+                    </div>
+                    <div>
+                        <label for="street">Street: </label>
+                        <input type="text" id = "street" >
+                    </div>
+                    <div>
+                        <label for="city">City: </label>
+                        <input type="text" id = "city" >
+                    </div>
+                    <div>
+                        <label for="province">Province: </label>
+                        <select id="province">
+                            <option value="Alberta">Alberta</option>
+                            <option value="British Columbia">British Columbia</option>
+                            <option value="Manitoba">Manitoba</option>
+                            <option value="New Brunswick">New Brunswick</option>
+                            <option value="Newfoundland and Labrador">Newfoundland and Labrador</option>
+                            <option value="Nova Scotia">Nova Scotia</option>
+                            <option value="Ontario">Ontario</option>
+                            <option value="Prince Edward Island">Prince Edward Island</option>
+                            <option value="Quebec">Quebec</option>
+                            <option value="Saskatchewa">Saskatchewa</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="postcode">Postcode: </label>
+                        <input type="text" id = "postcode" >
+                    </div>
                     <button id="addnew">Add</button>
 
             </div>

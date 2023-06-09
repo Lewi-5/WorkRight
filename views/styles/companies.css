@@ -13,15 +13,31 @@ div {
 }
 #listPane {
     
-    width: 140px;
+    width: 440px;
     display: inline-table;
 }
 #viewAddEditPane {
     width: 340px;
     display: inline-table;
 }
+nav ul {
+    list-style: none;
+    margin: 40px;
+    font-size: 20px;
+    padding: 0;
+}
+
+    
 
 
+input{
+    width: 250px;
+}
+
+select{
+    height: 30px;
+    width: 195px;
+}
 header {
     background-color: #f7f5f5;
     color: #000000;
