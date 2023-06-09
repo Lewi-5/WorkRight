@@ -30,3 +30,35 @@ function loadJobs() {
         }
     });
 }
+
+
+$(document).ready(function () {
+    $("#searchBtn").on("click", function() {
+        var searchText = $("#searchBox").val();
+        
+        $.ajax({
+            url: "/api/jobs/",
+            type: "GET",
+            dataType: "json",
+            success: function(jobs) {
+                var matchedJobs = jobs.filter(job => job.title.includes(searchText) || job.description.includes(searchText));
+                
+                // clear current listings
+                $("#jobListings").empty();
+                
+                // append new listings
+                matchedJobs.forEach(job => {
+                    $("#jobListings").append(`
+                        <div class="job">
+                            <h2>${job.title}</h2>
+                            <p>${job.description}</p>
+                            </div>
+                    `);
+                });
+            },
+            error: function(error) {
+                console.error("Error:", error);
+            }
+        });
+    });
+});
