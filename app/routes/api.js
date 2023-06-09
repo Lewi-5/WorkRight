@@ -52,9 +52,9 @@ router
   .put(companiesController.update)
 
   //ROUTER for LOGIN
-  router
-      .route('/me')
-      .get(users.findMe)
-      
+  // router
+  //     .route('/me')
+  //     .get(users.findMe)
+
 
 module.exports = router;
