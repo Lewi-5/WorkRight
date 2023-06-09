@@ -51,4 +51,10 @@ router
   .get(companiesController.findOne)
   .put(companiesController.update)
 
+  //ROUTER for LOGIN
+  router
+      .route('/me')
+      .get(users.findMe)
+      
+
 module.exports = router;

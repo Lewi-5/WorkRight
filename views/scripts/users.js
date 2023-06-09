@@ -36,17 +36,16 @@ $(document).ready(function () {
 
       function addNew() {
         console.log("button clicked");
-        let usernameInpt = $("#username").val();
-        let passwordInpt = $("#password").val();
-        let firstNameInpt = $("#firstName").val();
-        let lastNameInpt = $("#lastName").val();
+        // let usernameInpt = $("#username").val();
+        // let passwordInpt = $("#password").val();
+        // let firstNameInpt = $("#firstName").val();
+        // let lastNameInpt = $("#lastName").val();
 
         let requestData = {
-          username: usernameInpt,
-          password: passwordInpt,
-          firstName: firstNameInpt,
-          lastName: lastNameInpt
-         
+          username: $("#username").val(),
+          password: $("#password").val(),
+          firstName: $("#firstName").val(),
+          lastName: $("#lastName").val()
         };
           
             $.ajax({

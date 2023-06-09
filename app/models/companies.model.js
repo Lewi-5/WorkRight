@@ -38,7 +38,7 @@ Company.create = (newData , result) =>{
 }
 
 
-// retrieve a single company data by primary key (id)
+//FIXME: id template literal needs to be replaced by ? 
 Company.findById = (id, result) =>{
     sql.query(`SELECT * FROM companies WHERE id = "${id}"`, (err, res) =>{
         if(err){
