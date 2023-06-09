@@ -48,10 +48,11 @@ Company.findById = (id, result) =>{
 
         }
         if(res.length){
-            console.log("result.length: ", res.length);
+            
             result(null, res[0]);
             return;
         }
+        console.log("result.length: ", res.length);
         result({kind: "not_found"}, null);
     });
 }
