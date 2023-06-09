@@ -134,5 +134,34 @@ Why the AJAX query isn’t working yet
 - finish implementing authentication
 - try to finish majority of front-end/back end validation
 3. Need assistance / figure things out
+- what do we do with http response data from server?
 - header a footer styling, page styling generally
 - html z layer for validation interaction
+
+2023-06-09 Jing Wei 
+1. Done / not dont since last scrum:
+- update web page connect to server retrieve data
+- style page a little
+- add a npmlog when database update happend
+- use bootstrap modal as popup
+not done - validate input data
+2. To do until next Scrum:
+- validate input data
+- finish style page
+- add login page
+3. Need assistance / figure things out
+
+2023-06-09 Dustin
+1. Done / not dont since last scrum:
+- started the initial design of logo and header
+- started on search bar for jobs listing
+- registered domain
+- got AJAX query for for find all jobs and bootstrap panels populated working
+not done - validate input data
+2. To do until next Scrum:
+- fully working search bar
+- mockup design added to all pages in styles.css
+- work out our external job sites API’s plan with Lewis
+3. Need assistance / figure things out
+- external job sites API’s plan - need advice from Gregory
+- load more function?

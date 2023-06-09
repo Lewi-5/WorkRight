@@ -51,7 +51,7 @@ const User = function(newUser) {
     });
   };
   
-  User.findByid = (id, result) => {
+  User.findById = (id, result) => {
     mysql.query(`SELECT * FROM users WHERE id = ?`, [id], (err, res) => {
       if (err) {
         console.log("error: ", err);

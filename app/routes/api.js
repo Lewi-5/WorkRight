@@ -53,7 +53,7 @@ router
 
   //ROUTER for LOGIN
   // router
-  //     .route('/me')
+  //     .route('/users/me')
   //     .get(users.findMe)
 
 

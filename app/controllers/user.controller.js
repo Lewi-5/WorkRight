@@ -23,12 +23,16 @@ exports.create = (req, res) => {
 
         // Save User in the database
         User.create(user, (err, data) => {
-            if (err)
+            if (err){
                 res.status(500).send({
                     message:
                         err.message || "Some error occurred while creating the User."
                 });
-            else res.status(201).send(data);
+                
+            }else{ 
+                delete data['password'];
+                res.status(201).send(data);
+            }
         });
     } return false;
 };
