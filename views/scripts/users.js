@@ -19,51 +19,47 @@ $(document).ready(function () {
             tableBody.append(tableRow);
         }
       });
-    // }).fail((jqXHR, textStatus, errorThrown) => {
-    //     console.error("Error:", errorThrown);
-    //   });
-
-    //   $.post("http://localhost:7077/api/users", (data) => {
-        
-    //   }).fail((jqXHR, textStatus, errorThrown) => {
-    //     console.error("Error:", errorThrown);
-    //   });
       
+      
+      $(".addBtn").on("click", function(){
+        
+            addNew();
+        })
+        
+    
+    
+
 
     
 });
 
-$("#addBtn").on("click", () => {
-  console.log("button clicked");
-  const requestData = {
-    username: $("#username").val(),
-    password: $("#password").val(),
-    firstName: $("#firstName").val(),
-    lastName: $("#lastName").val()
-  };
 
-  fetch("http://localhost:7077/api/users", {
-    method: 'POST',
-    headers: {
-      'Content-type': 'application/json',
-    },
-    body: JSON.stringify(requestData),
-  })
-    .then(response => {
-      if (response.ok){
-        return response.json().then(data => {
-          $("#resultMessage").text("your new username is " + data.username);
-        });
-      } else {
-        return response.json().then(data => {
-          $("#resultMessage").text(data.message);
-      });
-    }
+      function addNew() {
+        console.log("button clicked");
+        let usernameInpt = $("#username").val();
+        let passwordInpt = $("#password").val();
+        let firstNameInpt = $("#firstName").val();
+        let lastNameInpt = $("#lastName").val();
 
-
-  })
-  .catch(error => {
-    console.log(error);
-  })
-
-})
+        let requestData = {
+          username: usernameInpt,
+          password: passwordInpt,
+          firstName: firstNameInpt,
+          lastName: lastNameInpt
+         
+        };
+          
+            $.ajax({
+                url:"/api/users/",
+                type:"post",
+                dataType:"json",
+                data: requestData,
+                error: function (jqxhr, status, errorThrown) {
+                alert("AJAX error: " + jqxhr.responseText);
+                }
+            }).done(function(){
+                console.log("post call made");
+                $("#resultMessage").html("Success!");
+            });
+      }
+      
