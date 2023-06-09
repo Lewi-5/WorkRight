@@ -12,18 +12,20 @@
         <script>
             $(document).ready(function () {
                 //get url params : id
+                $('.postalCodeWarning').hide();
                 const queryString = window.location.search;
-
+ 
                 const urlParams = new URLSearchParams(queryString);
                 const id = urlParams.get('id')
-    //console.log(`id = ${id}`);
-                if(id === 0 ){
+    console.log(`id = ${id}`);
+                if(id !== 0 ){
                     $("#addnew").text("Update");
                      getCompany(id);
                 }else{
                     $("#addnew").text("Add New");
                 }
                 $("#addnew").on("click", function(){
+                    //if(!validateData()) return false;
                     if($("#addnew").text() === "Update"){
                         updateCpmpany(id);
                     }else{
@@ -118,6 +120,7 @@
             }
             //get company
             function getCompany(id) {
+                console.log("/api/Companies/"+id);
                 $.ajax({
                     url:"/api/Companies/"+id,
                     type:"GET",
@@ -135,6 +138,19 @@
                     $("#province").val(company.province);
                     $("#postcode").val(company.postcode);
                 });
+            }
+
+            function validateData() {
+                console.log("postalCode= " + $("#postcode").val());
+                //validat postcode
+                const postalCode = $("#postcode").val();
+                const PosteCodeRegex = /^[A-Za-z]\d[A-Za-z]?\d[A-Za-z]\d$/;
+                if (postalCode !== null || postalCode !==""){
+                    if( !PosteCodeRegex.test(postalCode)){
+                        $('.postalCodeWarning').show();
+                        return false;
+                    };
+                }
             }
         </script>
     </head>
@@ -177,11 +193,9 @@
                         <label for="companyname">Company Name: </label>
                         <input type="text" id = "companyname" required>
                     </div>
-                    
                         <label for="desc">Description: </label>
                         <textarea id = "desc" ></textarea>
-                    
-                    
+
                     <div>
                     <label for="industry">Industry: </label>
                         <select id="industry">
@@ -200,6 +214,7 @@
                     <div>
                         <label for="streetno">Street No: </label>
                         <input type="text" id = "streetno" >
+                        <p class="streetnowarn"></p>
                     </div>
                     <div>
                         <label for="street">Street: </label>
@@ -227,6 +242,7 @@
                     <div>
                         <label for="postcode">Postcode: </label>
                         <input type="text" id = "postcode" >
+                        <p class="postalCodeWarning">Not a valid postal code</p>
                     </div>
                     <button id="addnew">Add</button>
 

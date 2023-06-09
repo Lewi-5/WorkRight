@@ -129,3 +129,16 @@ exports.getCompanies = (req, res) => {
         }
     });
 };
+
+function isValid(params) {
+    //validate postcode
+    console.log("req.body.postcode = " + req.body.postcode);
+    const PosteCodeRegex = /^[A-Za-z]\d[A-Za-z] ?\d[A-Za-z]\d$/;
+    if (req.body.postcode !== null || req.body.postcode !==""){
+        if( !PosteCodeRegex.test(req.body.postcode)){
+            res.status(500).send({
+                message: "Postcode is not valide."
+            });
+        }
+    }
+}

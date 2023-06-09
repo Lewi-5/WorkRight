@@ -40,7 +40,7 @@ Company.create = (newData , result) =>{
 
 // retrieve a single company data by primary key (id)
 Company.findById = (id, result) =>{
-    sql.query(`SELECT * FROM companies WHERE id = "${id}"`, (err, res) =>{
+    sql.query(`SELECT * FROM companies WHERE id = ${id}`, (err, res) =>{
         if(err){
             console.log("error: " ,err);
             result(err, null);
@@ -52,7 +52,7 @@ Company.findById = (id, result) =>{
             result(null, res[0]);
             return;
         }
-        retult({kind: "not found"}, null);
+        result({kind: "not found"}, null);
     });
 }
 
