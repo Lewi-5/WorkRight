@@ -1,5 +1,7 @@
 const Company = require('../models/companies.model');
 
+const log = require('npmlog');
+
 // POST /api/company - create a record, name must not be in use, otherwise 209
 exports.create = (req, res) => {
     // Create an company
@@ -31,7 +33,7 @@ exports.create = (req, res) => {
             }
         }
         else {
-            //log.info('WorkRightApp', 'IpAddress: %s insert a record into database', req.ip || req.connection.remoteAddress);
+            log.info('WorkRightApp', 'IpAddress: %s add a company %s into database', req.ip || req.connection.remoteAddress, req.body.name);
             res.status(201);
             res.send(data);
         }
@@ -40,7 +42,7 @@ exports.create = (req, res) => {
 
 //  - retrieve a single company data by primary key (id)
 exports.findOne = (req, res) => {
-    console.log("req.params.id " + req.params.id);
+console.log("req.params.id " + req.params.id);
     Company.findById(req.params.id, (err, data) => {
             
         if (err) {
@@ -85,8 +87,7 @@ exports.update = (req, res) => {
             });
           }
         } else {
-          //log.info('WorkRight', 'IpAddress: %s updated a record in database', req.ip || req.connection.remoteAddress);
-          console.log("ureq.ip: ", req.ip);
+          log.info('WorkRight', 'IpAddress: %s updated company: %s ', req.ip || req.connection.remoteAddress,req.body.name);
           res.status(200);
           res.send(data)
         }

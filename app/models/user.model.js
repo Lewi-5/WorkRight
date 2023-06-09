@@ -63,7 +63,7 @@ const User = function(newUser) {
         return;
       }
   
-      console.log("users: ", res);
+      //console.log("users: ", res);
       result(null, res);
     });
   };

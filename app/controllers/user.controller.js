@@ -10,7 +10,9 @@ exports.create = (req, res) => {
 
 
     var isValidResult = isValidPost(req, res);
+    console.log('isValidResult',isValidResult);
     if (isValidResult === true) {
+        console.log('Creating a new user...');
         // Create a User
         const user = new User({
             username: req.body.username, // ! changey you need to put req.body.body.<<property>>
@@ -28,7 +30,7 @@ exports.create = (req, res) => {
                 });
             else res.status(201).send(data);
         });
-    } 
+    } return false;
 };
 
 exports.findAll = (req, res) => {
@@ -118,12 +120,12 @@ function isValidPost(req, res) {
     //     });
     // }
 
-    if (!someEmpty(req.body)){
+    if (someEmpty(req.body)){
         console.log(req.body);
         res.status(400).send({
             message: "you left a required field empty"
         });
-        return false; // remember to return false or your server will send headers twice and crash
+        return false;// remember to return false or your server will send headers twice and crash
     }
 
     //console.log("isValid: ",res);
@@ -155,11 +157,11 @@ function isValidPost(req, res) {
 
 function someEmpty(obj) {
     for (let prop in obj) {
-      if (obj[prop] === "" || obj[prop] === null) {
-        return false;
+      if (obj[prop] === "" || obj[prop] === null || obj[prop] === undefined) {
+        return true;
       }
     }
-    return true;
+    return false;
   }; 
 
 //TODO: what should we be allowed to patch in a given row?

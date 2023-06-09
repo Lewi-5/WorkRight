@@ -2,15 +2,80 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Users</title>
+        <title>Companies</title>
+        <link rel="icon" type="image/x-icon" href="./images/favicon.png">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="styles/styles.css">
         <link rel="stylesheet" href="styles/companies.css">
         <script>
             $(document).ready(function () {
+                //get url params : id
+                const queryString = window.location.search;
+console.log("queryString = "+queryString);
+                const urlParams = new URLSearchParams(queryString);
+                const id = urlParams.get('id')
+console.log(`id = ${id}`);
+                if(id === 0 ){
+                    $("#addnew").text("Update");
+                     getCompany(id);
+                }else{
+                    $("#addnew").text("Add New");
+                }
                 $("#addnew").on("click", function(){
-                    const name = $("#companyname").val();                    
+                    if($("#addnew").text() === "Update"){
+                        updateCpmpany(id);
+                    }else{
+                        addNew();
+                    }
+                    
+                });
+            });
+
+            //update company
+            function updateCpmpany(id) {
+                const name = $("#companyname").val();                    
+                const desc = $("#desc").val();
+                const industry = $("#industry").val();
+
+                const streetno = $("#streetno").val();                    
+                const street = $("#street").val();
+                const city = $("#city").val();
+
+                const province = $("#province").val();
+                const postcode = $("#postcode").val();
+
+                const currentdate = new Date();
+                const createdate = currentdate.toLocaleString();
+                var company = {
+                    name : name,
+                    description : desc,
+                    industry : industry,
+                    streetno : streetno,
+                    street : street,
+                    city : city,
+                    province : province,
+                    postcode : postcode,
+                    ceate_date : createdate,
+                };
+
+                $.ajax({
+                    url:"/api/companies/"+id,
+                    type:"put",
+                    dataType:"json",
+                    data:company,
+                    error: function (jqxhr, status, errorThrown) {
+                    alert("AJAX error: " + jqxhr.responseText);
+                    }
+                }).done(function(company){
+                    $("#addsuccess").modal("show");
+                });
+            }
+
+            //add new company
+            function addNew() {
+                const name = $("#companyname").val();                    
                     const desc = $("#desc").val();
                     const industry = $("#industry").val();
 
@@ -23,7 +88,6 @@
 
                     const currentdate = new Date();
                     const createdate = currentdate.toLocaleString();
-console.log("createdate = " + createdate);
                     var company = {
                         name : name,
                         description : desc,
@@ -47,12 +111,44 @@ console.log("createdate = " + createdate);
                     }).done(function(company){
                         $("#addsuccess").modal("show");
                     });
+            }
+            //get company
+            function getCompany(id) {
+                $.ajax({
+                    url:"/api/Companies/"+id,
+                    type:"GET",
+                    dataType:"json",
+                    error: function (jqxhr, status, errorThrown) {
+                        alert("AJAX error: " + jqxhr.responseText);
+                        }
+                }).done(function(company){
+                    $("#companyname").val(company.name);
+                    $("#desc").val(company.description);
+                    $("#industry").val(company.industry);
+                    $("#streetno").val(company.streetno);
+                    $("#street").val(company.street);
+                    $("#city").val(company.city);
+                    $("#province").val(company.province);
+                    $("#postcode").val(company.postcode);
                 });
-            });
-
+            }
         </script>
     </head>
     <body>
+
+        <header>
+            <div>
+                <img src="/images/logo_transparent.png" alt="Logo">
+                <nav>
+                    <ul>
+                        <li><a href="#">Job Listings</a></li>
+                        <li><a href="#">Job Seekers</a></li>
+                        <li><a href="#">Employers</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+    
         <!-- Modal -->
         <div class="modal fade" id="addsuccess" role="dialog">
             <div class="modal-dialog">
@@ -112,6 +208,10 @@ console.log("createdate = " + createdate);
 
             </div>
         </div>
-        
+        <footer>
+            <div>
+                <p>WorkRight &copy; 2023</p>
+            </div>
+        </footer>
     </body>
 </html>

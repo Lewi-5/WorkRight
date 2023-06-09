@@ -10,7 +10,7 @@ div {
     margin: 5px 5px;
 }
 
-// keep main from going under the footer //
+/** keep main from going under the footer */
 main {
     width: 100%;
     overflow: hidden;
@@ -93,7 +93,7 @@ nav ul li a {
 
 #loadMore {
     display: block;
-    width: 50%;
+    width: 100%;
     // align this button to the center //
     text-align: center;
 }
