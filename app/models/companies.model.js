@@ -41,23 +41,18 @@ Company.create = (newData , result) =>{
 //FIXME: id template literal needs to be replaced by ? 
 Company.findById = (id, result) =>{
 
-    sql.query(`SELECT * FROM companies WHERE id = "${id}"`, (err, res) =>{
+    sql.query(`SELECT * FROM companies WHERE id = ${id}`, (err, res) =>{
         if(err){
             console.log("error: " ,err);
             result(err, null);
 
         }
-        if (result.affectedRows == 0) {
-            // not found Company with the id
-            result({ kind: "not_found" }, null);
-            return;
-        }
-        if(result.length){
-            console.log("result.length: ", result);
+        if(res.length){
+            console.log("result.length: ", res.length);
             result(null, res[0]);
             return;
         }
-        result({kind: "record not not found"}, null);
+        result({kind: "not_found"}, null);
     });
 }
 
@@ -74,7 +69,7 @@ Company.updateById = (id, data, result) => {
                 result(err, null);
                 return;
             }
-            if (result.affectedRows == 0) {
+            if (res.affectedRows == 0) {
                 // not found Company with the id
                 result({ kind: "not_found" }, null);
                 return;
