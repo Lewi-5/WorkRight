@@ -13,16 +13,18 @@
             $(document).ready(function () {
                 //get url params : id
                 $('.postalCodeWarning').hide();
+                $('.nameWarning').hide();
                 const queryString = window.location.search;
  
                 const urlParams = new URLSearchParams(queryString);
                 const id = urlParams.get('id')
-    console.log(`id = ${id}`);
-                if(id !== 0 ){
+    //console.log(`id = ${id}`);
+                if(id == 0 ){
+                    $("#addnew").text("Add New");
+                }else{
                     $("#addnew").text("Update");
                      getCompany(id);
-                }else{
-                    $("#addnew").text("Add New");
+                    
                 }
                 $("#addnew").on("click", function(){
                     //if(!validateData()) return false;
@@ -81,7 +83,11 @@
 
             //add new company
             function addNew() {
-                const name = $("#companyname").val();                    
+                const name = $("#companyname").val();     
+                if (name == null || name ==""){
+                    $("#nameWarning").show();
+                    return false;
+                }               
                     const desc = $("#desc").val();
                     const industry = $("#industry").val();
 
@@ -192,6 +198,7 @@
                     <div>
                         <label for="companyname">Company Name: </label>
                         <input type="text" id = "companyname" required>
+                        <p class="nameWarning" style="color: red;">Not a valid company name</p>
                     </div>
                         <label for="desc">Description: </label>
                         <textarea id = "desc" ></textarea>
