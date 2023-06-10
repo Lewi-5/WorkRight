@@ -33,19 +33,21 @@ const User = function(newUser) {
   //FOR login we need to look up the user by username, not by ID
   User.findByUsername = (username, result) => {
     // prevent SQL injection
-    db.query('SELECT * FROM users WHERE username = ?', [username], (err, res) => {
+
+    console.log("query = "+ username);
+    mysql.query('SELECT * FROM users WHERE username = ?', [username], (err, res) => {
       if (err) {
         console.log("error: ", err);
         result(err, null);
         return;
       }
-  
+      console.log("res.length = "+ res.length);
       if (res.length) {
         console.log("found user: ", res[0]);
         result(null, res[0]);
         return;
       }
-  
+
       // user not found
       result({ kind: "not_found" }, null);
     });

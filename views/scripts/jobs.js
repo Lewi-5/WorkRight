@@ -19,7 +19,7 @@ function loadJobs() {
                     <div class="col-sm-4">
                         <div class="panel panel-default">
                             <div class="panel-heading">${job.title}</div>
-                            <div class="panel-body">${job.description}</div>
+                            <div class="panel-body">${job.industry}</div>
                         </div>
                     </div>
                 `);
@@ -33,26 +33,32 @@ function loadJobs() {
 
 
 $(document).ready(function () {
-    $("#searchBtn").on("click", function() {
-        var searchText = $("#searchBox").val();
-        
+    $("#searchForm").on("submit", function(e) {
+        e.preventDefault();  // prevent the default form submission
+        page = 0; // reset to 0
+        var location = $("#locationSearchBox").val();
+        var industry = $("#industrySearchBox").val();
+
         $.ajax({
             url: "/api/jobs/",
+            data: {
+                location: location,
+                industry: industry
+            },
             type: "GET",
             dataType: "json",
             success: function(jobs) {
-                var matchedJobs = jobs.filter(job => job.title.includes(searchText) || job.description.includes(searchText));
-                
                 // clear current listings
                 $("#jobListings").empty();
-                
+
                 // append new listings
-                matchedJobs.forEach(job => {
+                jobs.forEach(job => {
                     $("#jobListings").append(`
-                        <div class="job">
+                        <div class="job" col-12">
+                        ">
                             <h2>${job.title}</h2>
                             <p>${job.description}</p>
-                            </div>
+                        </div>
                     `);
                 });
             },
@@ -62,3 +68,4 @@ $(document).ready(function () {
         });
     });
 });
+

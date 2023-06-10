@@ -19,10 +19,42 @@ const Job = function(newJob) {
 };
 
 
+Job.create = (newJob, result) => {
+    sql.query("INSERT INTO jobs SET ?", newJob, (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            result(err, null);
+            return;
+        }
+        console.log("created job: ", { id: res.insertId, ...newJob });
+        result(null, { id: res.insertId, ...newJob });
+    });
+};
 
 
-Job.find = (offset, limit, result) => {
-    sql.query(`SELECT * FROM jobs LIMIT ${limit} OFFSET ${offset}`, (err, res) => { // changey dont forget to change the table name
+// find based on location and/or industry
+Job.find = (offset, limit, location, industry, result) => {
+    // Build the query dynamically based on the search parameters
+    let query = "SELECT * FROM jobs";
+    let params = [];
+
+    if(location || industry) {
+        query += " WHERE";
+        if(location) {
+            query += " location LIKE ?";
+            params.push('%' + location + '%');
+        }
+        if(industry) {
+            if(location) query += " AND";
+            query += " industry = ?";
+            params.push(industry);
+        }
+    }
+
+    query += " LIMIT ? OFFSET ?";
+    params.push(limit, offset);
+
+    sql.query(query, params, (err, res) => {
         if (err) {
             console.log("error: ", err);
             result(err, null);
@@ -33,5 +65,6 @@ Job.find = (offset, limit, result) => {
         result(null, res);
     });
 };
+
 
 module.exports = Job;

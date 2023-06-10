@@ -24,11 +24,16 @@ router.route('^/$|/index.html')
     res.sendFile('index.html', { root: 'views' });
   });
 
+router
+  .route('/users/findName')
+  .get(users.findByName)
+
 // ROUTER for USERS
 router
     .route('/users')
     .get(users.findAll)
     .post(users.create) //mispelling enum got a data truncated message
+
 
 router
     .route('/users/:id([0-9]+)')
@@ -42,8 +47,11 @@ router
 
 // ROUTER for COMPANIES
 router
-    .route('/companies')
+    .route('/allcompanies')
     .get(companiesController.findAll)
+
+router
+    .route('/companies')
     .post(companiesController.create)
 
 router

@@ -9,163 +9,7 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="styles/styles.css">
         <link rel="stylesheet" href="styles/companies.css">
-        <script>
-            $(document).ready(function () {
-                //get url params : id
-                $('.postalCodeWarning').hide();
-                $('.nameWarning').hide();
-                const queryString = window.location.search;
- 
-                const urlParams = new URLSearchParams(queryString);
-                const id = urlParams.get('id')
-    //console.log(`id = ${id}`);
-                if(id == 0 ){
-                    $("#addnew").text("Add New");
-                }else{
-                    $("#addnew").text("Update");
-                     getCompany(id);
-                    
-                }
-                $("#addnew").on("click", function(){
-                    //if(!validateData()) return false;
-                    if($("#addnew").text() === "Update"){
-                        updateCpmpany(id);
-                    }else{
-                        addNew();
-                    }
-                    
-                });
-                $("#modalclose").on("click",function(){
-                    console.log("modalclose clicked, return to index");
-                    window.open('index.html', '_self');
-                });
-                $('.postalCodeWarning').hide();
-                $('.nameWarning').hide();
-            });
-
-            //update company
-            function updateCpmpany(id) {
-                const name = $("#companyname").val();  
-                console.log("name= "+ name );
-                if (name == null || name ==""){
-                    $(".nameWarning").show();
-                    return false;
-                } 
-                const desc = $("#desc").val();
-                const industry = $("#industry").val();
-
-                const streetno = $("#streetno").val();                    
-                const street = $("#street").val();
-                const city = $("#city").val();
-
-                const province = $("#province").val();
-                const postcode = $("#postcode").val();
-
-                const currentdate = new Date();
-                const createdate = currentdate.toLocaleString();
-                var company = {
-                    name : name,
-                    description : desc,
-                    industry : industry,
-                    streetno : streetno,
-                    street : street,
-                    city : city,
-                    province : province,
-                    postcode : postcode,
-                    ceate_date : createdate,
-                };
-
-                $.ajax({
-                    url:"/api/companies/"+id,
-                    type:"put",
-                    dataType:"json",
-                    data:company,
-                    error: function (jqxhr, status, errorThrown) {
-                    alert("AJAX error: " + jqxhr.responseText);
-                    }
-                }).done(function(company){
-                    $("#addsuccess").modal("show");
-                });
-            }
-
-            //add new company
-            function addNew() {
-                const name = $("#companyname").val();     
-                console.log("name= "+ name );
-                if (name == null || name ==""){
-                    $(".nameWarning").show();
-                    return false;
-                }               
-                    const desc = $("#desc").val();
-                    const industry = $("#industry").val();
-
-                    const streetno = $("#streetno").val();                    
-                    const street = $("#street").val();
-                    const city = $("#city").val();
-
-                    const province = $("#province").val();
-                    const postcode = $("#postcode").val();
-
-                    const currentdate = new Date();
-                    const createdate = currentdate.toLocaleString();
-                    var company = {
-                        name : name,
-                        description : desc,
-                        industry : industry,
-                        streetno : streetno,
-                        street : street,
-                        city : city,
-                        province : province,
-                        postcode : postcode,
-                        ceate_date : createdate,
-                    };
-
-                    $.ajax({
-                        url:"/api/companies/",
-                        type:"post",
-                        dataType:"json",
-                        data:company,
-                        error: function (jqxhr, status, errorThrown) {
-                        alert("AJAX error: " + jqxhr.responseText);
-                        }
-                    }).done(function(company){
-                        $("#addsuccess").modal("show");
-                    });
-            }
-            //get company
-            function getCompany(id) {
-                console.log("/api/Companies/"+id);
-                $.ajax({
-                    url:"/api/Companies/"+id,
-                    type:"GET",
-                    dataType:"json",
-                    error: function (jqxhr, status, errorThrown) {
-                        alert("AJAX error: " + jqxhr.responseText);
-                        }
-                }).done(function(company){
-                    $("#companyname").val(company.name);
-                    $("#desc").val(company.description);
-                    $("#industry").val(company.industry);
-                    $("#streetno").val(company.streetno);
-                    $("#street").val(company.street);
-                    $("#city").val(company.city);
-                    $("#province").val(company.province);
-                    $("#postcode").val(company.postcode);
-                });
-            }
-
-            function validateData() {
-                console.log("postalCode= " + $("#postcode").val());
-                //validat postcode
-                const postalCode = $("#postcode").val();
-                const PosteCodeRegex = /^[A-Za-z]\d[A-Za-z]?\d[A-Za-z]\d$/;
-                if (postalCode !== null || postalCode !==""){
-                    if( !PosteCodeRegex.test(postalCode)){
-                        $('.postalCodeWarning').show();
-                        return false;
-                    };
-                }
-            }
+        <script src="./scripts/companies.js">
         </script>
     </head>
     <body>
@@ -202,6 +46,7 @@
             </div>
         </div>
         <div id="listedContent">
+
             <div id="listPane">
                     <div>
                         <label for="companyname">Company Name: </label>
@@ -214,15 +59,13 @@
                     <label for="industry">Industry: </label>
                         <select id="industry">
                             <option value="Finance">Finance</option>
-                            <option value="Chemical">Chemical</option>
+                            <option value="Medical">Medical</option>
                             <option value="Agriculture">Agriculture</option>
-                            <option value="Manufacturing">Manufacturing</option>
-                            <option value="Jewelry">Jewelry</option>
-                            <option value="Publishing">Publishing</option>
-                            <option value="Technology">Technology</option>
-                            <option value="Automotive">Automotive</option>
-                            <option value="Education">Education</option>
-                            <option value="Hospitality">Hospitality</option>
+                            <option value="Information">Information</option>
+                            <option value="Catering">Catering</option>
+                            <option value="Transportation">Transportation</option>
+                            <option value="Insurance">Insurance</option>
+                            <option value="Customer Service">Customer Service</option>
                         </select>
                     </div>
                     <div>
@@ -259,7 +102,7 @@
                         <p class="postalCodeWarning">Not a valid postal code</p>
                     </div>
                     <div class="centercontent">
-                        <button id="addnew">Add</button>
+                        <button id="modify">Add</button>
                     </div>
 
             </div>

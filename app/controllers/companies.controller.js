@@ -100,6 +100,7 @@ exports.update = (req, res) => {
 // GET /api/Company get all Company
 exports.findAll = (req, res) => {
     const sortBy = req.query.sortBy ? req.query.sortBy : "id"; // sort by id if no sortOrder provided
+    console.log("req.query.sortBy = "+ req.query.sortBy);
     Company.getAll(sortBy, (err, data)=>{
     if (err)
     res.status(500).send({

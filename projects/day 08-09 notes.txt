@@ -1,0 +1,19 @@
+npm install crypto
+
+
+{
+    "username": "jerry",
+    "password": "Jerry123"
+}
+
+https://developer.mozilla.org/en-US/docs/Web/API/Window/sessionStorage
+
+https://www.heroku.com/github-students
+
+https://www.freecodecamp.org/news/how-to-deploy-a-nodejs-app-to-heroku-from-github-without-installing-heroku-on-your-machine-433bec770efe/
+
+
+JavaDoc equivalent for documenting API requirements: JSdoc
+https://jsdoc.app/about-getting-started.html
+
+Other authentication approach passportjs.

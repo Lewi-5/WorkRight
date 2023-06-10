@@ -74,14 +74,41 @@ nav ul li a {
     text-decoration: none;
 }
 
-.container {
-    width: 90%;
-    margin: 0 auto;
+
+.search-bar {
+    margin: 20px 0;
+}
+
+.input-group {
+    border: 1px solid #ccc;
+    border-radius: 5px;
     overflow: hidden;
 }
 
-#jobListings {
-    margin: 10px 0;
+#locationSearchBox, #industrySearchBox {
+    border: none;
+    box-shadow: none;
+}
+
+#searchBtn {
+    color: white;
+    background-color: #007bff;
+}
+
+#searchBtn:hover {
+    background-color: #0056b3;
+}
+
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#jobListings .col-12 {
+    display: flex;
+    justify-content: center;
 }
 
 #jobListings .row {
@@ -94,7 +121,6 @@ nav ul li a {
 #loadMore {
     display: block;
     width: 100%;
-    // align this button to the center //
     text-align: center;
 }
 
