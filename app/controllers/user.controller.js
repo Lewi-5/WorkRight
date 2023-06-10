@@ -34,6 +34,9 @@ exports.create = (req, res) => {
 };
 
 exports.findAll = (req, res) => {
+console.log("req.query.username = " + req.query.username);
+
+
     const id = req.query.id;
   
     User.getAll(id, (err, data) => {
@@ -46,7 +49,27 @@ exports.findAll = (req, res) => {
     });
   };
 
-
+//find a user by username
+exports.findByName = (req, res) => {
+console.log("req.query.username = " + req.query.username);
+    const userName = req.query.username;
+    User.findByUsername(userName, (err, data) => {
+        if (err) {
+            if (err.kind === "not_found") {
+                res.status(405).send({
+                message: `Not found user with name ${userName}.`
+                });
+            } else {
+                res.status(500).send({
+                message: "Error retrieving company with name " + userName
+                });
+            }
+        }else{
+            res.status(200);
+            res.send(data);
+        }
+    });
+};
 
 //Find a single User by the id
 exports.findOne = (req, res) => {

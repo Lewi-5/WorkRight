@@ -4,16 +4,45 @@ $(document).ready(function () {
     $('.passwordWarning').hide();
     $('.fnameWarning').hide();
     $('.lnameWarning').hide();
+    $('.namedupWarning').hide();
 
     $('#username').on('blur', function() {
-        console.log('Input lost focus');
+        
         let usernameInpt = $("#username").val();
         if (usernameInpt == null || usernameInpt ==""){
             $(".nameWarning").show();
+            $(".namedupWarning").hide();
             return false;
         }else{
+
+            //validate if username already exist in database
+            $.ajax({
+                url:"/api/users/findName?username="+$("#username").val(),
+                type:"get",
+                dataType:"json",
+                success: function(responseData) {
+                    // Process the response data here
+                    console.log(responseData);
+                  },
+                error: function (jqxhr, status, errorThrown) {
+                    //if statur is 405 then the username is not exist, can not add user
+                    if(jqxhr.status == 405){
+                        $('.namedupWarning').hide();
+                        $(".addBtn").prop('disabled', false);
+                    }
+                }
+            }).done(function(user){
+
+                if(user){ //if user already exist
+                    $(".addBtn").prop('disabled', true);
+                    $('.namedupWarning').show();
+
+                    return false;
+                }
+            });
+
             $(".nameWarning").hide();
-            
+
         }
       });
 
@@ -69,21 +98,87 @@ $(document).ready(function () {
       
       
       $(".addBtn").on("click", function(){
+            if(checkInputs() == false){
+                return false;
+            };
             addNew();
             refreshInputs();
         })
-        
-    
- 
-
-    
 });
 
+function checkInputs() {
+    //check username, if it is null or duplicate
+    let usernameInpt = $("#username").val();
+    if (usernameInpt == null || usernameInpt ==""){
+        $(".nameWarning").show();
+        $(".namedupWarning").hide();
+        return false;
+    }else{
+
+        //validate if username already exist in database
+        $.ajax({
+            url:"/api/users/findName?username="+$("#username").val(),
+            type:"get",
+            dataType:"json",
+            success: function(responseData) {
+                // Process the response data here
+                console.log(responseData);
+              },
+            error: function (jqxhr, status, errorThrown) {
+                //if statur is 405 then the username is not exist, can not add user
+                if(jqxhr.status == 405){
+                    console.log("false2");
+                    $('.namedupWarning').hide();
+                    $(".addBtn").prop('disabled', false);
+                    return true;
+                }
+            }
+        }).done(function(user){
+
+            if(user){ //if user already exist
+                $(".addBtn").prop('disabled', true);
+                $('.namedupWarning').show();
+
+                return false;
+            }
+        });
+        $(".nameWarning").hide();
+    }
+
+    // check password is null or not
+    let passwordInpt = $("#password").val();
+    if (passwordInpt == null || passwordInpt ==""){
+        $(".passwordWarning").show();
+        return false;
+    } else{
+        $(".passwordWarning").hide();
+    }
+
+    //check firstname is null or not
+    let firstNameInpt = $("#firstName").val();
+    if (firstNameInpt == null || firstNameInpt ==""){
+        $(".fnameWarning").show();
+        return false;
+    } else{
+        $(".fnameWarning").hide();
+    }
+
+    //check the last name is null or not
+    let lastNameInpt = $("#lastName").val();
+    if (lastNameInpt == null || lastNameInpt ==""){
+        $(".lnameWarning").show();
+        return false;
+    } else{
+        $(".lnameWarning").hide();
+    }
+
+}
 function refreshInputs(){
     $('.nameWarning').hide();
     $('.passwordWarning').hide();
     $('.fnameWarning').hide();
     $('.lnameWarning').hide();
+    $('.namedupWarning').hide();
     $("#username").val("");
     $("#password").val("");
     $("#firstName").val("");
