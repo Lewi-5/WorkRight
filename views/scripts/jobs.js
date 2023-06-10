@@ -19,7 +19,7 @@ function loadJobs() {
                     <div class="col-sm-4">
                         <div class="panel panel-default">
                             <div class="panel-heading">${job.title}</div>
-                            <div class="panel-body">${job.description}</div>
+                            <div class="panel-body">${job.industry}</div>
                         </div>
                     </div>
                 `);
@@ -54,7 +54,8 @@ $(document).ready(function () {
                 // append new listings
                 jobs.forEach(job => {
                     $("#jobListings").append(`
-                        <div class="job">
+                        <div class="job" col-12">
+                        ">
                             <h2>${job.title}</h2>
                             <p>${job.description}</p>
                         </div>
