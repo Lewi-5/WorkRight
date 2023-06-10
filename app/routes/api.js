@@ -47,8 +47,11 @@ router
 
 // ROUTER for COMPANIES
 router
-    .route('/companies')
+    .route('/allcompanies')
     .get(companiesController.findAll)
+
+router
+    .route('/companies')
     .post(companiesController.create)
 
 router

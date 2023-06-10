@@ -1,29 +1,23 @@
 body {
     background-color: #f3ecd0;
+
 }
 div {
     border: none;
     margin: 12px 5px;
 }
 
+#centerContent {
+    width: 540px;
+    padding: 0;
+    margin: 0 auto;
+    background-color: white;
+}
+
 div label{
     width: 150px;
 }
-#listedContent {
-    width: 540px;
-    padding: 20px;
-    margin: 020px auto;
-    background-color: white;
-}
-#listPane {
-    
-    width: 440px;
-    display: inline-table;
-}
-#viewAddEditPane {
-    width: 340px;
-    display: inline-table;
-}
+
 nav ul {
     list-style: none;
     margin: 40px;
@@ -36,6 +30,11 @@ nav ul {
     color: red;
   }
 
+ .divContainer {
+    float: left;
+    margin-right: 10px; 
+    width: 540px;
+}
 
 input{
     width: 250px;
@@ -62,7 +61,7 @@ header img {
     align-items: center;
   }
 
-#addnew{
+#modify{
     margin: 30px;
     padding: auto;
     width: 90px;

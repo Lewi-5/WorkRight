@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    
     //get url params : id
     $('.postalCodeWarning').hide();
     $('.nameWarning').hide();
@@ -8,18 +9,18 @@ $(document).ready(function () {
     const id = urlParams.get('id')
 //console.log(`id = ${id}`);
     if(id == 0 ){
-        $("#addnew").text("Add New");
+        $("#modify").text("Add New");
     }else{
-        $("#addnew").text("Update");
+        $("#modify").text("Update");
          getCompany(id);
         
     }
-    $("#addnew").on("click", function(){
+    $("#modify").on("click", function(){
         //if(!validateData()) return false;
-        if($("#addnew").text() === "Update"){
+        if($("#modify").text() === "Update"){
             updateCpmpany(id);
         }else{
-            addNew();
+            modify();
         }
         
     });
@@ -153,4 +154,27 @@ function validateData() {
             return false;
         };
     }
+}
+
+//refreshTodoList
+function refreshTodoList(params) {
+    $.ajax({
+        url:"/api/companies",
+        type:"GET",
+        dataType:"json",
+        error: function (jqxhr, status, errorThrown) {
+            alert("AJAX error: " + jqxhr.responseText);
+            }
+    }).done(function(companiesList){
+        var result = '<tr><th>Name</th><th>Description</th><th>Industry</th></tr>';
+        for (var i = 0; i < companiesList.length; i++) {
+            var company = companiesList[i];
+            result += '<tr onclick="selectItem(' + company.id + ')">';
+            result += '<td>' + company.name + '</td>';
+            result += '<td>' + company.description + '</td>';
+            result += '<td>' + company.industry + '</td>';
+            result += '</tr>' + "\n";
+        }
+        $("#listTable").html(result);
+    });
 }

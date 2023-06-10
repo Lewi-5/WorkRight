@@ -5,6 +5,7 @@ const sql = require('./db.js');
 
 
 const Company = function(company) {
+    this.id = id;
     this.name = company.name;
     this.description = company.description; 
     this.industry = company.industry; 
@@ -41,7 +42,7 @@ Company.create = (newData , result) =>{
 //FIXME: id template literal needs to be replaced by ? 
 Company.findById = (id, result) =>{
 
-    sql.query(`SELECT * FROM companies WHERE id = ?`, [id], (err, res) =>{
+    sql.query(`SELECT * FROM companies WHERE id = ${id}`, (err, res) =>{
         if(err){
             console.log("error: " ,err);
             result(err, null);
