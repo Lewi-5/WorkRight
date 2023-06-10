@@ -165,3 +165,39 @@ not done - validate input data
 3. Need assistance / figure things out
 - external job sites API’s plan - need advice from Gregory
 - load more function?
+
+2023-06-10 LEWIS
+1. Done / not done since last scrum:
+- overhaul of trello
+- began login page
+- continued authentication, with session preserved between pages
+- figured out how to use response json data on html pages
+2. To do until next Scrum:
+- finish implementing authentication
+- try to finish majority of front-end/back end validation
+3. Need assistance / figure things out
+- will index.html be the login page and if so does it authenticate then link to other role specific pages? 
+- html z layer for validation interaction
+
+2023-06-10 Jing Wei 
+1. Done / not dont since last scrum:
+- validate users.html
+- use css z-index property + .show and .hide on button click of z-layer
+not done - validate input data
+2. To do until next Scrum:
+-upload resume file to the server
+3. Need assistance / figure things out
+
+2023-06-10 Dustin
+1. Done / not dont since last scrum:
+- models/controllers for search by industry and search by location
+- front end search bar for the jobs listings page and maybe users(applied to=true) listing
+- deployed herok
+- dropped design work to focus on backend functionalit
+2. To do until next Scrum
+- work out indiviual job listing page function to bring it up in a frame
+- get the paginantion fixed and teste
+- add backend validation for job
+3. Need assistance / figure things ou
+- click to apply button or application form
+- google api search by radius and distance to post code inputted with Lewis
