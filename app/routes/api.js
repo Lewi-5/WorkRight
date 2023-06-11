@@ -31,8 +31,13 @@ router
 // ROUTER for USERS
 router
     .route('/users')
-    .get(users.findAll)
+    .get(users.findAll) // ADMIN only can see all users
     .post(users.create) //mispelling enum got a data truncated message
+
+// user gets their specific account
+// router
+//     .route('/users/me')
+//     .get(users.findMe)
 
 
 router
@@ -59,10 +64,5 @@ router
   .get(companiesController.findOne)
   .put(companiesController.update)
 
-  //ROUTER for LOGIN
-  // router
-  //     .route('/users/me')
-  //     .get(users.findMe)
-
-
+  
 module.exports = router;

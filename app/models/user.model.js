@@ -12,23 +12,19 @@ const User = function(newUser) {
   };
   
   User.create = (newUser, result) => {
-    mysql.query("INSERT INTO users SET ?", newUser, (err, res) => { // changey make sure table name matches!!!
-      if (err) {
-        if (err.code === 'ER_DUP_ENTRY') { //trying to send sql duplicate warning
-          console.log("denied request to submit a user code or city already present in database");
-             return result({
-            message: "Duplicate entry: " + err.sqlMessage
-          }, null)
-        }
-        console.log("error: ", err);
-        return result(err, null);
-        
+    mysql.query("INSERT INTO users SET ?", newUser, (err, res) => {// changey make sure table name matches!!!
+      if (err){
+          console.log("error:", err);
+          result(err, null);
+          return;
       }
   
-      console.log("created User: ", { ...newUser });
-      result(null, { ...newUser });
+      console.log("created user: ", {id: res.insertId, ...newUser});
+      result(null, { id: res.insertId, ...newUser });
     });
   };
+  
+
 
   //FOR login we need to look up the user by username, not by ID
   User.findByUsername = (username, result) => {
@@ -49,7 +45,7 @@ const User = function(newUser) {
       }
 
       // user not found
-      result({ kind: "not_found" }, null);
+      result(null, false); // needed to change the order for the callback function
     });
   };
   

@@ -1,40 +1,46 @@
 // ctrl+F 'changey' for some of the easier to miss fields that need to be changed for a new model
 
 const User = require("../models/user.model");
+const Auth = require("../utils/auth");
 
 //TODO have not validated that last bid price is higher than database last bid price, seems asynchronous, how to check database before executing UPDATE commnand?
 //TODO have not implemented logger yet? morgan? custom logger?
 
 //Create and Save a new User
-exports.create = (req, res) => {
+exports.create = function (req, res) {
+    // Validate request
+    isUserValid(req, res, function (result) {
+        if (!result) {
+            // user submitted invalid data, though username may not be taken
+            res.status(400).send({ message: "Invalid user data" });
+            
+        } else {
+            
+           // Create a User
+            // TODO: encrypt the password SHA256
+            const user = new User({
+                username: req.body.username,
+                password: Auth.hash(req.body.password),
+                firstName: req.body.firstName,
+                lastName: req.body.lastName,
+                // FIXME: only admin can create admins, anonymous registration only creates users
+                role: req.body.role || 'User' // need to think how this works - does role input appear ? where? where does admin see it?
+            });
 
-
-    var isValidResult = isValidPost(req, res);
-    console.log('isValidResult',isValidResult);
-    if (isValidResult === true) {
-        console.log('Creating a new user...');
-        // Create a User
-        const user = new User({
-            username: req.body.username, // ! changey you need to put req.body.body.<<property>>
-            password: req.body.password,
-            firstName: req.body.firstName,
-            lastName: req.body.lastName
-        });
-
-        // Save User in the database
-        User.create(user, (err, data) => {
-            if (err){
-                res.status(500).send({
-                    message:
-                        err.message || "Some error occurred while creating the User."
-                });
-                
-            }else{ 
-                delete data['password'];
-                res.status(201).send(data);
-            }
-        });
-    } return false;
+            // Save user in the database
+            User.create(user, (err, data) => {
+                if (err)
+                    res.status(500).send({
+                        message:
+                            err.message || "Some error occurred while creating the User."
+                    });
+                else {
+                    delete data['password'];
+                    res.status(201).send(data); // better to send data.id only
+                }
+            });
+        }
+    });
 };
 
 exports.findAll = (req, res) => {
@@ -137,6 +143,71 @@ exports.update = (req, res) => {
 // first name and last name cannot be empty
 // white spaces checked?
 
+function isUserValid(req, res, callback) {
+    //console.log("isValid: ",res);
+    
+    if (someEmpty(req.body)){
+        console.log(req.body);
+        res.status(400).send({
+            message: "you left a required field empty"
+        });
+        callback(false);
+    }
+
+    if (req.body.id) {
+        res.status(400).send({
+            message: "id is provided by the system. User not saved",
+            result: false
+        });
+        //console.log("if cond: ",res.send.result);
+        callback(false);
+    }
+    // console.log(JSON.stringify(req.body));
+    if (req.body.username === undefined || req.body.password === undefined) {
+        res.status(400).send({ message: "username and password must be provided" });
+        callback(false);
+    }
+    // FIXME: verify quality of password (length 8+, at least one uppercase, lowercase, digit, and special character)
+    // FIXME: username must not exist yet, check database, may require you add a callback to this method instead of returning a value
+    let username = req.body.username;
+    if (!username.match(/^[a-zA-Z0-9_]{5,45}$/)) {
+        res.status(400).send({ message: "username must be 5-45 characters long made up of letters, digits and underscore" });
+        callback(false);
+    }
+    if (req.body.role !== undefined) {
+        if (req.body.role != "User" && req.body.role !== "Admin") {
+            res.status(400).send({ message: "Role must be User or Admin" });
+            callback(false);
+        }
+    }
+
+    User.findByUsername(req.body.username, function (err, exists) {
+        console.log(req.body.username);
+        if (err) {
+            // Handle error case
+            res.status(500).send({ message: "Error occurred while checking username" });
+            return;
+        }
+
+        if (exists) {
+            res.status(400).send({ message: "Username already exists" });
+            return;
+        }
+
+        // Username is valid and does not exist in the database
+        callback(true);
+    });
+
+}
+
+function someEmpty(obj) {
+    for (let prop in obj) {
+      if (obj[prop] === "" || obj[prop] === null || obj[prop] === undefined) {
+        return true;
+      }
+    }
+    return false;
+  }; 
 
 function isValidPost(req, res) {
 
@@ -182,14 +253,7 @@ function isValidPost(req, res) {
 
 }
 
-function someEmpty(obj) {
-    for (let prop in obj) {
-      if (obj[prop] === "" || obj[prop] === null || obj[prop] === undefined) {
-        return true;
-      }
-    }
-    return false;
-  }; 
+
 
 //TODO: what should we be allowed to patch in a given row?
 // username should be unique, password can change, first and last name cannot change
