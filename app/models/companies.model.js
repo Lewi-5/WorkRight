@@ -5,7 +5,6 @@ const sql = require('./db.js');
 
 
 const Company = function(company) {
-    this.id = id;
     this.name = company.name;
     this.description = company.description; 
     this.industry = company.industry; 

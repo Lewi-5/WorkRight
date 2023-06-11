@@ -1,3 +1,4 @@
+
 body {
     background-color: #f3ecd0;
 
@@ -8,42 +9,26 @@ div {
 }
 
 #centerContent {
-    width: 540px;
+    width: 940px;
     padding: 0;
     margin: 0 auto;
-    background-color: white;
+    background-color: #f3ecd0;
 }
 
-div label{
-    width: 150px;
+#listPane {
+    margin-left: 30px;
+    width: 340px;
+    display: inline-table;
+}
+#viewAddEditPane {
+    width: 240px;
+    display: inline-table;
+    margin-left: 120px;
 }
 
-nav ul {
-    list-style: none;
-    margin: 40px;
-    font-size: 20px;
-    padding: 0;
-}
 
-.postalCodeWarning {
-    display: none;
-    color: red;
-  }
 
- .divContainer {
-    float: left;
-    margin-right: 10px; 
-    width: 540px;
-}
 
-input{
-    width: 250px;
-}
-
-select{
-    height: 30px;
-    width: 195px;
-}
 header {
     background-color: #f7f5f5;
     color: #000000;
@@ -55,11 +40,27 @@ header img {
     width: 150px;
     margin-left: 20px;
 }
-.centercontent {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+
+nav {
+    float: right;
+    margin-right: 20px;
+}
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin-left: 15px;
+}
+
+nav ul li a {
+    color: #000000;
+    text-decoration: none;
+}
 
 #modify{
     margin: 30px;
@@ -71,3 +72,41 @@ header img {
 textarea{
     width: 250px;
 }
+
+
+div label{
+    width: 150px;
+}
+
+
+.postalCodeWarning {
+    display: none;
+    color: red;
+  }
+
+input{
+    width: 250px;
+}
+
+select{
+    height: 30px;
+    width: 195px;
+}
+
+
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+tr {
+    margin: 80px;
+    background-color: rgb(240, 234, 234);
+    color: #333;
+    font-weight: bold;
+  }
