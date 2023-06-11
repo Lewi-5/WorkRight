@@ -2,6 +2,8 @@
 
 const { response } = require('express');
 const mysql = require('./db.js');
+const Auth = require("../utils/auth");
+
 
 // constructor
 const User = function(newUser) {
@@ -30,7 +32,7 @@ const User = function(newUser) {
   User.findByUsername = (username, result) => {
     // prevent SQL injection
 
-    console.log("query = "+ username);
+    //console.log("query = "+ username);
     mysql.query('SELECT * FROM users WHERE username = ?', [username], (err, res) => {
       if (err) {
         console.log("error: ", err);
@@ -69,12 +71,13 @@ const User = function(newUser) {
   };
   
   //FIXME: id template literal needs to be replaced by ? 
-  User.getAll = (id, result) => {
+  User.getAll = (result) => {
     let query = "SELECT * FROM users";
-  
-    if (id) {
-      query += ` WHERE id LIKE '%${id}%'`;
-    }
+    // not sure why the below was here, was the original 
+    // copy paste source trying to use getAll to also get specific Ids??
+    // if (id) {
+    //   query += ` WHERE id LIKE '%${id}%'`;
+    // }
   
     mysql.query(query, (err, res) => {
       if (err) {
@@ -101,10 +104,11 @@ const User = function(newUser) {
 //     });
 //   };
   
-User.updateById = (id, patch, result) => {
+User.updateById = (id, updateObj, result) => {
+    let passHash = Auth.hash(updateObj.password);
     mysql.query(
-      "UPDATE users SET password = ? WHERE id = ?", // changey table name after UPDATE
-      [patch.password, id],
+      "UPDATE users SET username = ?, password = ?, firstName = ?, lastName = ?, role = ? WHERE id = ?", // changey table name after UPDATE
+      [updateObj.username, passHash, updateObj.firstName, updateObj.lastName, updateObj.role, id],
       (err, res) => {
         if (err) {
           console.log("error: ", err);
@@ -118,8 +122,8 @@ User.updateById = (id, patch, result) => {
           return;
         }
   
-        console.log("updated User: ", { id: id, password: patch.password});
-        result(null, "your new account details: " + { id: id, password: patch.password}); // why doesnt this get sent as response to patch but the res.send of the controller DOES?
+        console.log("updated User: ", { id: id, username: updateObj.username});
+        result(null, "the new account details: " + { id: id,username: updateObj.username}); // why doesnt this get sent as response to patch but the res.send of the controller DOES?
       }
     );
   };
@@ -143,18 +147,19 @@ User.updateById = (id, patch, result) => {
     });
   };
   
-  User.removeAll = result => {
-    mysql.query("DELETE FROM users", (err, res) => {
-      if (err) {
-        console.log("error: ", err);
-        result(null, err);
-        return;
-      }
+  // I dont think even the admin should be able to delete all users
+  // User.removeAll = result => {
+  //   mysql.query("DELETE FROM users", (err, res) => {
+  //     if (err) {
+  //       console.log("error: ", err);
+  //       result(null, err);
+  //       return;
+  //     }
   
-      console.log(`deleted ${res.affectedRows} users`);
-      result(null, res);
-    });
-  };
+  //     console.log(`deleted ${res.affectedRows} users`);
+  //     result(null, res);
+  //   });
+  // };
   
   module.exports = User;
 
