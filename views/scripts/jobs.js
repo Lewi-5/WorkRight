@@ -55,7 +55,6 @@ $(document).ready(function () {
                 jobs.forEach(job => {
                     $("#jobListings").append(`
                         <div class="job" col-12">
-                        ">
                             <h2>${job.title}</h2>
                             <p>${job.description}</p>
                         </div>

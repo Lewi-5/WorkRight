@@ -23,7 +23,7 @@ exports.createJob = (req, res) => {
 
 
 // get all jobs for jobs.html search page
-// TODO: how to randomize the jobs? or sort by date?
+// TODO: default sort by date posted
 exports.getJobs = (req, res) => {
     let page = req.query.page || 0;
     let offset = page * 10;
