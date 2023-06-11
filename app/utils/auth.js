@@ -1,4 +1,4 @@
-const UserClass = require("../models/user.model");
+const User = require("../models/user.model");
 const { createHash } = require('crypto');
 
 exports.hash = (string) => {
@@ -18,7 +18,7 @@ exports.execIfAuthValid = (req, res, role, callIfAuth) => {
     let password = req.headers['x-auth-password'];
     let passwordHash = exports.hash(password);
     console.log("Username: " + username + ", password: " + password + ", passHash: " + passwordHash);    //
-    UserClass.findByUsername(username, (err, user) => {
+    User.findByUsername(username, (err, user) => {
         if (err) {
             if (err.kind === "not_found") {
                 res.status(403).send({ // (*) identical reaction wheter user was not found or password was invalid or wrong role
@@ -26,7 +26,7 @@ exports.execIfAuthValid = (req, res, role, callIfAuth) => {
                 });
             } else {
                 res.status(500).send({
-                    message: "Error retrieving ToDo with id " + req.params.id
+                    message: "Error retrieving user with id " + req.params.id
                 });
             }
         } else {

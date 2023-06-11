@@ -1,3 +1,6 @@
+let username = "";
+let password = "";
+
 $(document).ready(function () {
 
 
@@ -32,6 +35,33 @@ $(document).ready(function () {
             $("input[name=newPass2]").val("");
         }).always(function () {
             $("#waitForIt").hide();
+        });
+    });
+
+    $("#profile").hide();
+
+    $("#loginButton").click(function () {
+        let username = $("input[name=username]").val();
+        let password = $("input[name=password]").val();
+        // sessionStorage.setItem('username', username);
+        // sessionStorage.setItem('password', password);
+        // $("#authPane").hide();
+        // $("#mainAppPane").show();
+        // refreshTodoList();
+        $.ajax({
+            url: "/api/users/me",
+            headers: { 'x-auth-username': username, 'x-auth-password': password },
+            type: "GET",
+            dataType: "json",
+            error: function (jqxhr, status, errorThrown) {
+                alert("AJAX error: " + jqxhr.responseText);
+            }
+        }).done(function (user) {
+            console.log(user.firstName);
+            $("#loginPane").hide();
+            $("#welcomeBack").html("Welcome back "+ user.username);
+            $("#nameP").html("Profile for " + user.firstName + " " + user.lastName);
+            $("#profile").fadeIn(3000);
         });
     });
 

@@ -35,9 +35,9 @@ router
     .post(users.create) //mispelling enum got a data truncated message
 
 // user gets their specific account
-// router
-//     .route('/users/me')
-//     .get(users.findMe)
+router
+    .route('/users/me')
+    .get(users.findMe)
 
 
 router
@@ -64,5 +64,5 @@ router
   .get(companiesController.findOne)
   .put(companiesController.update)
 
-  
+
 module.exports = router;

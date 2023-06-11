@@ -43,6 +43,12 @@ exports.create = function (req, res) {
     });
 };
 
+exports.findMe = (req, res) => {
+    Auth.execIfAuthValid(req, res, null, (req, res, user) => { // null because no roles in the todos project
+        res.status(200).send(user);
+    });
+};
+
 exports.findAll = (req, res) => {
 console.log("req.query.username = " + req.query.username);
 
