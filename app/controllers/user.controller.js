@@ -12,8 +12,8 @@ exports.create = function (req, res) {
     isUserValid(req, res, function (result) {
         if (!result) {
             // user submitted invalid data, though username may not be taken
-            res.status(400).send({ message: "Invalid user data" });
-            
+            // res.status(400).send({ message: "Invalid user data" });
+            return;
         } else {
             
            // Create a User
@@ -145,6 +145,21 @@ exports.update = (req, res) => {
 
 function isUserValid(req, res, callback) {
     //console.log("isValid: ",res);
+
+    // validate to make sure the request has all the necessary properties
+    const userProps = ['username', 'password', 'firstName', 'lastName'];
+
+    let reqProps = Object.keys(req.body);
+    
+    let allPropsInReq = userProps.every(prop => reqProps.includes(prop))
+
+    if (!allPropsInReq){
+        res.status(400).send({
+            message: "You are missing some required fields"
+        });
+        callback(false);
+        return;
+    }
     
     if (someEmpty(req.body)){
         console.log(req.body);
@@ -152,6 +167,7 @@ function isUserValid(req, res, callback) {
             message: "you left a required field empty"
         });
         callback(false);
+        return;
     }
 
     if (req.body.id) {
@@ -161,11 +177,13 @@ function isUserValid(req, res, callback) {
         });
         //console.log("if cond: ",res.send.result);
         callback(false);
+        return;
     }
     // console.log(JSON.stringify(req.body));
     if (req.body.username === undefined || req.body.password === undefined) {
         res.status(400).send({ message: "username and password must be provided" });
         callback(false);
+        return;
     }
     // FIXME: verify quality of password (length 8+, at least one uppercase, lowercase, digit, and special character)
     // FIXME: username must not exist yet, check database, may require you add a callback to this method instead of returning a value
@@ -173,11 +191,13 @@ function isUserValid(req, res, callback) {
     if (!username.match(/^[a-zA-Z0-9_]{5,45}$/)) {
         res.status(400).send({ message: "username must be 5-45 characters long made up of letters, digits and underscore" });
         callback(false);
+        return;
     }
     if (req.body.role !== undefined) {
         if (req.body.role != "User" && req.body.role !== "Admin") {
             res.status(400).send({ message: "Role must be User or Admin" });
             callback(false);
+            return;
         }
     }
 
