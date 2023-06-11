@@ -16,7 +16,7 @@ function loadJobs() {
         success: function(data) {
             data.forEach(job => {
                 $('#jobListings').append(`
-                    <div class="col-sm-4">
+                    <div class="col-sm-6">
                         <div class="panel panel-default">
                             <div class="panel-heading">${job.title}</div>
                             <div class="panel-body">${job.industry}</div>
@@ -42,6 +42,7 @@ $(document).ready(function () {
         $.ajax({
             url: "/api/jobs/",
             data: {
+                page: page,
                 location: location,
                 industry: industry
             },
@@ -54,7 +55,7 @@ $(document).ready(function () {
                 // append new listings
                 jobs.forEach(job => {
                     $("#jobListings").append(`
-                        <div class="job" col-12">
+                        <div class="job" col-6">
                             <h2>${job.title}</h2>
                             <p>${job.description}</p>
                         </div>

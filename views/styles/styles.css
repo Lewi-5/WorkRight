@@ -85,7 +85,7 @@ nav ul li a {
     overflow: hidden;
 }
 
-#locationSearchBox, #industrySearchBox {
+#postcodeSearchBox, #industrySearchBox {
     border: none;
     box-shadow: none;
 }

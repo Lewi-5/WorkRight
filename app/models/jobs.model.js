@@ -9,8 +9,8 @@ const Job = function(newJob) {
     this.company_id = newJob.company_id;
     this.title = newJob.title;
     // this.description = newJob.description;
-    this.postcode = newJob.post_code; //wrote it as all lower case one word in test db
-    this.industry. newJob.industry; // test db field... will it also be in real db?
+    this.postcode = newJob.postcode; //wrote it as all lower case one word in test db
+    this.industry = newJob.industry; // test db field... will it also be in real db?
     // this.salary = newJob.salary;
     // this.type = newJob.type;
     // this.status = newJob.status;
@@ -32,20 +32,20 @@ Job.create = (newJob, result) => {
 };
 
 
-// find based on location and/or industry
-Job.find = (offset, limit, location, industry, result) => {
+// find based on postcode and/or industry
+Job.find = (offset, limit, postcode, industry, result) => {
     // Build the query dynamically based on the search parameters
     let query = "SELECT * FROM jobs";
     let params = [];
 
-    if(location || industry) {
+    if(postcode || industry) {
         query += " WHERE";
-        if(location) {
-            query += " location LIKE ?";
-            params.push('%' + location + '%');
+        if(postcode) {
+            query += " postcode LIKE ?";
+            params.push('%' + postcode + '%');
         }
         if(industry) {
-            if(location) query += " AND";
+            if(postcode) query += " AND";
             query += " industry = ?";
             params.push(industry);
         }

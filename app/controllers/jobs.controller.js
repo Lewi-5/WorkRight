@@ -27,11 +27,11 @@ exports.createJob = (req, res) => {
 exports.getJobs = (req, res) => {
     let page = req.query.page || 0;
     let offset = page * 10;
-    let location = req.query.location;
+    let postcode = req.query.postcode;
     let industry = req.query.industry;
 
     // Pass the search parameters to the find function
-    Jobs.find(offset, 10, location, industry, (err, data) => {
+    Jobs.find(offset, 10, postcode, industry, (err, data) => {
         if (err) {
             res.status(500).send({
                 message: err.message || "Some error occurred while retrieving jobs."

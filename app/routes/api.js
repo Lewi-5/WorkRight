@@ -48,7 +48,8 @@ router
 // ROUTER for JOBS
 router
     .route('/jobs')
-    .get(jobsController.getJobs);
+    .get(jobsController.getJobs)
+    .post(jobsController.createJob);
 
 // ROUTER for COMPANIES
 router
