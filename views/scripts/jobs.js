@@ -16,13 +16,18 @@ function loadJobs() {
         success: function(data) {
             data.forEach(job => {
                 $('#jobListings').append(`
-                    <div class="col-sm-6">
+                    <div class="col-sm-6 job-listing" data-id="${job.jobID}">
                         <div class="panel panel-default">
                             <div class="panel-heading">${job.title}</div>
                             <div class="panel-body">${job.industry}</div>
                         </div>
                     </div>
                 `);
+            });
+            // add click event for job listing
+            $(".job-listing").click(function() {
+                const jobID = $(this).data('id');
+                window.location.href = '/job.html?id=' + jobID;
             });
         },
         error: function(error) {
