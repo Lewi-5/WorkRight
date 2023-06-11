@@ -15,18 +15,41 @@ $(document).ready(function () {
          getCompany(id);
         
     }
+
+    $('#companyname').on('blur', function() {
+        let companyname = $("#companyname").val();
+        if (companyname == null || companyname ==""){
+            $(".nameWarning").show();
+            return false;
+        } else{
+            $(".nameWarning").hide();
+        }
+    });
+
+    $('#postcode').on('blur', function() {
+        let postcode = $("#postcode").val();
+        const PosteCodeRegex = /^[A-Za-z]\d[A-Za-z]\d[A-Za-z]\d$/;
+        if (postcode !== null || postcode !==""){
+            if( PosteCodeRegex.test(postcode)){
+                $('.postalCodeWarning').hide();
+            }else{
+                $('.postalCodeWarning').show();
+            }
+        }
+    });
+
     $("#modify").on("click", function(){
         //if(!validateData()) return false;
         if($("#modify").text() === "Update"){
             updateCpmpany(id);
         }else{
-            modify();
+            addNew();
         }
-        
     });
+
     $("#modalclose").on("click",function(){
         console.log("modalclose clicked, return to index");
-        window.open('index.html', '_self');
+        window.open('allcompanies.html', '_self');
     });
     $('.postalCodeWarning').hide();
     $('.nameWarning').hide();
@@ -34,6 +57,9 @@ $(document).ready(function () {
 
 //update company
 function updateCpmpany(id) {
+    if (validateData() == false){
+        return false;
+    }
     const name = $("#companyname").val();  
     console.log("name= "+ name );
     if (name == null || name ==""){
@@ -79,6 +105,9 @@ function updateCpmpany(id) {
 
 //add new company
 function addNew() {
+    if (validateData() == false){
+        return false;
+    }
     const name = $("#companyname").val();     
     console.log("name= "+ name );
     if (name == null || name ==""){
@@ -144,6 +173,13 @@ function getCompany(id) {
 }
 
 function validateData() {
+
+    const companyname = $("#companyname").val();
+    if(companyname == null || companyname ==""){
+        $(".nameWarning").show();
+        return false;
+    }
+
     console.log("postalCode= " + $("#postcode").val());
     //validat postcode
     const postalCode = $("#postcode").val();
@@ -154,6 +190,7 @@ function validateData() {
             return false;
         };
     }
+    return true;
 }
 
 //refreshTodoList
