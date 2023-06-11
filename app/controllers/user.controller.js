@@ -10,13 +10,14 @@ const Auth = require("../utils/auth");
 //Create and Save a new User
 exports.create = function (req, res) {
     // Validate request
-    isUserValid(req, res, function (result) {
+    isUserValid(req, res, false, function (result) {
         if (!result) {
+            
             // user submitted invalid data, though username may not be taken
             // res.status(400).send({ message: "Invalid user data" });
             return;
         } else {
-
+            
             // Create a User
             // TODO: encrypt the password SHA256
             const user = new User({
@@ -115,13 +116,14 @@ exports.findOne = (req, res) => {
 exports.update = (req, res) => {
 
     console.log(req.body);
-    isUserValid(req, res, function (result) {
+    isUserValid(req, res, true, function (result) {
         if (!result) {
+            console.log('invalid data !result')
             // user submitted invalid data, though username may not be taken
             // res.status(400).send({ message: "Invalid user data" });
             return;
         } else {
-
+            console.log('invalid data true result')
             let updateObj = req.body;
             let id = req.params.id;
             User.updateById(
@@ -138,7 +140,7 @@ exports.update = (req, res) => {
                                 message: "Error updating User with id " + id
                             });
                         }
-                    } else res.status(200).send(`Account details for account with id ${id} have been updated`); 
+                    } else res.status(200).send(`Account details for account with id ${id} have been updated`);
                 }
             );
 
@@ -170,7 +172,7 @@ exports.delete = (req, res) => {
 // first name and last name cannot be empty
 // white spaces checked?
 
-function isUserValid(req, res, callback) {
+function isUserValid(req, res, isUpdate, callback) {
     //console.log("isValid: ",res);
 
     // validate to make sure the request has all the necessary properties
@@ -228,23 +230,27 @@ function isUserValid(req, res, callback) {
         }
     }
 
-    User.findByUsername(req.body.username, function (err, exists) {
-        console.log(req.body.username);
-        if (err) {
-            // Handle error case
-            res.status(500).send({ message: "Error occurred while checking username" });
-            return;
-        }
+    if (!isUpdate) {
 
-        if (exists) {
-            res.status(400).send({ message: "Username already exists" });
-            return;
-        }
+        User.findByUsername(req.body.username, function (err, exists) {
+            console.log(req.body.username);
+            if (err) {
+                // Handle error case
+                res.status(500).send({ message: "Error occurred while checking username" });
+                return;
+            }
 
-        // Username is valid and does not exist in the database
+            if (exists) {
+                res.status(400).send({ message: "Username already exists" });
+                return;
+            }
+
+            // Username is valid and does not exist in the database
+            callback(true);
+        });
+    } else {
         callback(true);
-    });
-
+    }
 }
 
 function someEmpty(obj) {
