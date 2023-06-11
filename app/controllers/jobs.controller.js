@@ -56,3 +56,19 @@ exports.getJobs = (req, res) => {
         }
     });
 };
+
+exports.getJobById = (req, res) => {
+    Jobs.findById(req.params.id, (err, data) => {
+      if (err) {
+        if (err.kind === "not_found") {
+          res.status(404).send({
+            message: `No Job with id ${req.params.id}.`
+          });
+        } else {
+          res.status(500).send({
+            message: "Error retrieving Job with id " + req.params.id
+          });
+        }
+      } else res.send(data);
+    });
+  };

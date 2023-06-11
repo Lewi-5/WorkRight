@@ -12,6 +12,7 @@
 //     PASSWORD: "0W8r*7@3DHgA",
 //     DB: "workrighttest" // do not make typos on database names, disaster
 //   };
+  
 module.exports = {
     HOST: "fsd08lewis.mysql.database.azure.com",
     USER: "dbAdmin",

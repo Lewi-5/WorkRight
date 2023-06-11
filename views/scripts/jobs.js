@@ -16,13 +16,18 @@ function loadJobs() {
         success: function(data) {
             data.forEach(job => {
                 $('#jobListings').append(`
-                    <div class="col-sm-6">
+                    <div class="col-sm-6 job-listing" data-id="${job.jobID}">
                         <div class="panel panel-default">
                             <div class="panel-heading">${job.title}</div>
                             <div class="panel-body">${job.industry}</div>
                         </div>
                     </div>
                 `);
+            });
+            // add click event for job listing
+            $(".job-listing").click(function() {
+                const jobID = $(this).data('id');
+                window.location.href = '/job.html?id=' + jobID;
             });
         },
         error: function(error) {
@@ -36,14 +41,14 @@ $(document).ready(function () {
     $("#searchForm").on("submit", function(e) {
         e.preventDefault();  // prevent the default form submission
         page = 0; // reset to 0
-        var location = $("#locationSearchBox").val();
+        var postcode = $("#postcodeSearchBox").val();
         var industry = $("#industrySearchBox").val();
 
         $.ajax({
             url: "/api/jobs/",
             data: {
                 page: page,
-                location: location,
+                postcode: postcode,
                 industry: industry
             },
             type: "GET",

@@ -66,5 +66,24 @@ Job.find = (offset, limit, postcode, industry, result) => {
     });
 };
 
+Job.findById = (jobId, result) => {
+    sql.query(`SELECT * FROM jobs WHERE id = ${jobId}`, (err, res) => {
+        if (err) {
+            console.log("error: ", err);
+            result(err, null);
+            return;
+        }
+
+        if (res.length) {
+            console.log("found job: ", res[0]);
+            result(null, res[0]);
+            return;
+        }
+
+        // not found Job with the id
+        result({ kind: "not_found" }, null);
+    });
+};
+
 
 module.exports = Job;

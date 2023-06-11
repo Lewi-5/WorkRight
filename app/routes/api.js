@@ -49,7 +49,11 @@ router
 router
     .route('/jobs')
     .get(jobsController.getJobs)
-    .post(jobsController.createJob);
+    .post(jobsController.createJob)
+
+router
+    .route('/jobs/:id')
+    .get(jobsController.getJobById)
 
 // ROUTER for COMPANIES
 router
