@@ -3,7 +3,7 @@ const Jobs = require('../models/jobs.model');
 
 // validation function
 function validateJob(job) {
-    const industries = ["Finance", "Chemical", "Agriculture", "Transportation", "Manufacturing", "Jewelry", "Publishing", "Technology", "Automotive", "Education", "Hospitality"];
+    const industries = ["Medical", "Agriculture", "Finance", "Information", "Catering", "Transportation", "Insurance", "Customer Service"];
     if (!job.title || job.title.trim() === '') return 'Job title is required.';
     if (!job.postcode || job.postcode.trim() === '' || job.postcode.trim().length > 6) return 'Valid Postcode is required.';
     if (!job.industry || !industries.includes(job.industry)) return `Industry is required and should be one of the following values: ${industries.join(', ')}.`;
