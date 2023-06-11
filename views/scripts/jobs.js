@@ -41,14 +41,14 @@ $(document).ready(function () {
     $("#searchForm").on("submit", function(e) {
         e.preventDefault();  // prevent the default form submission
         page = 0; // reset to 0
-        var location = $("#locationSearchBox").val();
+        var postcode = $("#postcodeSearchBox").val();
         var industry = $("#industrySearchBox").val();
 
         $.ajax({
             url: "/api/jobs/",
             data: {
                 page: page,
-                location: location,
+                postcode: postcode,
                 industry: industry
             },
             type: "GET",
