@@ -1,6 +1,15 @@
 const Jobs = require('../models/jobs.model');
 
 
+// validation function
+function validateJob(job) {
+    const industries = ["Finance", "Chemical", "Agriculture", "Transportation", "Manufacturing", "Jewelry", "Publishing", "Technology", "Automotive", "Education", "Hospitality"];
+    if (!job.title || job.title.trim() === '') return 'Job title is required.';
+    if (!job.postcode || job.postcode.trim() === '' || job.postcode.trim().length > 6) return 'Valid Postcode is required.';
+    if (!job.industry || !industries.includes(job.industry)) return `Industry is required and should be one of the following values: ${industries.join(', ')}.`;
+    return null;
+}
+
 exports.createJob = (req, res) => {
     const newJob = new Job({
         company_id: req.body.company_id,
@@ -8,6 +17,12 @@ exports.createJob = (req, res) => {
         postcode: req.body.postcode,
         industry: req.body.industry
     });
+
+    const validationError = validateJob(newJob);
+    if (validationError) {
+        res.status(400).send({ message: validationError });
+        return;
+    }
 
     Jobs.create(newJob, (err, data) => {
         if (err) {
