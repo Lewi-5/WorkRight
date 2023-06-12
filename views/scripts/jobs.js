@@ -14,23 +14,32 @@ $(document).ready(function() {
         window.location.href = "http://localhost:7077/job.html?id=" + currId;
     });
 
+    //doesn't word this way, job_listing doesn't trigger click event
+    $(".job-listing").on("click", function() {
+        const jobID = $(this).data('id');
+console.log("this = "+this);
+console.log("$(this).data('id') = "+$(this).data);
+
+        window.location.href = './job.html?id=' + jobID;
+    });
 });
 
 function selectItem(id) {
+    window.location.href = './job.html?id='+id;
     //console.log(id);
-    $.ajax({
-        url: "/api/jobs/" + id,
-        //headers: { 'x-auth-username': sessionStorage.getItem('username'), 'x-auth-password': sessionStorage.getItem('password') },
-        type: "GET",
-        dataType: "json",
-        error: function (jqxhr, status, errorThrown) {
-            alert("AJAX error: " + jqxhr.responseText);
-        }
-    }).done(function (job) {
-        currId = id;
+    // $.ajax({
+    //     url: "/api/jobs/" + id,
+    //     //headers: { 'x-auth-username': sessionStorage.getItem('username'), 'x-auth-password': sessionStorage.getItem('password') },
+    //     type: "GET",
+    //     dataType: "json",
+    //     error: function (jqxhr, status, errorThrown) {
+    //         alert("AJAX error: " + jqxhr.responseText);
+    //     }
+    // }).done(function (job) {
+    //     currId = id;
         
        
-    });
+    // });
 }
 
 function loadJobs() {
@@ -44,10 +53,12 @@ function loadJobs() {
             // add click event for job listing
         }
         }).done(function(data) {
-            console.log(data);
+            //console.log(data);
+            //<div class="job-card col-md-6 job-listing" data-id="${job.jobId}" onmouseover="selectItem(${job.jobId})">'>
+                
             data.forEach(job => {
                 $('#jobListings').append(`
-                <div class="job-card col-md-6 job-listing" data-id="${job.jobId}" onmouseover="selectItem(${job.jobId})">'>
+                <div class="job-card col-md-6 job-listing" data-id="${job.jobId}" onclick="selectItem(${job.jobId})">
                 <div class="card">
                             <div class="card-header">${job.title}</div>
                             <div class="card-body">
