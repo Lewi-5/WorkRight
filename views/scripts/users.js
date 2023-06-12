@@ -11,7 +11,7 @@ $(document).ready(function () {
         headers: { 'x-auth-username': sessionStorage.getItem('username'), 'x-auth-password': sessionStorage.getItem('password') },
         type: "GET",
         dataType: "json",
-        ContentType: "application/json",
+        // ContentType: "application/json",
         error: function (jqxhr, status, errorThrown) {
             alert("AJAX error: " + jqxhr.responseText);
             setTimeout(() => {

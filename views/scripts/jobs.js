@@ -9,15 +9,15 @@ $(document).ready(function() {
         loadJobs();
     });
 
-    $(".job-listing").on("click", function() {
-        
-        window.location.href = '/job.html?id=' + currId;
+    $(".jobBtn").on("click", function() {
+        console.log("button clicked");
+        window.location.href = "http://localhost:7077/job.html?id=" + currId;
     });
 
 });
 
 function selectItem(id) {
-    console.log(id);
+    //console.log(id);
     $.ajax({
         url: "/api/jobs/" + id,
         //headers: { 'x-auth-username': sessionStorage.getItem('username'), 'x-auth-password': sessionStorage.getItem('password') },
@@ -36,30 +36,32 @@ function selectItem(id) {
 function loadJobs() {
     $.ajax({
         url: '/api/jobs?page=' + page,
-        method: 'GET',
-        success: function(data) {
+        type: "GET",
+        dataType: "json",
+        error: function (jqxhr, status, errorThrown) {
+            alert("AJAX error: " + jqxhr.responseText);
+            //FIXME
+            // add click event for job listing
+        }
+        }).done(function(data) {
+            console.log(data);
             data.forEach(job => {
                 $('#jobListings').append(`
-                <div class="job-card col-md-6 job-listing" data-id="${job.jobID}" onmouseover="selectItem(${job.jobID})">'>
+                <div class="job-card col-md-6 job-listing" data-id="${job.jobId}" onmouseover="selectItem(${job.jobId})">'>
                 <div class="card">
                             <div class="card-header">${job.title}</div>
                             <div class="card-body">
                                 <h5 class="card-title">${job.industry}</h5>
                                 <p class="card-text">${job.description}</p>
+                                <button class="jobBtn">Learn More</button>
                             </div>
                         </div>
                     </div>
                 `);
             });
-            //FIXME
-            // add click event for job listing
-            
-        },
-        error: function(error) {
-            console.log('Error:', error);
-        }
-    });
-    }
+        });
+        
+}
 
 
 // $(document).ready(function () {

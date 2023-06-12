@@ -61,13 +61,13 @@ Job.find = (offset, limit, postcode, industry, result) => {
             return;
         }
 
-        console.log("jobs: ", res);
+        //console.log("jobs: ", res);
         result(null, res);
     });
 };
 
 Job.findById = (jobId, result) => {
-    sql.query(`SELECT * FROM jobs WHERE id = ${jobId}`, (err, res) => {
+    sql.query(`SELECT * FROM jobs WHERE jobId = ?`, [jobId], (err, res) => { // careful on the WHERE clause, must match for table searched, e.g. we search jobs by 'jobId' not 'id'
         if (err) {
             console.log("error: ", err);
             result(err, null);
@@ -75,7 +75,7 @@ Job.findById = (jobId, result) => {
         }
 
         if (res.length) {
-            console.log("found job: ", res[0]);
+            //console.log("found job: ", res[0]);
             result(null, res[0]);
             return;
         }

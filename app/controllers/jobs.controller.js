@@ -59,6 +59,7 @@ exports.getJobs = (req, res) => {
 
 exports.getJobById = (req, res) => {
     Jobs.findById(req.params.id, (err, data) => {
+        //console.log("the param is" + req.params.id);
       if (err) {
         if (err.kind === "not_found") {
           res.status(404).send({
@@ -66,7 +67,7 @@ exports.getJobById = (req, res) => {
           });
         } else {
           res.status(500).send({
-            message: "Error retrieving Job with id " + req.params.id
+            message: "Error retrieving Job with jobId " + req.params.id
           });
         }
       } else res.send(data);
