@@ -10,39 +10,41 @@ const Auth = require("../utils/auth");
 //Create and Save a new User
 exports.create = function (req, res) {
     // Validate request
-    isUserValid(req, res, false, function (result) {
-        if (!result) {
+    
+        isUserValid(req, res, false, function (result) {
+            if (!result) {
 
-            // user submitted invalid data, though username may not be taken
-            // res.status(400).send({ message: "Invalid user data" });
-            return;
-        } else {
+                // user submitted invalid data, though username may not be taken
+                // res.status(400).send({ message: "Invalid user data" });
+                return;
+            } else {
 
-            // Create a User
-            // TODO: encrypt the password SHA256
-            const user = new User({
-                username: req.body.username,
-                password: Auth.hash(req.body.password),
-                firstName: req.body.firstName,
-                lastName: req.body.lastName,
-                // FIXME: only admin can create admins, anonymous registration only creates users
-                role: req.body.role || 'User' // need to think how this works - does role input appear ? where? where does admin see it?
-            });
+                // Create a User
+                // TODO: encrypt the password SHA256
+                const user = new User({
+                    username: req.body.username,
+                    password: Auth.hash(req.body.password),
+                    firstName: req.body.firstName,
+                    lastName: req.body.lastName,
+                    // FIXME: only admin can create admins, anonymous registration only creates users
+                    role: req.body.role || 'User' // need to think how this works - does role input appear ? where? where does admin see it?
+                });
 
-            // Save user in the database
-            User.create(user, (err, data) => {
-                if (err)
-                    res.status(500).send({
-                        message:
-                            err.message || "Some error occurred while creating the User."
-                    });
-                else {
-                    delete data['password'];
-                    res.status(201).send(data); // better to send data.id only
-                }
-            });
-        }
-    });
+                // Save user in the database
+                User.create(user, (err, data) => {
+                    if (err)
+                        res.status(500).send({
+                            message:
+                                err.message || "Some error occurred while creating the User."
+                        });
+                    else {
+                        delete data['password'];
+                        res.status(201).send(data); // better to send data.id only
+                    }
+                });
+            }
+        });
+    
 };
 
 exports.findMe = (req, res) => {
@@ -115,7 +117,7 @@ exports.findOne = (req, res) => {
 
 //Update a User by id
 exports.update = (req, res) => {
-    Auth.execIfAuthValid(req, res, ['admin'], (req, res, user) => {
+    Auth.execIfAuthValid(req, res, ['admin', 'user'], (req, res, user) => {
 
         //console.log(req.body);
         isUserValid(req, res, true, function (result) {
