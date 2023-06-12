@@ -239,3 +239,37 @@ not done - validate input data
  search by location - work with Lewis on the GMaps API
 . Need assistance / figure things out
 - Search by location(distance from postcode searched) - Canada Post API?
+
+2023-06-11 LEWIS
+1. Done / not done since last scrum:
+- employee and employer dashboard rough draft
+- login routes to role appropriate landing pages + authentication
+- authenticaiton debugging
+2. To do until next Scrum:
+- finish authentication sitewide
+- finish dashboards
+3. Need assistance / figure things out
+- map and postal code implementation
+
+2023-06-12 Jing Wei 
+1. Done / not dont since last scrum:
+- click companies shows jobs this company posted
+- add sorting feature to all companies
+2. To do until next Scrum:
+- validate all company html pages
+- style pages a bit
+- peer test
+3. Need assistance / figure things out
+
+2023-06-12 Dustin
+1. Done / not done since last scrum:
+- Infinite scroll working with search bar
+- Front end design
+- worked out bugs with naming and industry enums
+2. To do until next Scrum:
+- build the individual job listing page
+- build the apply to job functionality - application form with fields or a click-to-apply button?
+- validation and sql injection
+- search by location - GMaps API
+3. Need assistance / figure things out
+- Search by location(distance/radius) - Any free non-deprecated API
