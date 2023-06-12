@@ -12,12 +12,12 @@ exports.create = function (req, res) {
     // Validate request
     isUserValid(req, res, false, function (result) {
         if (!result) {
-            
+
             // user submitted invalid data, though username may not be taken
             // res.status(400).send({ message: "Invalid user data" });
             return;
         } else {
-            
+
             // Create a User
             // TODO: encrypt the password SHA256
             const user = new User({
@@ -53,24 +53,24 @@ exports.findMe = (req, res) => {
 
 // only admin can see all users
 exports.findAll = (req, res) => {
-    Auth.execIfAuthValid(req, res, ['user', 'admin'], (req, res, user) => {
-    // not sure why the below was here, was the original 
-    // copy paste source trying to use getAll to also get specific Ids??
-    //console.log("req.query.username = " + req.query.username);
-    //const id = req.query.id;
+    Auth.execIfAuthValid(req, res, ['admin'], (req, res, user) => {
+        // not sure why the below was here, was the original 
+        // copy paste source trying to use getAll to also get specific Ids??
+        //console.log("req.query.username = " + req.query.username);
+        //const id = req.query.id;
 
-    // Auth.execIfAuthValid(req, res, ['admin'], (req, res, user) => { // remeber to make the role an array e.g. ['admin']
-    // res.status(200).send(user);
+        // Auth.execIfAuthValid(req, res, ['admin'], (req, res, user) => { // remeber to make the role an array e.g. ['admin']
+        // res.status(200).send(user);
 
-    User.getAll((err, data) => {
-        if (err)
-            res.status(500).send({
-                message:
-                    err.message || "Some error occurred while retrieving Users."
-            });
-        else res.send(data);
+        User.getAll((err, data) => {
+            if (err)
+                res.status(500).send({
+                    message:
+                        err.message || "Some error occurred while retrieving Users."
+                });
+            else res.send(data);
+        });
     });
-});
     // });
 };
 
@@ -115,62 +115,67 @@ exports.findOne = (req, res) => {
 
 //Update a User by id
 exports.update = (req, res) => {
+    Auth.execIfAuthValid(req, res, ['admin'], (req, res, user) => {
 
-    //console.log(req.body);
-    isUserValid(req, res, true, function (result) {
-        if (!result) {
-            console.log('invalid data !result')
-            // user submitted invalid data, though username may not be taken
-            // res.status(400).send({ message: "Invalid user data" });
-            return;
-        } else {
-            //console.log('invalid data true result')
-            // let password = req.body.password;
-            // let updateObj = req.body;
-            let id = req.params.id;
-            let passHash = Auth.hash(req.body.password);
-            // updateObj[password] = passHash;
-            User.updateById(
-                id,
-                {username: req.body.username,
-                 password: passHash,
-                 firstName: req.body.firstName,
-                 lastName: req.body.lastName,
-                 role: req.body.role   
-                },
-                (err, data) => {
-                    if (err) {
-                        if (err.kind === "not_found") {
-                            res.status(404).send({
-                                message: `Not found User with id ${id}.`
-                            });
-                        } else {
-                            res.status(500).send({
-                                message: "Error updating User with id " + id
-                            });
-                        }
-                    } else res.status(200).send(data);
-                }
-            );
+        //console.log(req.body);
+        isUserValid(req, res, true, function (result) {
+            if (!result) {
+                console.log('invalid data !result')
+                // user submitted invalid data, though username may not be taken
+                // res.status(400).send({ message: "Invalid user data" });
+                return;
+            } else {
+                //console.log('invalid data true result')
+                // let password = req.body.password;
+                // let updateObj = req.body;
+                let id = req.params.id;
+                let passHash = Auth.hash(req.body.password);
+                // updateObj[password] = passHash;
+                User.updateById(
+                    id,
+                    {
+                        username: req.body.username,
+                        password: passHash,
+                        firstName: req.body.firstName,
+                        lastName: req.body.lastName,
+                        role: req.body.role
+                    },
+                    (err, data) => {
+                        if (err) {
+                            if (err.kind === "not_found") {
+                                res.status(404).send({
+                                    message: `Not found User with id ${id}.`
+                                });
+                            } else {
+                                res.status(500).send({
+                                    message: "Error updating User with id " + id
+                                });
+                            }
+                        } else res.status(200).send({ ...data });
+                    }
+                );
 
-        }
+            }
+        });
     });
-
 };
 
 exports.delete = (req, res) => {
-    User.remove(req.params.id, (err, data) => {
-        if (err) {
-            if (err.kind === "not_found") {
-                res.status(404).send({
-                    message: `Not found user with id ${req.params.id}.`
-                });
-            } else {
-                res.status(500).send({
-                    message: "Could not delete user with id " + req.params.id
-                });
-            }
-        } else res.status(200).send({ message: true });
+    console.log("headers 1st time: " + req.headers)
+    Auth.execIfAuthValid(req, res, ['admin'], (req, res, user) => {
+        User.remove(req.params.id, (err, data) => {
+            if (err) {
+                if (err.kind === "not_found") {
+                    res.status(404).send({
+                        message: `Not found user with id ${req.params.id}.`
+                    });
+                } else {
+                    res.status(500).send({
+                        message: "Could not delete user with id " + req.params.id
+                    });
+                }
+            } else res.status(200).send({ message: true });
+        });
     });
 };
 

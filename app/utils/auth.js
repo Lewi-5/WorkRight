@@ -7,7 +7,7 @@ exports.hash = (string) => {
 //PLEASE NOTE - i changed role to expect an array, even if only one user type is allowed, please put user type
 //in an array e.g. ['admin'] instead of of admin
 exports.execIfAuthValid = (req, res, role, callIfAuth) => {
-    console.log(JSON.stringify(req.headers)); // debugging only
+    console.log("here are the headers: " + JSON.stringify(req.headers)); // debugging only
     if (req.headers['x-auth-username'] === undefined || req.headers['x-auth-password'] == undefined) {
         console.log("no x-auth-* headers received");
         res.status(403).send({
