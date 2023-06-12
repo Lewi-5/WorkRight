@@ -11,13 +11,14 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
         <script>
             $(document).ready(function () {
-                var companyid;
                 refreshTodoList();
 
-                $('#addNewCompany').on("click", function(){
-                    window.open('companies.html?id=0', '_self');
+                $(document).ready(function() {
+                    $('tr').dblclick(function() {
+                    console.log('Double click event triggered on the table row.');
+                    // Add your custom logic here
+                    });
                 });
-
             });
 
             //refreshTodoList
@@ -30,15 +31,13 @@
                         alert("AJAX error: " + jqxhr.responseText);
                         }
                 }).done(function(companiesList){
-                    var result = '<tr><th>Name</th><th>Description</th><th>Industry</th><th>City</th><th>Create Date</th></tr>';
+                    var result = '<tr><th>Name</th><th>Description</th><th>Industry</th></tr>';
                     for (var i = 0; i < companiesList.length; i++) {
                         var company = companiesList[i];
                         result += '<tr onclick="selectItem(' + company.ID + ')">';
                         result += '<td>' + company.name + '</td>';
                         result += '<td>' + company.description + '</td>';
                         result += '<td>' + company.industry + '</td>';
-                        result += '<td>' + company.city + '</td>';
-                        result += '<td>' + company.createDate + '</td>';
                         result += '</tr>' + "\n";
                     }
                     $("#listTable").html(result);
@@ -46,18 +45,9 @@
             }
             //when click one row
             function selectItem(id) {
-                companyid = id;
                 console.log('single click event triggered on the table row.');
-                //console.log("id = "+ id);
-                //window.open('companies.html?id='+id, '_self');$('tr').click(function() {
-
-                    // Remove the 'selected-row' class from all rows
-                    //$('tr').removeClass('selected-row');
-                    
-                    // Add the 'selected-row' class to the clicked row
-                    $(this).css('background-color: yellow;');
-
-                
+                console.log("id = "+ id);
+                //window.open('companies.html?id='+id, '_self');
             }
 
         </script>
@@ -78,18 +68,10 @@
         </header>
         <div id="centerContent">
             <div id="listPane">
-                <button id="addNewCompany">Add New</button>
-                <button id="getJods">View Jobs</button><br><br>
-                <select id="sortSelect">
-                    <option value="companyName">Sort by Company Name</option>
-                    <option value="createDate">Sort by Create Date</option>
-                    <option value="industry">Sort by industry</option>
-                    <option value="createDate">Sort by create date</option>
-                  </select>
-
+                <button id="addNewCompany">Add New</button><br><br>
                 <table id="listTable" border="1"></table>
             </div>
-            <!--<div id="viewAddEditPane">
+            <div id="viewAddEditPane">
                 Current Job available for: <span id="companyName"></span><br>
 
                 Title: <span id="title"></span><br>
@@ -100,7 +82,7 @@
                 type: <span id="type"></span><br>
                 Status: <span id="status"></span><br>
                 Create Date: <span id="createDate"></span><br>
-            </div>-->
+            </div>
         </div>
 
         <footer>

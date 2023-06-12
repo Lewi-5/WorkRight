@@ -32,7 +32,7 @@ Company.create = (newData , result) =>{
             return;
         }
         
-        console.log("create new Company: ", {id: result.insertCode, ...newData});
+// console.log("create new Company: ", {id: result.insertCode, ...newData});
         result(null, {id: result.insertCode, ...newData});
     });
 }
@@ -52,10 +52,29 @@ Company.findById = (id, result) =>{
             result(null, res[0]);
             return;
         }
-        console.log("result.length: ", res.length);
+  console.log("result.length: ", res.length);
         result({kind: "not_found"}, null);
     });
 }
+
+
+Company.findJobsByCompanyId = (id, result) =>{
+    sql.query(`select jobId, title, a.description, a.postCode, a.industry, salary, type, status, createDate from jobs a, companies b where a.companyId = b.ID and b.id = ${id}`, (err, res) =>{
+        if(err){
+            console.log("error: " ,err);
+            result(err, null);
+
+        }
+        if(res.length){
+            
+            result(null, res[0]);
+            return;
+        }
+ console.log("result.length: ", res.length);
+        result({kind: "not_found"}, null);
+    });
+}
+
 
 
 // PATCH /api/Company
@@ -89,7 +108,6 @@ Company.getAll = (sortby, result) =>{
             retult(err, null);
             return;
         }
-
         result(null, res);
     });
 };
@@ -101,7 +119,6 @@ Company.find = (offset, limit, result) => {
             result(err, null);
             return;
         }
-
         console.log("Company: ", res);
         result(null, res);
     });

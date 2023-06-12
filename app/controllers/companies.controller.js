@@ -114,6 +114,28 @@ exports.findAll = (req, res) => {
     })
 }
 
+// GET /api/Company get all Company
+exports.findJobsByCompanyId = (req, res) => {
+console.log("req.params.id " + req.params.id);
+    Company.findJobsByCompanyId(req.params.id, (err, data) => {
+        if (err) {
+        if (err.kind === "not_found") {
+            res.status(404).send({
+            message: `Not found jobs with company id ${req.params.id}.`
+            });
+        } else {
+            res.status(500).send({
+            message: "Error retrieving jobs with company id " + req.params.id
+            });
+        }
+        }else{
+        res.status(200);
+        res.send(data);
+        }
+    });
+};
+
+
 // get all Companies for Companies.html search page
 // TODO: how to randomize the Companies? or sort by date?
 exports.getCompanies = (req, res) => {
