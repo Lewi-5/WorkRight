@@ -3,13 +3,24 @@ $(document).ready(function () {
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     const id = urlParams.get('id')
-
-
+    
 
     $.ajax({
-        url: `/jobs/${jobId}`,
+        url: "/api/jobs/"+id,
         method: 'GET',
+        dataType: "json",
         success: function(job) {
+          if(job.createDate){
+            var datetime = new Date(job.createDate);
+            var formattedDatetime = datetime.toLocaleString('en-US', {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
+        }
           // Populate the HTML elements with the job details
           $('#title').text(job.title);
           $('#description').text(job.description);
@@ -18,7 +29,7 @@ $(document).ready(function () {
           $('#salary').text(job.salary);
           $('#type').text(job.type);
           $('#status').text(job.status);
-          $('#createDate').text(job.createDate);
+          $('#createDate').text(formattedDatetime);
         },
         error: function() {
           // Handle error if the request fails
