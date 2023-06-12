@@ -65,8 +65,9 @@
                                         alert("AJAX error: " + jqxhr.responseText);
                                     }
                                     }).done(function(company){
-                                        $(this).dialog("close");;
+                                        refreshTodoList();
                                     });
+                                    $(this).dialog("close");
                                 },
                                 Cancel: function() {
                                     $(this).dialog("close");

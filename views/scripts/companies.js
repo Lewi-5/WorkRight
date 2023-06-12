@@ -1,5 +1,8 @@
 $(document).ready(function () {
     
+
+
+
     //get url params : id
     $('.postalCodeWarning').hide();
     $('.nameWarning').hide();
@@ -76,18 +79,18 @@ function updateCpmpany(id) {
     const province = $("#province").val();
     const postcode = $("#postcode").val();
 
-    const currentdate = new Date();
-    const createdate = currentdate.toLocaleString();
+    const now = new Date();
+    var updatedate = now.toISOString().slice(0, 19).replace('T', ' ');
     var company = {
         name : name,
         description : desc,
         industry : industry,
-        streetno : streetno,
+        streetNo : streetno,
         street : street,
         city : city,
         province : province,
         postcode : postcode,
-        ceate_date : createdate,
+        lastUpdate : updatedate,
     };
 
     $.ajax({
@@ -99,7 +102,14 @@ function updateCpmpany(id) {
         alert("AJAX error: " + jqxhr.responseText);
         }
     }).done(function(company){
-        $("#addsuccess").modal("show");
+        $("#popupMessage").dialog({
+            modal: true,
+            buttons: {
+                OK: function() {
+                    $(this).dialog("close");
+                }
+            }
+        });
     });
 }
 
@@ -124,8 +134,8 @@ function addNew() {
         const province = $("#province").val();
         const postcode = $("#postcode").val();
 
-        const currentdate = new Date();
-        const createdate = currentdate.toLocaleString();
+        const now = new Date();
+        var createdate = now.toISOString().slice(0, 19).replace('T', ' ');
         var company = {
             name : name,
             description : desc,
@@ -135,7 +145,7 @@ function addNew() {
             city : city,
             province : province,
             postcode : postcode,
-            ceate_date : createdate,
+            createDate : createdate,
         };
 
         $.ajax({
@@ -147,8 +157,16 @@ function addNew() {
             alert("AJAX error: " + jqxhr.responseText);
             }
         }).done(function(company){
-            $("#addsuccess").modal("show");
+            $("#popupMessage").dialog({
+                modal: true,
+                buttons: {
+                    OK: function() {
+                        $(this).dialog("close");
+                    }
+                }
+            });
         });
+        
 }
 //get company
 function getCompany(id) {

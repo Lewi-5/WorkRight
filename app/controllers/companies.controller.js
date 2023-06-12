@@ -9,13 +9,13 @@ exports.create = (req, res) => {
         name : req.body.name,
         description : req.body.description,
         industry : req.body.industry,
-        streetno : req.body.streetno,
+        streetNo : req.body.streetNo,
         street : req.body.street,
         city : req.body.city,
         province : req.body.province,
         postcode : req.body.postcode,
-        ceate_date : req.body.ceate_date,
-        last_update : req.body.last_update,
+        createDate : req.body.createDate,
+        lastUpdate : req.body.lastUpdate,
         });
   
     // Save Company in the database
