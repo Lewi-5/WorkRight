@@ -22,7 +22,7 @@ $(document).ready(function () {
 
     $.ajax({
         url: "/api/users",
-        //headers: { 'x-auth-username': sessionStorage.getItem('username'), 'x-auth-password': sessionStorage.getItem('password') },
+        headers: { 'x-auth-username': sessionStorage.getItem('username'), 'x-auth-password': sessionStorage.getItem('password') },
         type: "GET",
         dataType: "json",
         error: function (jqxhr, status, errorThrown) {
