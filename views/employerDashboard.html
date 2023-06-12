@@ -1,0 +1,117 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <link rel="stylesheet" target=_blank href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" target=_blank href="./styles/main.css">
+    <link target=_blank href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+    <script>
+
+    </script>
+</head>
+
+<body>
+    <header>
+        <div>
+            <img src="./images/logo_transparent.png" alt="Logo">
+            <nav>
+                <ul>
+                    <li><a target=_blank href="#">Job Listings</a></li>
+                    <li><a target=_blank href="#">Job Seekers</a></li>
+                    <li><a target=_blank href="#">Employers</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <div class="hero-image">
+        <div class="hero-text">
+            <h4>With over 2.3 billion visitors, WorkRight is the #1 destination to find and list incredible jobs.
+            </h4>
+            <button>Update my Details</button>
+        </div>
+    </div>
+    <div class="container p-3">
+        <div class="row">
+            <div class="col-4 p-3">
+                <div id="roleDisplay"><h2 class="bg-dark p-2 text-light bg-opacity-50">Employer</h2></div>
+                <h3 id="welcomeBack"></h3>
+                <h3 id="nameP"></h3>
+                <p>Your industry: Agriculture</p>
+                <p>Current Applicants to your open positions: 5</p>
+                <p>Recent candidates looking for work in your industry: 22</p>
+                <p>Candidates searching for work near you: 8</p>
+            </div>
+            <div class="col-4 p-3">
+                <h3>Latest Job Candidates</h3>
+                <thead>
+                    <tr>
+
+                        <th scope="col">Job Title</th>
+                        <th scope="col">Company Name</th>
+                        <th scope="col">Date Posted</th>
+
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+
+                </tbody>
+            </div>
+            <div class="col-4 p-3">
+                <h1>Edit Your Company Profile</h1>
+
+                <div class="form-group">
+                    <p id="currentId">Current Id</p>
+                    <label for="username">Username:</label>
+                    <input type="text" class="form-control" id="username" placeholder="Enter new username for user">
+                    <p class="nameWarning" style="color: red;">Not a valid user name</p>
+                    <p class="namedupWarning" style="color: red;">User name already exist.</p>
+                </div>
+                <div class="form-group">
+                    <label for="password" id="passLbl">Password:</label>
+                    <input type="text" class="form-control" id="password" placeholder="Enter password">
+                    <p class="passwordWarning" style="color: red;">Not a valid password</p>
+                </div>
+                <div class="form-group">
+                    <label for="firstName">First Name:</label>
+                    <input type="text" class="form-control" id="firstName" placeholder="Enter First Name">
+                    <p class="fnameWarning" style="color: red;">Not a valid first name</p>
+                </div>
+                <div class="form-group">
+                    <label for="lastName">Last Name:</label>
+                    <input type="text" class="form-control" id="lastName" placeholder="Enter Last Name">
+                    <p class="lnameWarning" style="color: red;">Not a valid last name</p>
+                </div>
+                <div class="form-group">
+                    <label for="role">Role</label>
+                    <select id="role">
+                        <option value="user" selected="selected">User</option>
+                        <option value="employer">Employer</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                </div>
+                <button type="submit" class="editBtn">Edit Profile</button>
+                <button type="submit" class="cancelBtn">Cancel</button>
+                <br>
+                <button type="submit" class="deleteBtn mt-2 mb-2">Delete My Account</button>
+                <br>
+                <p class="p-3" id="resultMessage"></p>
+
+
+            </div>
+            <div class="col-4">
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div>
+            <p>WorkRight &copy; 2023</p>
+        </div>
+    </footer>
+</body>
+
+</html>

@@ -3,6 +3,13 @@ let password = "";
 
 $(document).ready(function () {
 
+    $("input[name=username]").val("");
+    $("input[name=password]").val("");
+    $("input[name=firstName]").val("");
+    $("input[name=lastName]").val("");
+    $("input[name=newUsername]").val("");
+    $("input[name=newPass1]").val("");
+    $("input[name=newPass2]").val("");
 
     $("#registerButton").click(function () {
         var newFirstName = $("input[name=firstName]").val();
@@ -57,14 +64,13 @@ $(document).ready(function () {
             }
         }).done(function (user) {
             if (user.role == 'user'){
-                window.location.href ="http://localhost:7077/authTestUser.html"
+                window.location.href ="http://localhost:7077/employeeDashboard.html"
+            } else if (user.role == 'employer'){
+                window.location.href ="http://localhost:7077/authTestEmployer.html"
+            }else if (user.role == 'admin'){
+                window.location.href ="http://localhost:7077/users.html"
             }
-            else if (user.role == 'admin'){
-                window.location.href ="http://localhost:7077/authTestUser.html"
-            }
-            else if (user.role == 'employer'){
-                window.location.href ="http://localhost:7077/authTestUser.html"
-            } else {
+             else {
                 alert("authentication invalid");
             }
             // $("#loginPane").hide();
