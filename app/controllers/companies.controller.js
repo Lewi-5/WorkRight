@@ -135,6 +135,27 @@ console.log("findJobsByCompanyId : req.params.id " + req.params.id);
     });
 };
 
+// Delete a company with the specified id in the request
+exports.delete = (req, res) => {
+    Company.remove(req.params.id, (err, data) => {
+        if (err) {
+          if (err.kind === "not_found") {
+            res.status(404).send({
+              message: `Not found Company with id ${req.params.id}.`
+            });
+          } else {
+            res.status(500).send({
+              message: "Could not delete Company with id " + req.params.id
+            });
+          }
+        } else {
+            res.status(200);
+            res.send({ message: `Company was deleted successfully!` });
+        }
+      });
+};
+
+
 
 // get all Companies for Companies.html search page
 // TODO: how to randomize the Companies? or sort by date?
