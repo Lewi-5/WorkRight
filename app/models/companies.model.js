@@ -118,6 +118,7 @@ Company.updateById = (id, data, result) => {
 };
 
 Company.getAll = (sortby, result) =>{
+console.log("sortby = " + sortby);
     var query = sql.format("SELECT * FROM companies ORDER BY ?? ", [sortby]);
     sql.query(query, (err, res) => {
         if(err){

@@ -49,14 +49,14 @@
                         $('#jobListings').append(`
                         <div class="job-card col-md-6 job-listing" data-id="${job.jobId}" onclick="selectItem(${job.jobId})">
                         <div class="card">
-                                    <div class="card-header">${job.title}</div>
+                                    <div class="card-header">The job title is: ${job.title}</div>
                                     <div class="card-body">
-                                        <h5 class="card-title">${job.industry}</h5>
-                                        <p class="card-text">${job.description}</p>
-                                        <p class="card-text">${job.salary}</p>
-                                        <p class="card-text">${job.type}</p>
-                                        <p class="card-text">${job.status}</p>
-                                        <p class="card-text">${job.formattedDatetime}</p>
+                                        <h5 class="card-title">This job is in ${job.industry} industry</h5>
+                                        <p class="card-text">Job descriptiong as :${job.description}</p>
+                                        <p class="card-text">Salary is : $${job.salary}/hour</p>
+                                        <p class="card-text">Job type is : ${job.type}</p>
+                                        <p class="card-text">This job status is : ${job.status}</p>
+                                        <p class="card-text">Create at : ${job.formattedDatetime}</p>
                                     </div>
                                 </div>
                             </div>

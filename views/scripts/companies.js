@@ -50,10 +50,6 @@ $(document).ready(function () {
         }
     });
 
-    $("#modalclose").on("click",function(){
-        console.log("modalclose clicked, return to index");
-        window.open('allcompanies.html', '_self');
-    });
     $('.postalCodeWarning').hide();
     $('.nameWarning').hide();
 });
@@ -110,6 +106,7 @@ function updateCpmpany(id) {
                 }
             }
         });
+        window.open('allcompanies.html', '_self');
     });
 }
 
@@ -165,6 +162,7 @@ function addNew() {
                     }
                 }
             });
+            window.open('allcompanies.html', '_self');
         });
         
 }

@@ -6,12 +6,17 @@
         <link rel="icon" type="image/x-icon" href="./images/favicon.png">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-        <link rel="stylesheet" href="styles/companies.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+        <link href="https://fonts.googleapis.com/css2?family=EB+Garamond&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="./styles/allcompanies.css">
+
         <script>
             var companyid = "";
             $(document).ready(function () {
@@ -88,7 +93,7 @@
                     //http://localhost:7077/companyJobs.html?id=29
                 });
 
-                $('#sortSelect').change(function() {
+                $('#sortSelect').change(function() {                  
                     var selectedOption = $("#sortSelect").val();
 
                     // Perform sorting based on the selected option
@@ -107,7 +112,7 @@
                         alert("AJAX error: " + jqxhr.responseText);
                         }
                 }).done(function(companiesList){
-                    var result = '<tr><th>Name</th><th>Description</th><th>Industry</th><th>City</th><th>Create Date</th></tr>';
+
                     for (var i = 0; i < companiesList.length; i++) {
                         var company = companiesList[i];
                         console.log("company.createDate = " + company.createDate);
@@ -122,25 +127,32 @@
                                 second: '2-digit'
                             });
                         }
-                        result += `<tr id="${company.ID}"  onclick="selectItem(` + company.ID + `)">`;
-                        result += '<td>' + company.name + '</td>';
-                        result += '<td>' + company.description + '</td>';
-                        result += '<td>' + company.industry + '</td>';
-                        result += '<td>' + company.city + '</td>';
-                        result += '<td>' + formattedDatetime + '</td>';
-                        result += '</tr>' + "\n";
+                        $('#jobListings').append(`
+                            <div class="job-card col-md-6 job-listing" onclick="selectItem(${company.ID})">
+                            <div class="card" id="${company.ID}" >
+                                        <div class="card-header">Name: ${company.name}</div>
+                                        <div class="card-body">
+                                            <h5 class="card-title">Insustry: ${company.industry}</h5>
+                                            <p class="card-text">Description: ${company.description}</p>
+                                            <p class="card-text">Company located in: ${company.city}</p>
+                                            <p class="card-text">Created at: ${formattedDatetime}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            `);
+
                     }
-                    $("#listTable").html(result);
+
                 });
             }
             //when click one row
             function selectItem(id) {
                 companyid = id;
-                //console.log("id = "+ id);
+console.log("selectItem id = "+ id);
                 //window.open('companies.html?id='+id, '_self');
 
                 // Remove the 'selected-row' class from all rows
-                $('tr').removeClass('selected-row');
+                $('.card').removeClass('selected-row');
                     
                 // Add the 'selected-row' class to the clicked row
                 $(`#${id}`).addClass('selected-row');
@@ -168,23 +180,25 @@
         <div id="deletepopupMessage" style="display: none;">
             <p>Are you sure you want to delete this company.</p>
         </div>
-
-        <div id="centerContent">
-            <div id="listPane">
+        
+        <div class="container" style="width: 90%; margin: auto;">
+            <div>
                 <button id="addNewCompany">Add New</button>
                 <button id="updateCompany">Update company</button>
                 <button id="deleteCompany">Delete company</button>
                 <button id="getJods">View Jobs</button><br><br>
-                <select id="sortSelect">
-                    <option value="name">Sort by Company Name</option>
-                    <option value="industry">Sort by industry</option>
-                    <option value="createDate">Sort by create date</option>
-                  </select>
-
-                <table id="listTable" border="1"></table>
             </div>
-            
+            <select id="sortSelect">
+                <option value="name">Sort by Company Name</option>
+                <option value="industry">Sort by industry</option>
+                <option value="createDate">Sort by create date</option>
+            </select>
+
+            <div id="jobListings" class="row">
+                    <!-- // jobs listings apended here -->
+            </div>
         </div>
+
 
         <footer>
             <div>
