@@ -53,7 +53,7 @@ exports.findMe = (req, res) => {
 
 // only admin can see all users
 exports.findAll = (req, res) => {
-
+    Auth.execIfAuthValid(req, res, ['user', 'admin'], (req, res, user) => {
     // not sure why the below was here, was the original 
     // copy paste source trying to use getAll to also get specific Ids??
     //console.log("req.query.username = " + req.query.username);
@@ -70,6 +70,7 @@ exports.findAll = (req, res) => {
             });
         else res.send(data);
     });
+});
     // });
 };
 
