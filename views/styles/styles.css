@@ -19,28 +19,6 @@ main {
 }
 
 
-#listedContent {
-    width: 540px;
-    padding: 20px;
-    margin: 20px auto;
-    background-color: white;
-}
-
-
-#listPane {
-    
-    width: 140px;
-    display: inline-table;
-}
-
-
-
-#viewAddEditPane {
-    width: 340px;
-    display: inline-table;
-}
-
-
 header {
     background-color: #f7f5f5;
     color: #000000;
