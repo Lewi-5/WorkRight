@@ -8,13 +8,13 @@ const Company = function(company) {
     this.name = company.name;
     this.description = company.description; 
     this.industry = company.industry; 
-    this.street_no = company.streetno;
+    this.streetNo = company.streetno;
     this.street = company.street;
     this.city = company.city;
     this.province = company.province;
     this.postcode = company.postcode;
-    this.create_date = company.create_date;
-    this.last_update = company.last_update;
+    this.createDate = company.createDate;
+    this.lastUpdate = company.lastUpdate;
 };
 
 
@@ -98,8 +98,8 @@ Company.remove = (id, result) => {
 // PATCH /api/Company
 Company.updateById = (id, data, result) => {
     sql.query(
-        "UPDATE companies SET name = ?, description = ?, industry = ?, street_no = ?, street = ?, city = ?, province = ?, last_update = ? WHERE id = ?", 
-        [data.name, data.description, data.industry, data.street_no , data.street, data.city, data.province, data.last_update, id], 
+        "UPDATE companies SET name = ?, description = ?, industry = ?, streetNo = ?, street = ?, city = ?, province = ?, lastUpdate = ? WHERE id = ?", 
+        [data.name, data.description, data.industry, data.street_no , data.street, data.city, data.province, data.lastUpdate, id], 
         (err, res) => {
             if(err){
                 console.log("error: ", err);
