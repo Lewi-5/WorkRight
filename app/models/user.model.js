@@ -2,7 +2,7 @@
 
 const { response } = require('express');
 const mysql = require('./db.js');
-const Auth = require("../utils/auth");
+//const Auth = require("../utils/auth"); // i need the auth file here to hash password when an update is
 
 
 // constructor
@@ -11,10 +11,13 @@ const User = function(newUser) {
     this.password = newUser.password;
     this.firstName = newUser.firstName;
     this.lastName = newUser.lastName;
+    this.role = newUser.role
   };
   
   User.create = (newUser, result) => {
-    mysql.query("INSERT INTO users SET ?", newUser, (err, res) => {// changey make sure table name matches!!!
+    mysql.query("INSERT INTO users (username, password, firstName, lastName, role) VALUES (?, ?, ?, ?, ?);", // changey make sure table name matches!!!
+    [newUser.username, newUser.password, newUser.firstName, newUser.lastName, newUser.role], (err, res) => { // BIG COMMENT
+    //mysql.query("INSERT INTO users SET ?", newUser, (err, res) => { // here you can see the original syntax which passed an object into a SET SQL command - this caused issues with enum data type, specifically, it would always assign the enum column to the default even when a non-default value was sent. Changing it to array syntax fixed the issue END BIG COMMENT
       if (err){
           console.log("error:", err);
           result(err, null);
@@ -105,11 +108,11 @@ const User = function(newUser) {
 //   };
   
 User.updateById = (id, updateObj, result) => {
-    let passHash = Auth.hash(updateObj.password);
+    //let passHash = Auth.hash(updateObj.password); // if you require Auth in models and models in Auth creates a bad loop of logic, do your hashing in controller
     mysql.query(
       "UPDATE users SET username = ?, password = ?, firstName = ?, lastName = ?, role = ? WHERE id = ?", // changey table name after UPDATE
-      [updateObj.username, passHash, updateObj.firstName, updateObj.lastName, updateObj.role, id],
-      (err, res) => {
+      [updateObj.username, updateObj.password, updateObj.firstName, updateObj.lastName, updateObj.role, id],
+      (err, res) => { 
         if (err) {
           console.log("error: ", err);
           result(null, err);
@@ -123,7 +126,7 @@ User.updateById = (id, updateObj, result) => {
         }
   
         console.log("updated User: ", { id: id, username: updateObj.username});
-        result(null, "the new account details: " + { id: id,username: updateObj.username}); // why doesnt this get sent as response to patch but the res.send of the controller DOES?
+        result(null, {id: id, username: updateObj.username}); // why doesnt this get sent as response to patch but the res.send of the controller DOES?
       }
     );
   };
@@ -146,6 +149,9 @@ User.updateById = (id, updateObj, result) => {
       result(null, res);
     });
   };
+
+
+  module.exports = User;
   
   // I dont think even the admin should be able to delete all users
   // User.removeAll = result => {
@@ -161,7 +167,7 @@ User.updateById = (id, updateObj, result) => {
   //   });
   // };
   
-  module.exports = User;
+
 
   // the User.create above works but the one below does not, all that's different is a few 
   // return statements - need to figure out why the below greats multiple headers error

@@ -44,11 +44,9 @@ $(document).ready(function () {
     $("#loginButton").click(function () {
         let username = $("input[name=username]").val();
         let password = $("input[name=password]").val();
-        // sessionStorage.setItem('username', username);
-        // sessionStorage.setItem('password', password);
-        // $("#authPane").hide();
-        // $("#mainAppPane").show();
-        // refreshTodoList();
+        sessionStorage.setItem('username', username);
+        sessionStorage.setItem('password', password);
+        
         $.ajax({
             url: "/api/users/me",
             headers: { 'x-auth-username': username, 'x-auth-password': password },
@@ -58,11 +56,21 @@ $(document).ready(function () {
                 alert("AJAX error: " + jqxhr.responseText);
             }
         }).done(function (user) {
-            console.log(user.firstName);
-            $("#loginPane").hide();
-            $("#welcomeBack").html("Welcome back "+ user.username);
-            $("#nameP").html("Profile for " + user.firstName + " " + user.lastName);
-            $("#profile").fadeIn(3000);
+            if (user.role == 'user'){
+                window.location.href ="http://localhost:7077/authTestUser.html"
+            }
+            else if (user.role == 'admin'){
+                window.location.href ="http://localhost:7077/authTestUser.html"
+            }
+            else if (user.role == 'employer'){
+                window.location.href ="http://localhost:7077/authTestUser.html"
+            } else {
+                alert("authentication invalid");
+            }
+            // $("#loginPane").hide();
+            // $("#welcomeBack").html("Welcome back "+ user.username);
+            // $("#nameP").html("Profile for " + user.firstName + " " + user.lastName);
+            // $("#profile").fadeIn(3000);
         });
     });
 

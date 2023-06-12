@@ -124,8 +124,11 @@ exports.update = (req, res) => {
             return;
         } else {
             console.log('invalid data true result')
+            let password = req.body.password;
             let updateObj = req.body;
             let id = req.params.id;
+            let passHash = Auth.hash(password);
+            updateObj[password] = passHash;
             User.updateById(
                 id,
                 updateObj,
@@ -140,7 +143,7 @@ exports.update = (req, res) => {
                                 message: "Error updating User with id " + id
                             });
                         }
-                    } else res.status(200).send(`Account details for account with id ${id} have been updated`);
+                    } else res.status(200).send(data);
                 }
             );
 
@@ -176,7 +179,7 @@ function isUserValid(req, res, isUpdate, callback) {
     //console.log("isValid: ",res);
 
     // validate to make sure the request has all the necessary properties
-    const userProps = ['username', 'password', 'firstName', 'lastName', 'role'];
+    const userProps = ['username', 'password', 'firstName', 'lastName']; // we dont need 'role' because the controller defaults to 'user' role
 
     let reqProps = Object.keys(req.body);
 

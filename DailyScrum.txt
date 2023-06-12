@@ -201,3 +201,41 @@ not done - validate input data
 3. Need assistance / figure things ou
 - click to apply button or application form
 - google api search by radius and distance to post code inputted with Lewis
+
+2023-06-11 LEWIS
+1. Done / not done since last scrum:
+- implemented registration
+- finished login page w/ validation and authentication
+- finished admin CRUD all users
+2. To do until next Scrum:
+- admin can CRUD all jobs and companies
+- role specific authentication between pages
+3. Need assistance / figure things out
+- how to show users only jobs in their industry
+- cannot get patch http requests to work bug-free
+
+2023-06-11 Jing Wei 
+1. Done / not dont since last scrum:
+-user can upload resume pdf file to the server
+2. To do until next Scrum:
+- add sort fucntion to all companies page
+- click companies shows jobs this company posted
+- add sorting feature to all companies
+3. Need assistance / figure things out
+
+2023-06-11 Dustin
+1. Done / not dont since last scrum:
+- Got the pagination/infinite scroll working
+-  pagination not yet working on to search bar results after loadmore
+ all job panels open an individual job page on click
+ job search backend validation added
+ backend to create a job
+ needs a lot more validation and sql injection prevention overall
+. To do until next Scrum:
+ get the jobs?id= DOM linking to the actual jobId number
+ building the apply function - application form with fields or a click-to-apply button?
+ job.html framework needs to dynamically load jobs table data
+ validation and sql injection
+ search by location - work with Lewis on the GMaps API
+. Need assistance / figure things out
+- Search by location(distance from postcode searched) - Canada Post API?

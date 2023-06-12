@@ -55,12 +55,15 @@ $(document).ready(function () {
     });
 
     $(".editBtn").on("click", function () {
-
+        //console.log("EDIT BUTTON DURR")
+        $("#currentId").hide();
         update();
+        
         //location.reload(); //FIXME: something is wrong with the update ajax PATCH request - cannot figure out how to get it to not throw an error- it successfully patches
         // the database, but it does not execute the .done after the request
         // it throws an ajax error but with the message of the controller's 200 success response
         // very strange
+        // UPDATE SEEMS FIXED
 
     });
 
@@ -85,6 +88,7 @@ $(document).ready(function () {
             $("#lastName").val("");
             $("#role").val("user");
             currId = 0;
+            $("#currentId").hide();
             refreshUserList();
         }
 
@@ -104,7 +108,7 @@ $(document).ready(function () {
         $("#lastName").val("");
         $("#role").val("user");
         currId = 0;
-        $("#currentId").html(`Current Id: ${currId}`);
+        $("#currentId").hide();
     });
 
 
@@ -328,6 +332,7 @@ function addNew() {
  // the database, but it does not execute the .done after the request
  // it throws an ajax error but with the message of the controller's 200 success response
  // very strange
+ // UPDATE SEEMS FIXED
 function update() {
     console.log("button clicked");
     let usernameInpt = $("#username").val();
@@ -374,8 +379,8 @@ function update() {
         error: function (jqxhr, status, errorThrown) {
             alert("AJAX error: " + jqxhr.responseText);
         }
-    }).done(function (data) {
-                $("#resultMessage").html(`Success! Account ${data.id} has been updated`);
+    }).done(function (requestData) {
+                $("#resultMessage").html(`Success! Account ${requestData.id} has been updated`);
                 $(`#${currId}`).css("background-color", "#f0f0f0")
                 $(".addBtn").show();
                 $(".editBtn").hide();
@@ -386,11 +391,15 @@ function update() {
                 $("#firstName").val("");
                 $("#lastName").val("");
                 $("#role").val("user");
+                refreshUserList();
+                currId = 0;
+                
             });
         }
 function selectItem(id) {
     //selected = true;
     $("#currentId").html(`Current Id: ${id}`)
+    $("#currentId").show();
     $("#delete").show();
     $.ajax({
         url: "/api/users/" + id,
@@ -409,6 +418,7 @@ function selectItem(id) {
         $(".deleteBtn").show();
         $(".cancelBtn").show();
         $("#username").val(user.username);
+        $("#password").val("");
         $("#firstName").val(user.firstName);
         $("#lastName").val(user.lastName);
         $("#role").val(user.role);
