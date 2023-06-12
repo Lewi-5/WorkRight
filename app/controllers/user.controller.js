@@ -75,7 +75,7 @@ exports.findAll = (req, res) => {
 
 //find a user by username
 exports.findByName = (req, res) => {
-    console.log("req.query.username = " + req.query.username);
+    //console.log("req.query.username = " + req.query.username);
     const userName = req.query.username;
     User.findByUsername(userName, (err, data) => {
         if (err) {
@@ -115,7 +115,7 @@ exports.findOne = (req, res) => {
 //Update a User by id
 exports.update = (req, res) => {
 
-    console.log(req.body);
+    //console.log(req.body);
     isUserValid(req, res, true, function (result) {
         if (!result) {
             console.log('invalid data !result')
@@ -123,15 +123,20 @@ exports.update = (req, res) => {
             // res.status(400).send({ message: "Invalid user data" });
             return;
         } else {
-            console.log('invalid data true result')
-            let password = req.body.password;
-            let updateObj = req.body;
+            //console.log('invalid data true result')
+            // let password = req.body.password;
+            // let updateObj = req.body;
             let id = req.params.id;
-            let passHash = Auth.hash(password);
-            updateObj[password] = passHash;
+            let passHash = Auth.hash(req.body.password);
+            // updateObj[password] = passHash;
             User.updateById(
                 id,
-                updateObj,
+                {username: req.body.username,
+                 password: passHash,
+                 firstName: req.body.firstName,
+                 lastName: req.body.lastName,
+                 role: req.body.role   
+                },
                 (err, data) => {
                     if (err) {
                         if (err.kind === "not_found") {
@@ -236,7 +241,7 @@ function isUserValid(req, res, isUpdate, callback) {
     if (!isUpdate) {
 
         User.findByUsername(req.body.username, function (err, exists) {
-            console.log(req.body.username);
+            //console.log(req.body.username);
             if (err) {
                 // Handle error case
                 res.status(500).send({ message: "Error occurred while checking username" });
