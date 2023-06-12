@@ -110,3 +110,7 @@ tr {
     color: #333;
     font-weight: bold;
   }
+
+  .selected-row {
+    background-color: yellow;
+  }

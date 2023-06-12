@@ -60,6 +60,10 @@ router
     .get(companiesController.findAll)
 
 router
+    .route('/allcompanies/jobs/:id([0-9]+)')
+    .get(companiesController.findJobsByCompanyId)
+
+router
     .route('/companies')
     .post(companiesController.create)
 

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Find jobs</title>
+        <link rel="icon" type="image/x-icon" href="./images/favicon.png">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="styles/companies.css">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+        <script>
+            
+            $(document).ready(function () {
+                const queryString = window.location.search;
+
+                const urlParams = new URLSearchParams(queryString);
+                const id = urlParams.get('id');
+                console.log("id = " + id);
+                refreshTodoList(id);
+            });
+
+            //refreshTodoList
+            function refreshTodoList(id) {
+                //http://localhost:7077/api/allcompanies/jobs/29
+                $.ajax({
+                    url:"/api/allcompanies/jobs/"+id,
+                    type:"GET",
+                    dataType:"json",
+                    error: function (jqxhr, status, errorThrown) {
+                        alert("AJAX error: " + jqxhr.responseText);
+                        }
+                }).done(function(jobs){
+                    
+                    var result = '<tr><th>title</th><th>Description</th><th>Industry</th><th>salary</th><th>type</th><th>status</th><th>createDate</th></tr>';
+                    for (var i = 0; i < jobs.length; i++) {
+                        var job = jobs[i];
+
+                        if(job.createDate){
+                            var datetime = new Date(job.createDate);
+                            var formattedDatetime = datetime.toLocaleString('en-US', {
+                                year: 'numeric',
+                                month: '2-digit',
+                                day: '2-digit',
+                                hour: '2-digit',
+                                minute: '2-digit',
+                                second: '2-digit'
+                            });
+                        }
+                        result += '<tr>';
+                        result += '<td>' + job.title + '</td>';
+                        result += '<td>' + job.description + '</td>';
+                        result += '<td>' + job.industry + '</td>';
+                        result += '<td>' + job.salary + '</td>';
+                        result += '<td>' + job.type + '</td>';
+                        result += '<td>' + job.status + '</td>';
+                        result += '<td>' + formattedDatetime + '</td>';
+                        result += '</tr>' + "\n";
+                    }
+                    $("#sumery").text(jobs[0].name + " have " + jobs.length + " jobs posted as following:");
+                    $("#listTable").html(result);
+                });
+            }
+
+        </script>
+    </head>
+    <body>
+
+        <header>
+            <div>
+                <img src="/images/logo_transparent.png" alt="Logo">
+                <nav>
+                    <ul>
+                        <li><a href="#">Job Listings</a></li>
+                        <li><a href="#">Job Seekers</a></li>
+                        <li><a href="#">Employers</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+        <div id="centerContent">
+            <div id="listPane">
+                <h4 id="sumery"></h4>
+                <table id="listTable" border="1"></table>
+            </div>
+        </div>
+
+        <footer>
+            <div>
+                <p>WorkRight &copy; 2023</p>
+            </div>
+        </footer>
+    </body>
+</html>

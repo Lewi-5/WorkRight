@@ -100,7 +100,7 @@ exports.update = (req, res) => {
 // GET /api/Company get all Company
 exports.findAll = (req, res) => {
     const sortBy = req.query.sortBy ? req.query.sortBy : "id"; // sort by id if no sortOrder provided
-    console.log("req.query.sortBy = "+ req.query.sortBy);
+    console.log("req.query.sortBy = "+ sortBy);
     Company.getAll(sortBy, (err, data)=>{
     if (err)
     res.status(500).send({
@@ -113,6 +113,28 @@ exports.findAll = (req, res) => {
     }
     })
 }
+
+// GET /api/Company get all Company
+exports.findJobsByCompanyId = (req, res) => {
+console.log("findJobsByCompanyId : req.params.id " + req.params.id);
+    Company.findJobsByCompanyId(req.params.id, (err, data) => {
+        if (err) {
+        if (err.kind === "not_found") {
+            res.status(404).send({
+            message: `Not found jobs with company id ${req.params.id}.`
+            });
+        } else {
+            res.status(500).send({
+            message: "Error retrieving jobs with company id " + req.params.id
+            });
+        }
+        }else{
+        res.status(200);
+        res.send(data);
+        }
+    });
+};
+
 
 // get all Companies for Companies.html search page
 // TODO: how to randomize the Companies? or sort by date?

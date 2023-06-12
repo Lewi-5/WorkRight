@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Companies</title>
+        <title>All Companies</title>
         <link rel="icon" type="image/x-icon" href="./images/favicon.png">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
@@ -10,38 +10,75 @@
         <link rel="stylesheet" href="styles/companies.css">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
         <script>
+            var companyid = "";
             $(document).ready(function () {
-                refreshTodoList();
+                const selectedOption = $("#sortSelect").val();
+                refreshTodoList(selectedOption);
 
                 $('#addNewCompany').on("click", function(){
-                    window.open('companies.html?id=0', '_self');
+                    window.open('./companies.html?id=0', '_self');
                 });
 
-                $(document).ready(function() {
-                    $('tr').dblclick(function() {
-                    console.log('Double click event triggered on the table row.');
-                    // Add your custom logic here
-                    });
+                $('#updateCompany').on("click", function(){
+                    if(companyid == null || companyid == ""){
+                        alert("Please select company!");
+                        //$("#warning").modal("show");
+                        console.log("modal(show)" );
+                    }else{
+                        window.open('./companies.html?id='+companyid, '_self');
+                    }
+                });
+
+                $('#getJods').on("click", function(){
+                    if(companyid == null || companyid == ""){
+                        alert("Please select company!");
+                        //$("#warning").modal("show");
+                    }else{
+                        window.open('./companyJobs.html?id='+companyid, '_blank');
+                    }
+                    //http://localhost:7077/companyJobs.html?id=29
+                });
+
+                $('#sortSelect').change(function() {
+                    var selectedOption = $("#sortSelect").val();
+
+                    // Perform sorting based on the selected option
+                    refreshTodoList(selectedOption)
+
                 });
             });
-
             //refreshTodoList
             function refreshTodoList(params) {
+                const sortBy = params ? params : "id";
                 $.ajax({
-                    url:"/api/allcompanies",
+                    url:"/api/allcompanies?sortBy="+sortBy,
                     type:"GET",
                     dataType:"json",
                     error: function (jqxhr, status, errorThrown) {
                         alert("AJAX error: " + jqxhr.responseText);
                         }
                 }).done(function(companiesList){
-                    var result = '<tr><th>Name</th><th>Description</th><th>Industry</th></tr>';
+                    var result = '<tr><th>Name</th><th>Description</th><th>Industry</th><th>City</th><th>Create Date</th></tr>';
                     for (var i = 0; i < companiesList.length; i++) {
                         var company = companiesList[i];
-                        result += '<tr onclick="selectItem(' + company.ID + ')">';
+                        console.log("company.createDate = " + company.createDate);
+                        if(company.createDate){
+                            var datetime = new Date(company.createDate);
+                            var formattedDatetime = datetime.toLocaleString('en-US', {
+                                year: 'numeric',
+                                month: '2-digit',
+                                day: '2-digit',
+                                hour: '2-digit',
+                                minute: '2-digit',
+                                second: '2-digit'
+                            });
+                        }
+                        result += `<tr id="${company.ID}"  onclick="selectItem(` + company.ID + `)">`;
                         result += '<td>' + company.name + '</td>';
                         result += '<td>' + company.description + '</td>';
                         result += '<td>' + company.industry + '</td>';
+                        result += '<td>' + company.city + '</td>';
+                        result += '<td>' + formattedDatetime + '</td>';
                         result += '</tr>' + "\n";
                     }
                     $("#listTable").html(result);
@@ -49,9 +86,15 @@
             }
             //when click one row
             function selectItem(id) {
-                console.log('single click event triggered on the table row.');
-                console.log("id = "+ id);
+                companyid = id;
+                //console.log("id = "+ id);
                 //window.open('companies.html?id='+id, '_self');
+
+                // Remove the 'selected-row' class from all rows
+                $('tr').removeClass('selected-row');
+                    
+                // Add the 'selected-row' class to the clicked row
+                $(`#${id}`).addClass('selected-row');
             }
 
         </script>
@@ -70,23 +113,38 @@
                 </nav>
             </div>
         </header>
+        <div class="modal fade" id="warning" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Warning</h5>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      </div>
+                    <div class="modal-body">
+                        <p>Please select a company.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="modalclose" class="btn btn-primary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div id="centerContent">
             <div id="listPane">
-                <button id="addNewCompany">Add New</button><br><br>
+                <button id="addNewCompany">Add New</button>
+                <button id="updateCompany">Update company</button>
+                <button id="getJods">View Jobs</button><br><br>
+                <select id="sortSelect">
+                    <option value="name">Sort by Company Name</option>
+                    <option value="industry">Sort by industry</option>
+                    <option value="createDate">Sort by create date</option>
+                  </select>
+
                 <table id="listTable" border="1"></table>
             </div>
-            <div id="viewAddEditPane">
-                Current Job available for: <span id="companyName"></span><br>
-
-                Title: <span id="title"></span><br>
-                Description: <span id="desc"></span><br>
-                Industry: <span id="industry"></span><br>
-                postCode: <span id="postCode"></span><br>
-                Salary: <span id="salary"></span><br>
-                type: <span id="type"></span><br>
-                Status: <span id="status"></span><br>
-                Create Date: <span id="createDate"></span><br>
-            </div>
+            
         </div>
 
         <footer>
