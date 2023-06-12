@@ -21,7 +21,7 @@
     <header>
         <div>
             <a href="index.html">
-            <img src="/images/logo_transparent.png" alt="Logo">
+            <img src="/images/logo_transparent.png" alt="Logo" id="logo">
             </a>
             <nav>
                 <ul>
@@ -36,7 +36,7 @@
 
 <main>
     <!-- search -->
-    <div class="search-bar">
+    <div class="search-bar" style="width: 90%; margin: auto;">
         <form id="searchForm">
             <div class="input-group">
                 <input type="text" id="postcodeSearchBox" class="form-control" placeholder="Search postcode" maxlength="10">
@@ -61,11 +61,11 @@
     <!-- TODO: Get loadmore to work on search-bar too --> 
 
 
-<div class="container" style="width: 60%; margin: auto;">
-    <div id="jobListings" class="row">
+    <div class="container" style="width: 90%; margin: auto;">
+        <div id="jobListings" class="row">
                 <!-- // jobs listings apended here -->
             </div>
-            <button id="loadMore" class="btn btn-secondary">Load More</button>
+            <button id="loadMore" class="btn btn-secondary" style="width: 30%; margin: 25px auto;">Load More</button>
         </div>
     </main>
 
