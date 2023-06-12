@@ -71,6 +71,7 @@ router
   .route('/companies/:id([0-9]+)')
   .get(companiesController.findOne)
   .put(companiesController.update)
+  .delete(companiesController.delete)
 
 
 module.exports = router;
