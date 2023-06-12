@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Companies</title>
+        <title>Find jobs</title>
         <link rel="icon" type="image/x-icon" href="./images/favicon.png">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
@@ -10,44 +10,56 @@
         <link rel="stylesheet" href="styles/companies.css">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
         <script>
+            
             $(document).ready(function () {
-                refreshTodoList();
+                const queryString = window.location.search;
 
-                $(document).ready(function() {
-                    $('tr').dblclick(function() {
-                    console.log('Double click event triggered on the table row.');
-                    // Add your custom logic here
-                    });
-                });
+                const urlParams = new URLSearchParams(queryString);
+                const id = urlParams.get('id');
+                console.log("id = " + id);
+                refreshTodoList(id);
             });
 
             //refreshTodoList
-            function refreshTodoList(params) {
+            function refreshTodoList(id) {
+                //http://localhost:7077/api/allcompanies/jobs/29
                 $.ajax({
-                    url:"/api/allcompanies",
+                    url:"/api/allcompanies/jobs/"+id,
                     type:"GET",
                     dataType:"json",
                     error: function (jqxhr, status, errorThrown) {
                         alert("AJAX error: " + jqxhr.responseText);
                         }
-                }).done(function(companiesList){
-                    var result = '<tr><th>Name</th><th>Description</th><th>Industry</th></tr>';
-                    for (var i = 0; i < companiesList.length; i++) {
-                        var company = companiesList[i];
-                        result += '<tr onclick="selectItem(' + company.ID + ')">';
-                        result += '<td>' + company.name + '</td>';
-                        result += '<td>' + company.description + '</td>';
-                        result += '<td>' + company.industry + '</td>';
+                }).done(function(jobs){
+                    
+                    var result = '<tr><th>title</th><th>Description</th><th>Industry</th><th>salary</th><th>type</th><th>status</th><th>createDate</th></tr>';
+                    for (var i = 0; i < jobs.length; i++) {
+                        var job = jobs[i];
+
+                        if(job.createDate){
+                            var datetime = new Date(job.createDate);
+                            var formattedDatetime = datetime.toLocaleString('en-US', {
+                                year: 'numeric',
+                                month: '2-digit',
+                                day: '2-digit',
+                                hour: '2-digit',
+                                minute: '2-digit',
+                                second: '2-digit'
+                            });
+                        }
+                        result += '<tr>';
+                        result += '<td>' + job.title + '</td>';
+                        result += '<td>' + job.description + '</td>';
+                        result += '<td>' + job.industry + '</td>';
+                        result += '<td>' + job.salary + '</td>';
+                        result += '<td>' + job.type + '</td>';
+                        result += '<td>' + job.status + '</td>';
+                        result += '<td>' + formattedDatetime + '</td>';
                         result += '</tr>' + "\n";
                     }
+                    $("#sumery").text(jobs[0].name + " have " + jobs.length + " jobs posted as following:");
                     $("#listTable").html(result);
                 });
-            }
-            //when click one row
-            function selectItem(id) {
-                console.log('single click event triggered on the table row.');
-                console.log("id = "+ id);
-                //window.open('companies.html?id='+id, '_self');
             }
 
         </script>
@@ -68,20 +80,8 @@
         </header>
         <div id="centerContent">
             <div id="listPane">
-                <button id="addNewCompany">Add New</button><br><br>
+                <h4 id="sumery"></h4>
                 <table id="listTable" border="1"></table>
-            </div>
-            <div id="viewAddEditPane">
-                Current Job available for: <span id="companyName"></span><br>
-
-                Title: <span id="title"></span><br>
-                Description: <span id="desc"></span><br>
-                Industry: <span id="industry"></span><br>
-                postCode: <span id="postCode"></span><br>
-                Salary: <span id="salary"></span><br>
-                type: <span id="type"></span><br>
-                Status: <span id="status"></span><br>
-                Create Date: <span id="createDate"></span><br>
             </div>
         </div>
 

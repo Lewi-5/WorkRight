@@ -59,18 +59,18 @@ Company.findById = (id, result) =>{
 
 
 Company.findJobsByCompanyId = (id, result) =>{
-    sql.query(`select jobId, title, a.description, a.postCode, a.industry, salary, type, status, createDate from jobs a, companies b where a.companyId = b.ID and b.id = ${id}`, (err, res) =>{
+    console.log("id = " + id);
+    sql.query(`select b.name as name, jobId, title, a.description, a.postCode, a.industry, salary, type, status, a.createDate from jobs a, companies b where a.companyId = b.ID and b.id = ${id}`, (err, res) =>{
         if(err){
             console.log("error: " ,err);
             result(err, null);
 
         }
+console.log("res.length" + res.length);
         if(res.length){
-            
-            result(null, res[0]);
+            result(null, res);
             return;
         }
- console.log("result.length: ", res.length);
         result({kind: "not_found"}, null);
     });
 }
@@ -79,7 +79,6 @@ Company.findJobsByCompanyId = (id, result) =>{
 
 // PATCH /api/Company
 Company.updateById = (id, data, result) => {
-    
     sql.query(
         "UPDATE companies SET name = ?, description = ?, industry = ?, street_no = ?, street = ?, city = ?, province = ?, last_update = ? WHERE id = ?", 
         [data.name, data.description, data.industry, data.street_no , data.street, data.city, data.province, data.last_update, id], 
