@@ -8,7 +8,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-        <link rel="stylesheet" href="./styles/styles.css">
+        <link rel="stylesheet" href="./styles/main.css">
         <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
         <script src="./scripts/users.js">
             // $(document).ready(function () {
@@ -36,19 +36,40 @@
     </head>
 
     <body>
-        <div class="usersTable container">
+        <body>
+            <header>
+                <div>
+                    <img src="./images/logo_transparent.png" alt="Logo">
+                    <nav>
+                        <ul>
+                            <li><a href="#">Job Listings</a></li>
+                            <li><a href="#">Job Seekers</a></li>
+                            <li><a href="#">Employers</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </header>
+            <div class="hero-image">
+                <div class="hero-text">
+                    <h4>With over 2.3 billion visitors, WorkRight is the #1 destination to find and list incredible jobs.
+                    </h4>
+                    <button>Update my Details</button>
+                </div>
+            </div>
+        <div class="usersTable container p-3">
                     <div class="row"> 
                             <div class="col-4">
                                 <h1>Enter New User</h1>
                                 
                                     <div class="form-group">
+                                        <p id="currentId">Current Id</p>
                                         <label for="username">Username:</label>
                                         <input type="text" class="form-control" id="username" placeholder="Enter new username for user">
                                         <p class="nameWarning" style="color: red;">Not a valid user name</p>
                                         <p class="namedupWarning" style="color: red;">User name already exist.</p>
                                     </div>
                                     <div class="form-group">
-                                        <label for="password">Password:</label>
+                                        <label for="password" id="passLbl">Password:</label>
                                         <input type="text" class="form-control" id="password" placeholder="Enter password">
                                         <p class="passwordWarning" style="color: red;">Not a valid password</p>
                                     </div>
@@ -62,9 +83,21 @@
                                         <input type="text" class="form-control" id="lastName" placeholder="Enter Last Name">
                                         <p class="lnameWarning" style="color: red;">Not a valid last name</p>
                                     </div>
-                                    <button type="submit" class="addBtn">Enter new User</button>
+                                    <div class="form-group">
+                                        <label for="role">Role</label>
+                                            <select id="role">
+                                                <option value="user" selected="selected">User</option>
+                                                <option value="employer">Employer</option>
+                                                <option value="admin">Admin</option>
+                                            </select>
+                                    </div>
+                                    <button type="submit" class="addBtn">Create new User</button>
+                                    <button type="submit" class="editBtn">Edit User</button>
+                                    <button type="submit" class="cancelBtn">Cancel</button>
                                     <br>
-                                    <p id="resultMessage"></p>
+                                    <button type="submit" class="deleteBtn mt-2 mb-2">Delete User</button>
+                                    <br>
+                                    <p class="p-3"id="resultMessage"></p>
                                 
                             
                             </div>
@@ -77,9 +110,9 @@
                                         
                                         <th scope="col">ID</th>
                                         <th scope="col">username</th>
-                                        <th scope="col">password</th>
                                         <th scope="col">first name</th>
                                         <th scope="col">last name</th>
+                                        <th scope="col">Role</th>
                                             
                                     </tr>
                             </thead>
@@ -89,10 +122,17 @@
                         </table>
 
                     </div>
-                    <div class="col-4">
-                    <!--empty space-->
+                    <div class="col-4" id="userEmplPane">
+                    <p>User's industry: Medical</p>
+                    <p>Total applications of this user: 4</p>
+                    <p>Current company affiliations: none</p>
                     </div>  
             </div>
+            <footer>
+                <div>
+                    <p>WorkRight &copy; 2023</p>
+                </div>
+            </footer>
         </div>
     </body>
 

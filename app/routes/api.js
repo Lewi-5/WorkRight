@@ -8,11 +8,7 @@ const users = require("../controllers/user.controller.js");
 const jobsController = require('../controllers/jobs.controller');
 const companiesController = require('../controllers/companies.controller');
 
-//TODO add .me method in controllers/model
-//this retrieves user's specific page if logged in correctly
-// router
-//     .route('/me')
-//     .get(users.me)
+
 
 //TODO: how to put static files in router? use app.get in server for now
 // router
@@ -34,16 +30,19 @@ router
     .get(users.findAll) // ADMIN only can see all users
     .post(users.create) //mispelling enum got a data truncated message
 
+router
+    .route('/users/:id([0-9]+)')
+    .get(users.findOne)
+    .patch(users.update)
+    .delete(users.delete)
+    
+
 // user gets their specific account
 router
     .route('/users/me')
     .get(users.findMe)
 
 
-router
-    .route('/users/:id([0-9]+)')
-    .get(users.findOne)
-    .patch(users.update)
 
 // ROUTER for JOBS
 router

@@ -15,6 +15,7 @@ $(document).ready(function () {
             return;
         }
         var userObj = { username: newUsername, password: newPass1, firstName: newFirstName, lastName: newLastName };
+        //FIXME: what is wait for it? delete??
         $("#waitForIt").show();
         // NOTE: if currId = 0 then adding, otherwise updating
         $.ajax({ // FIXME: escape special characters using urlencode

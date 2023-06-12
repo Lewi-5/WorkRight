@@ -3,20 +3,22 @@
 const User = require("../models/user.model");
 const Auth = require("../utils/auth");
 
+
 //TODO have not validated that last bid price is higher than database last bid price, seems asynchronous, how to check database before executing UPDATE commnand?
 //TODO have not implemented logger yet? morgan? custom logger?
 
 //Create and Save a new User
 exports.create = function (req, res) {
     // Validate request
-    isUserValid(req, res, function (result) {
+    isUserValid(req, res, false, function (result) {
         if (!result) {
+            
             // user submitted invalid data, though username may not be taken
             // res.status(400).send({ message: "Invalid user data" });
             return;
         } else {
             
-           // Create a User
+            // Create a User
             // TODO: encrypt the password SHA256
             const user = new User({
                 username: req.body.username,
@@ -44,43 +46,49 @@ exports.create = function (req, res) {
 };
 
 exports.findMe = (req, res) => {
-    Auth.execIfAuthValid(req, res, null, (req, res, user) => { // null because no roles in the todos project
+    Auth.execIfAuthValid(req, res, ['user', 'admin'], (req, res, user) => { // null because no roles in the todos project
         res.status(200).send(user);
     });
 };
 
+// only admin can see all users
 exports.findAll = (req, res) => {
-console.log("req.query.username = " + req.query.username);
 
+    // not sure why the below was here, was the original 
+    // copy paste source trying to use getAll to also get specific Ids??
+    //console.log("req.query.username = " + req.query.username);
+    //const id = req.query.id;
 
-    const id = req.query.id;
-  
-    User.getAll(id, (err, data) => {
-      if (err)
-        res.status(500).send({
-          message:
-            err.message || "Some error occurred while retrieving Users."
-        });
-      else res.send(data);
+    // Auth.execIfAuthValid(req, res, ['admin'], (req, res, user) => { // remeber to make the role an array e.g. ['admin']
+    // res.status(200).send(user);
+
+    User.getAll((err, data) => {
+        if (err)
+            res.status(500).send({
+                message:
+                    err.message || "Some error occurred while retrieving Users."
+            });
+        else res.send(data);
     });
-  };
+    // });
+};
 
 //find a user by username
 exports.findByName = (req, res) => {
-console.log("req.query.username = " + req.query.username);
+    console.log("req.query.username = " + req.query.username);
     const userName = req.query.username;
     User.findByUsername(userName, (err, data) => {
         if (err) {
             if (err.kind === "not_found") {
                 res.status(405).send({
-                message: `Not found user with name ${userName}.`
+                    message: `Not found user with name ${userName}.`
                 });
             } else {
                 res.status(500).send({
-                message: "Error retrieving company with name " + userName
+                    message: "Error retrieving company with name " + userName
                 });
             }
-        }else{
+        } else {
             res.status(200);
             res.send(data);
         }
@@ -106,40 +114,55 @@ exports.findOne = (req, res) => {
 
 //Update a User by id
 exports.update = (req, res) => {
-    // Validate Request
-    /* if (!req.body) {
-        res.status(400).send({
-            message: "Content can not be empty!"
-        });
-    }
- */
+
     console.log(req.body);
+    isUserValid(req, res, true, function (result) {
+        if (!result) {
+            console.log('invalid data !result')
+            // user submitted invalid data, though username may not be taken
+            // res.status(400).send({ message: "Invalid user data" });
+            return;
+        } else {
+            console.log('invalid data true result')
+            let updateObj = req.body;
+            let id = req.params.id;
+            User.updateById(
+                id,
+                updateObj,
+                (err, data) => {
+                    if (err) {
+                        if (err.kind === "not_found") {
+                            res.status(404).send({
+                                message: `Not found User with id ${id}.`
+                            });
+                        } else {
+                            res.status(500).send({
+                                message: "Error updating User with id " + id
+                            });
+                        }
+                    } else res.status(200).send(`Account details for account with id ${id} have been updated`);
+                }
+            );
 
-    
-    if (isValidPatch(req, res)) {
+        }
+    });
 
-        patch = req.body;
-        let id = req.params.id;
-        User.updateById(
-            id,
-            patch,
-            (err, data) => {
-                if (err) {
-                    if (err.kind === "not_found") {
-                        res.status(404).send({
-                            message: `Not found User with id ${id}.`
-                        });
-                    } else {
-                        res.status(500).send({
-                            message: "Error updating User with id " + id
-                        });
-                    }
-                } else res.status(200).send(`your new account details for account with id ${id}: new password ${patch.password}`); // why does this get sent as response to patch but not the results of the model updatebyId?
+};
+
+exports.delete = (req, res) => {
+    User.remove(req.params.id, (err, data) => {
+        if (err) {
+            if (err.kind === "not_found") {
+                res.status(404).send({
+                    message: `Not found user with id ${req.params.id}.`
+                });
+            } else {
+                res.status(500).send({
+                    message: "Could not delete user with id " + req.params.id
+                });
             }
-        );
-   }
-
-
+        } else res.status(200).send({ message: true });
+    });
 };
 
 
@@ -149,25 +172,25 @@ exports.update = (req, res) => {
 // first name and last name cannot be empty
 // white spaces checked?
 
-function isUserValid(req, res, callback) {
+function isUserValid(req, res, isUpdate, callback) {
     //console.log("isValid: ",res);
 
     // validate to make sure the request has all the necessary properties
-    const userProps = ['username', 'password', 'firstName', 'lastName'];
+    const userProps = ['username', 'password', 'firstName', 'lastName', 'role'];
 
     let reqProps = Object.keys(req.body);
-    
+
     let allPropsInReq = userProps.every(prop => reqProps.includes(prop))
 
-    if (!allPropsInReq){
+    if (!allPropsInReq) {
         res.status(400).send({
             message: "You are missing some required fields"
         });
         callback(false);
         return;
     }
-    
-    if (someEmpty(req.body)){
+
+    if (someEmpty(req.body)) {
         console.log(req.body);
         res.status(400).send({
             message: "you left a required field empty"
@@ -200,85 +223,44 @@ function isUserValid(req, res, callback) {
         return;
     }
     if (req.body.role !== undefined) {
-        if (req.body.role != "User" && req.body.role !== "Admin") {
-            res.status(400).send({ message: "Role must be User or Admin" });
+        if (req.body.role != "user" && req.body.role !== "admin" && req.body.role !== "employer") {
+            res.status(400).send({ message: "Role must be User or Admin or Employer" });
             callback(false);
             return;
         }
     }
 
-    User.findByUsername(req.body.username, function (err, exists) {
-        console.log(req.body.username);
-        if (err) {
-            // Handle error case
-            res.status(500).send({ message: "Error occurred while checking username" });
-            return;
-        }
+    if (!isUpdate) {
 
-        if (exists) {
-            res.status(400).send({ message: "Username already exists" });
-            return;
-        }
+        User.findByUsername(req.body.username, function (err, exists) {
+            console.log(req.body.username);
+            if (err) {
+                // Handle error case
+                res.status(500).send({ message: "Error occurred while checking username" });
+                return;
+            }
 
-        // Username is valid and does not exist in the database
+            if (exists) {
+                res.status(400).send({ message: "Username already exists" });
+                return;
+            }
+
+            // Username is valid and does not exist in the database
+            callback(true);
+        });
+    } else {
         callback(true);
-    });
-
+    }
 }
 
 function someEmpty(obj) {
     for (let prop in obj) {
-      if (obj[prop] === "" || obj[prop] === null || obj[prop] === undefined) {
-        return true;
-      }
+        if (obj[prop] === "" || obj[prop] === null || obj[prop] === undefined) {
+            return true;
+        }
     }
     return false;
-  }; 
-
-function isValidPost(req, res) {
-
-    // TODO: i dont think we need to check if the body is empty because it is a special case of someEmpty, but double check this is true
-    // if (!req.body) {
-    //     res.status(400).send({
-    //         message: "Content can not be empty!"
-    //     });
-    // }
-
-    if (someEmpty(req.body)){
-        console.log(req.body);
-        res.status(400).send({
-            message: "you left a required field empty"
-        });
-        return false;// remember to return false or your server will send headers twice and crash
-    }
-
-    //console.log("isValid: ",res);
-    if (req.body.id) {
-        res.status(400).send({
-            message: "id is provided by System!!! User not saved ;)",
-            result: false
-        });
-        //console.log("if cond: ",res.send.result);
-        return false;
-    }
-
-    // let regex= /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-    // let email = req.body.sellerEmail;
-    // if(!email.match(regex)){
-    //     console.log('denied request to post an invalid seller email');
-    //     res.status(400).send({
-    //         message: "Please enter a valid email address",
-    //         result: false
-    //     });
-    //     //console.log("if cond: ",res.send.result);
-    //     return false;
-    // }
-
-
-    return true;
-
-}
-
+};
 
 
 //TODO: what should we be allowed to patch in a given row?
@@ -286,23 +268,23 @@ function isValidPost(req, res) {
 
 function isValidPatch(req, res) {
 
-    if (isNaN(req.params.id)){
+    if (isNaN(req.params.id)) {
         console.log('invalid id format entered');
         res.status(400).send({
             message: "ids of Users are always numbers - invalid id format entered",
             result: false
         });
-        
+
         return false;
     }
 
-    
+
     if (req.body.id) {
         res.status(400).send({
             message: "you cannot change the id of an existing record ;)",
             result: false
         });
-        
+
         return false;
     }
     if (req.body.username) {
