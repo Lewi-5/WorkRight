@@ -49,10 +49,21 @@ router
     .route('/jobs')
     .get(jobsController.getJobs)
     .post(jobsController.createJob)
+    
 
 router
-    .route('/jobs/:id')
+    .route('/jobs/:id([0-9]+)')
     .get(jobsController.getJobById)
+    .patch(jobsController.update)
+    .delete(jobsController.delete)
+
+router
+    .route('/jobs/page/')
+    .get(jobsController.adminLoad)
+
+router
+    .route('/jobs/page/:id([0-9]+)')
+    .get(jobsController.adminPage)
 
 // ROUTER for COMPANIES
 router

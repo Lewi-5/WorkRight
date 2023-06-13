@@ -5,6 +5,22 @@ $(document).ready(function () {
 
     refreshUserList();
 
+    $("#toPostings").css({
+        "border": "none",
+        "outline": "0",
+        "display": "inline-block",
+        "padding": "15px 25px",
+        "margin-top": "40px",
+        "color": "rgb(250, 248, 248)",
+        "background-color": "#ec3d3d",
+        "border-radius": "2%",
+        "text-align": "center",
+        "cursor": "pointer"
+      });
+      
+    $("#toPostings").on("click", function () {
+        window.location.href = "http://localhost:7077/adminJobs.html"
+    })
 
     $.ajax({
         url: "/api/users/me",
