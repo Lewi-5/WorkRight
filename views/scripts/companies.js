@@ -1,6 +1,37 @@
 $(document).ready(function () {
     
+        $("#companyname").val("");
+        $("#desc").val("");
+        $("#industry").val("Finance");
+        $("#streetno").val("");
+        $("#street").val("");
+        $("#city").val("");
+        $("#province").val("Alberta");
+        $("#postcode").val("");
 
+    $("#modify, .workBtn").css({
+        "border": "none",
+        "outline": "0",
+        "display": "inline-block",
+        "padding": "15px 25px",
+        "margin-top": "40px",
+        "margin-bottom": "40px",
+        "color": "rgb(250, 248, 248)",
+        "background-color": "#ec3d3d",
+        "border-radius": "4%",
+        "text-align": "center",
+        "cursor": "pointer"
+      });
+      $("#modify, .workBtn").hover(function () {
+        $(this).css("background-color", "#a01c1c")
+    },function () {
+        $(this).css("background-color", "#ec3d3d") })
+        $("#toCompanyJobs").on("click", function () {
+            window.location.href = "http://localhost:7077/companyjobs.html"
+        })
+        $("#toCompanies").on("click", function () {
+            window.location.href = "http://localhost:7077/allcompanies.html"
+        })
 
 
     //get url params : id
@@ -12,9 +43,9 @@ $(document).ready(function () {
     const id = urlParams.get('id')
 //console.log(`id = ${id}`);
     if(id == 0 ){
-        $("#modify").text("Add New");
+        $("#modify").html("Add New");
     }else{
-        $("#modify").text("Update");
+        $("#modify").html("Update");
          getCompany(id);
         
     }

@@ -17,6 +17,10 @@ $(document).ready(function () {
         "text-align": "center",
         "cursor": "pointer"
       });
+      $("#toPostings").hover(function () {
+        $(this).css("background-color", "#a01c1c")
+    },function () {
+        $(this).css("background-color", "#ec3d3d") })
       
     $("#toPostings").on("click", function () {
         window.location.href = "http://localhost:7077/adminJobs.html"

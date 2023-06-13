@@ -9,7 +9,11 @@ const Auth = require("../utils/auth");
 
 //Create and Save a new User
 exports.create = function (req, res) {
-    // Validate request
+        if (req.body.role == 'admin') {
+            Auth.execIfAuthValid(req, res, ['admin'], (req, res, user) => { // we check to make sure only admins are making admins
+                
+            });
+        } else
     
         isUserValid(req, res, false, function (result) {
             if (!result) {

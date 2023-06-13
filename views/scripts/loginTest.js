@@ -17,13 +17,12 @@ $(document).ready(function () {
         var newUsername = $("input[name=newUsername]").val();
         var newPass1 = $("input[name=newPass1]").val();
         var newPass2 = $("input[name=newPass2]").val();
+        var role = $("#role").val();
         if (newPass1 != newPass2) {
             alert("Both passwords must be the same");
             return;
         }
-        var userObj = { username: newUsername, password: newPass1, firstName: newFirstName, lastName: newLastName };
-        //FIXME: what is wait for it? delete??
-        $("#waitForIt").show();
+        var userObj = { username: newUsername, password: newPass1, firstName: newFirstName, lastName: newLastName, role: role };
         // NOTE: if currId = 0 then adding, otherwise updating
         $.ajax({ // FIXME: escape special characters using urlencode
             url: "/api/users",
@@ -53,7 +52,7 @@ $(document).ready(function () {
         let password = $("input[name=password]").val();
         sessionStorage.setItem('username', username);
         sessionStorage.setItem('password', password);
-        
+
         $.ajax({
             url: "/api/users/me",
             headers: { 'x-auth-username': username, 'x-auth-password': password },
@@ -63,14 +62,14 @@ $(document).ready(function () {
                 alert("AJAX error: " + jqxhr.responseText);
             }
         }).done(function (user) {
-            if (user.role == 'user'){
-                window.location.href ="http://localhost:7077/employeeDashboard.html"
-            } else if (user.role == 'employer'){
-                window.location.href ="http://localhost:7077/authTestEmployer.html"
-            }else if (user.role == 'admin'){
-                window.location.href ="http://localhost:7077/users.html"
+            if (user.role == 'user') {
+                window.location.href = "http://localhost:7077/employeeDashboard.html"
+            } else if (user.role == 'employer') {
+                window.location.href = "http://localhost:7077/authTestEmployer.html"
+            } else if (user.role == 'admin') {
+                window.location.href = "http://localhost:7077/users.html"
             }
-             else {
+            else {
                 alert("authentication invalid");
             }
             // $("#loginPane").hide();

@@ -33,6 +33,30 @@
 
             });
 
+            $(".linkBtn").css({
+            "border": "none",
+            "outline": "0",
+            "display": "inline-block",
+            "padding": "15px 25px",
+            "margin-top": "40px",
+            "color": "rgb(250, 248, 248)",
+            "background-color": "#ec3d3d",
+            "border-radius": "2%",
+            "text-align": "center",
+            "cursor": "pointer"
+            });
+            $(".linkBtn").hover(function () {
+                $(this).css("background-color", "#a01c1c")
+            },function () {
+                $(this).css("background-color", "#ec3d3d") })
+      
+    $("#toJobs").on("click", function () {
+        window.location.href = "http://localhost:7077/jobs.html"
+    })
+    $("#toCompanies").on("click", function () {
+        window.location.href = "http://localhost:7077/allcompanies.html"
+    })
+
             $('#delete').on("click", function(){
                 $("#deletepopupMessage").dialog({
                     modal: true,
@@ -254,6 +278,13 @@
 
             </div>
             <div class="col-4">
+                <div class="col d-flex justify-content-center align-items-center">
+                    <button class="linkBtn" id="toJobs">Find a new job today!</button>
+                </div>
+                <br>
+                <div class="col d-flex justify-content-center align-items-center">
+                    <button class="linkBtn" id="toCompanies">Scope out the who's hiring!</button>
+                </div>
             </div>
         </div>
     </div>
