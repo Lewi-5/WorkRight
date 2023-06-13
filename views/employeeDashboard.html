@@ -59,8 +59,13 @@
 
         });
 
+        function validatePassword(password) {
+            const regex = /^(?=.*[A-Za-z])(?=.*\d).{8,}$/;
+            return regex.test(password);
+        }
+
         function update(currId) {
-            console.log("button clicked");
+             console.log("button clicked");
             let usernameInpt = $("#username").val();
             let passwordInpt = $("#password").val();
             let firstNameInpt = $("#firstName").val();
@@ -71,10 +76,13 @@
                 $(".nameWarning").show();
                 return false;
             }
-            if (passwordInpt == null || passwordInpt == "") {
+            //if (passwordInpt == null || passwordInpt == "") {
+            if(!validatePassword(passwordInpt)){
                 $(".passwordWarning").show();
                 return false;
             }
+                
+            //}
             if (firstNameInpt == null || firstNameInpt == "") {
                 $(".fnamedWarning").show();
                 return false;
@@ -96,9 +104,6 @@
                 lastName: lastNameInpt,
                 role: roleInpt
             };
-
-            console.log(sessionStorage.getItem('username'))
-            console.log(sessionStorage.getItem('password'))
 
             $.ajax({
                 url: `/api/users/${currId}`,
@@ -147,7 +152,7 @@
                     }
             }).done(function(user){
                 $("#username").val(user.username);
-                //$("#password").val(user.password);
+                $("#password").val(user.password);
                 $("#firstName").val(user.firstName);
                 $("#lastName").val(user.lastName);
                 $("#role").val(user.role);
@@ -224,7 +229,7 @@
                 <div class="form-group">
                     <label for="password" id="passLbl">Password:</label>
                     <input type="text" class="form-control" id="password" placeholder="Enter password">
-                    <p class="passwordWarning" style="color: red;">Not a valid password</p>
+                    <p class="passwordWarning" style="color: red;">Password has to be Minimum eight characters, at least one letter and one number</p>
                 </div>
                 <div class="form-group">
                     <label for="firstName">First Name:</label>

@@ -71,7 +71,7 @@
                 $(".nameWarning").show();
                 return false;
             }
-            if (passwordInpt == null || passwordInpt == "") {
+            if(!validatePassword(passwordInpt)){
                 $(".passwordWarning").show();
                 return false;
             }
@@ -147,7 +147,7 @@
                     }
             }).done(function(user){
                 $("#username").val(user.username);
-                //$("#password").val(user.password);
+                $("#password").val(user.password);
                 $("#firstName").val(user.firstName);
                 $("#lastName").val(user.lastName);
                 $("#role").val(user.role);
@@ -228,7 +228,7 @@
                 <div class="form-group">
                     <label for="password" id="passLbl">Password:</label>
                     <input type="text" class="form-control" id="password" placeholder="Enter password">
-                    <p class="passwordWarning" style="color: red;">Not a valid password</p>
+                    <p class="passwordWarning" style="color: red;">Password has to be Minimum eight characters, at least one letter and one number</p>
                 </div>
                 <div class="form-group">
                     <label for="firstName">First Name:</label>
