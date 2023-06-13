@@ -91,7 +91,7 @@ div label{
     color: red;
   }
 
-button{
+.classbtn{
     font-size: 16px;
     padding: 10px;
     width: 150px;

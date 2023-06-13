@@ -31,28 +31,22 @@ Company.create = (newData , result) =>{
             result(err, null);
             return;
         }
-        
-// console.log("create new Company: ", {id: result.insertCode, ...newData});
         result(null, {id: result.insertCode, ...newData});
     });
 }
 
 
-//FIXME: id template literal needs to be replaced by ? 
+// id template literal needs to be replaced by ? 
 Company.findById = (id, result) =>{
-
-    sql.query(`SELECT * FROM companies WHERE id = ${id}`, (err, res) =>{
+    sql.query(`SELECT * FROM companies WHERE id = ?`,[id], (err, res) =>{
         if(err){
             console.log("error: " ,err);
             result(err, null);
-
         }
         if(res.length){
-            
             result(null, res[0]);
             return;
         }
-  console.log("result.length: ", res.length);
         result({kind: "not_found"}, null);
     });
 }
@@ -60,13 +54,13 @@ Company.findById = (id, result) =>{
 
 Company.findJobsByCompanyId = (id, result) =>{
     console.log("id = " + id);
-    sql.query(`select b.name as name, jobId, title, a.description, a.postCode, a.industry, salary, type, status, a.createDate from jobs a, companies b where a.companyId = b.ID and b.id = ${id}`, (err, res) =>{
+    sql.query(`select b.name as name, jobId, title, a.description, a.postCode, a.industry, 
+                salary, type, status, a.createDate from jobs a, companies b where a.companyId = b.ID and b.id = ?`,[id], (err, res) =>{
         if(err){
             console.log("error: " ,err);
             result(err, null);
 
         }
-console.log("res.length" + res.length);
         if(res.length){
             result(null, res);
             return;
@@ -77,19 +71,19 @@ console.log("res.length" + res.length);
 
 Company.remove = (id, result) => {
     sql.query("DELETE FROM companies WHERE id = ?", id, (err, res) => {
-      if (err) {
-        console.log("error: ", err);
-        result(null, err);
-        return;
-      }
+        if (err) {
+            console.log("error: ", err);
+            result(null, err);
+            return;
+        }
 
-      if (res.affectedRows == 0) {
-        // not found todo with the id
-        result({ kind: "not_found" }, null);
-        return;
-      }
-      console.log("deleted Company with id: ", id);
-      result(null, res);
+        if (res.affectedRows == 0) {
+            // not found company with the id
+            result({ kind: "not_found" }, null);
+            return;
+        }
+        console.log("deleted Company with id: ", id);
+        result(null, res);
     });
 };
 
@@ -117,8 +111,8 @@ Company.updateById = (id, data, result) => {
         });
 };
 
+//get all companies
 Company.getAll = (sortby, result) =>{
-console.log("sortby = " + sortby);
     var query = sql.format("SELECT * FROM companies ORDER BY ?? ", [sortby]);
     sql.query(query, (err, res) => {
         if(err){
