@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WorkRight Admin Page</title>
+    <title>WorkRight Postings Admin Page</title>
     <link rel="icon" type="image/x-icon" href="./images/favicon.png">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
@@ -12,7 +12,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="./styles/main.css">
     <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
-    <script src=>
+    <script src="./scripts/adminjobs.js">
 
     </script>
 </head>
@@ -45,19 +45,24 @@
                     <h1>Manage Job Postings</h1>
 
                     <div class="form-group">
-                        <p id="currentId">Current jobId:</p>
-                        <h2 id="companyId">Company Id;</h2>
+                        <label for="jobId">WorkRight Posting Identifier:</label>
+                        <input type="text" class="form-control" id="jobId" placeholder="Select a Posting from the List"
+                            disabled>
+                        <label for="companyId">Company Id of Posting:</label>
+                        <input type="text" class="form-control" id="companyId"
+                            placeholder="Select a Posting from the List" disabled>
+
                     </div>
                     <div class="form-group">
                         <label for="jobTitle" id="titleLbl">Title:</label>
                         <input type="text" class="form-control" id="jobTitle" placeholder="Job Title">
                     </div>
                     <div class="form-group">
-                        <label for="postcode">Postal Code</label>
-                        <input type="text" class="form-control" id="postcode" placeholder="Postal Code">
+                        <label for="postCode">Postal Code</label>
+                        <input type="text" class="form-control" id="postCode" placeholder="Postal Code">
                     </div>
                     <div class="form-group">
-                        
+
                         <label for="industry">Industry: </label>
                         <select id="industry">
                             <option value="Finance">Finance</option>
@@ -70,8 +75,8 @@
                             <option value="Customer Service">Customer Service</option>
                         </select>
                     </div>
-                    
-                    
+
+
                     <button type="submit" class="editBtn">Edit Posting</button>
                     <button type="submit" class="cancelBtn">Cancel</button>
                     <br>
@@ -84,6 +89,11 @@
                 <div class="col-4">
 
                     <h1>Job Postings</h1>
+                    <br>
+                    <div class="d-flex justify-content-between">
+                        <button id="previousPage" disabled>Previous Page</button>
+                        <button id="nextPage">Next Page</button>
+                    </div>
                     <table class="table">
                         <thead>
                             <tr>
@@ -113,6 +123,9 @@
                         </h3>
                         <h4 id="nameP">
                             </h3>
+                            <div class="col d-flex justify-content-center align-items-center">
+                                <button id="toPostings">Manage Job Postings</button>
+                            </div>
                 </div>
             </div>
             <footer>

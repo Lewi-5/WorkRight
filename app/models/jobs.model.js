@@ -66,6 +66,47 @@ Job.find = (offset, limit, postcode, industry, result) => {
     });
 };
 
+Job.load = (result) => {
+    //console.log("job load called in model")
+    let query = "SELECT * FROM jobs ORDER BY jobId ASC LIMIT 10";
+    
+    sql.query(query, (err, data) => {
+      if (err) {
+        console.log("error: ", err);
+        result(err, null);
+        return;
+      }
+  
+      //console.log("jobs: ", data);
+      result(null, data);
+    });
+  };
+
+Job.getTenRows = (jobId, result) => {
+    let query;
+
+    let absId = Math.abs(jobId);
+
+    if (jobId < 0){
+        query = "SELECT * FROM jobs WHERE jobId < ? ORDER BY jobId DESC LIMIT 10;";
+    } else if (jobId > 0){
+        query ="SELECT * FROM jobs WHERE jobId > ? ORDER BY jobId LIMIT 10";
+    }
+
+  
+    sql.query(query, [absId], (err, res) => {
+      if (err) {
+        console.log("error: ", err);
+        result(null, err);
+        return;
+      }
+  
+      //console.log("jobs: ", res);
+      result(null, res);
+    });
+  };
+  
+
 Job.findById = (jobId, result) => {
     sql.query(`SELECT * FROM jobs WHERE jobId = ?`, [jobId], (err, res) => { // careful on the WHERE clause, must match for table searched, e.g. we search jobs by 'jobId' not 'id'
         if (err) {
@@ -82,6 +123,45 @@ Job.findById = (jobId, result) => {
 
         // not found Job with the id
         result({ kind: "not_found" }, null);
+    });
+};
+
+Job.updateById = (jobId, data, result) => {
+    sql.query(
+        "UPDATE jobs SET companyId = ?, title = ?, postCode = ?, industry = ? WHERE jobId = ?", 
+        [data.companyId, data.title, data.postCode, data.industry, jobId], 
+        (err, res) => {
+            if(err){
+                console.log("error: ", err);
+                result(err, null);
+                return;
+            }
+            if (res.affectedRows == 0) {
+                // not found Company with the id
+                result({ kind: "not_found" }, null);
+                return;
+            }
+            
+            console.log("updated Company: ", { jobId: jobId, ...data });
+            result(null, { jobId: jobId, ...data });
+        });
+};
+
+Job.remove = (jobId, result) => {
+    sql.query("DELETE FROM jobs WHERE jobId = ?", [jobId], (err, res) => {
+      if (err) {
+        console.log("error: ", err);
+        result(null, err);
+        return;
+      }
+
+      if (res.affectedRows == 0) {
+        // not found todo with the id
+        result({ kind: "not_found" }, null);
+        return;
+      }
+      console.log("deleted job with jobId: ", jobId);
+      result(null, res);
     });
 };
 
