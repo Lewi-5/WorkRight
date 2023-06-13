@@ -14,30 +14,35 @@ $(document).ready(function () {
     $("input[name=newUsername]").val("");
     $("input[name=newPass1]").val("");
     $("input[name=newPass2]").val("");
+    $("#role").val("user");
+    $("#industry").val("Finance");
 
-    $("#registerButton").click(function () {
+    $("#registerButton").on("click", function () {
         var newFirstName = $("input[name=firstName]").val();
         var newLastName = $("input[name=lastName]").val();
         var newUsername = $("input[name=newUsername]").val();
         var newPass1 = $("input[name=newPass1]").val();
-        if(!validatePassword(newPass1)){
+        var role = $("#role").val();
+        var industry = $("#industry").val();
+
+        if (!validatePassword(newPass1)) {
             $("#passwordWarning1").show();
             return false;
-        }else{
+        } else {
             $("#passwordWarning1").hide();
         }
         var newPass2 = $("input[name=newPass2]").val();
-        if(!validatePassword(newPass2)){
+        if (!validatePassword(newPass2)) {
             $("#passwordWarnings").show();
             return false;
-        }else{
+        } else {
             $("#passwordWarning2").hide();
         }
         if (newPass1 != newPass2) {
             alert("Both passwords must be the same");
             return;
         }
-        var userObj = { username: newUsername, password: newPass1, firstName: newFirstName, lastName: newLastName, role: role };
+        var userObj = { username: newUsername, password: newPass1, firstName: newFirstName, lastName: newLastName, role: role, industry: industry };
         // NOTE: if currId = 0 then adding, otherwise updating
         $.ajax({ // FIXME: escape special characters using urlencode
             url: "/api/users",
@@ -55,60 +60,61 @@ $(document).ready(function () {
             $("input[name=newUsername]").val("");
             $("input[name=newPass1]").val("");
             $("input[name=newPass2]").val("");
-        }).always(function () {
-            $("#waitForIt").hide();
+            $("#role").val("user");
+            $("#industry").val("Finance");
+
         });
-    });
 
-    // $("#signOut").on("click", function() {
-    //     sessionStorage.setItem('username', "");
-    //     sessionStorage.setItem('password', "");
-    //     window.location.href = "../loginTest.html"
-    // })
+        $("#signOut").on("click", function () {
+            sessionStorage.setItem('username', "");
+            sessionStorage.setItem('password', "");
+            window.location.href = "../loginTest.html"
+        })
 
-    $("#profile").hide();
+        $("#profile").hide();
 
-    $("#loginButton").click(function () {
-        
-        let username = $("input[name=username]").val();
-        let password = $("input[name=password]").val();
-        console.log("username + "+ username);
-        console.log("password + "+ validatePassword(password));
-        if(!validatePassword(password)){
-            $("#passwordWarninglogin").show();
-            return false;
-        }else{
-            $("#passwordWarninglogin").hide();
-        }
-        sessionStorage.setItem('username', username);
-        sessionStorage.setItem('password', password);
+        $("#loginButton").click(function () {
 
-        $.ajax({
-            url: "/api/users/me",
-            headers: { 'x-auth-username': username, 'x-auth-password': password },
-            type: "GET",
-            dataType: "json",
-            error: function (jqxhr, status, errorThrown) {
-                alert("AJAX error: " + jqxhr.responseText);
+            let username = $("input[name=username]").val();
+            let password = $("input[name=password]").val();
+            console.log("username + " + username);
+            console.log("password + " + validatePassword(password));
+            if (!validatePassword(password)) {
+                $("#passwordWarninglogin").show();
+                return false;
+            } else {
+                $("#passwordWarninglogin").hide();
             }
-        }).done(function (user) {
-            if (user.role == 'user') {
-                window.location.href = "../employeeDashboard.html"
-            } else if (user.role == 'employer') {
-                window.location.href = "../employerDashboard.html"
-            } else if (user.role == 'admin') {
-                window.location.href = "../users.html"
-            }
-            else {
-                alert("authentication invalid");
-            }
-            $("#loginPane").hide();
-            $("#welcomeBack").html("Welcome back "+ user.username);
-            $("#nameP").html("Profile for " + user.firstName + " " + user.lastName);
-            $("#profile").fadeIn(3000);
+            sessionStorage.setItem('username', username);
+            sessionStorage.setItem('password', password);
+
+            $.ajax({
+                url: "/api/users/me",
+                headers: { 'x-auth-username': username, 'x-auth-password': password },
+                type: "GET",
+                dataType: "json",
+                error: function (jqxhr, status, errorThrown) {
+                    alert("AJAX error: " + jqxhr.responseText);
+                }
+            }).done(function (user) {
+                if (user.role == 'user') {
+                    window.location.href = "../employeeDashboard.html"
+                } else if (user.role == 'employer') {
+                    window.location.href = "../employerDashboard.html"
+                } else if (user.role == 'admin') {
+                    window.location.href = "../users.html"
+                }
+                else {
+                    alert("authentication invalid");
+                }
+                $("#loginPane").hide();
+                $("#welcomeBack").html("Welcome back " + user.username);
+                $("#nameP").html("Profile for " + user.firstName + " " + user.lastName);
+                $("#profile").fadeIn(3000);
+            });
         });
-    });
 
+    });
 });
 
 function validatePassword(password) {
