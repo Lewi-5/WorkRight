@@ -59,6 +59,11 @@
             });
         });
 
+        function validatePassword(password) {
+            const regex = /^(?=.*[A-Za-z])(?=.*\d).{8,}$/;
+            return regex.test(password);
+        }
+
         function update(currId) {
             console.log("button clicked");
             let usernameInpt = $("#username").val();
@@ -74,6 +79,8 @@
             if(!validatePassword(passwordInpt)){
                 $(".passwordWarning").show();
                 return false;
+            }else{
+                $(".passwordWarning").hide();
             }
             if (firstNameInpt == null || firstNameInpt == "") {
                 $(".fnamedWarning").show();
