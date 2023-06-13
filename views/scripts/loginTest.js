@@ -60,11 +60,11 @@ $(document).ready(function () {
         });
     });
 
-    $("#signOut").on("click", function() {
-        sessionStorage.setItem('username', "");
-        sessionStorage.setItem('password', "");
-        window.location.href = "../loginTest.html"
-    })
+    // $("#signOut").on("click", function() {
+    //     sessionStorage.setItem('username', "");
+    //     sessionStorage.setItem('password', "");
+    //     window.location.href = "../loginTest.html"
+    // })
 
     $("#profile").hide();
 
@@ -102,10 +102,10 @@ $(document).ready(function () {
             else {
                 alert("authentication invalid");
             }
-            // $("#loginPane").hide();
-            // $("#welcomeBack").html("Welcome back "+ user.username);
-            // $("#nameP").html("Profile for " + user.firstName + " " + user.lastName);
-            // $("#profile").fadeIn(3000);
+            $("#loginPane").hide();
+            $("#welcomeBack").html("Welcome back "+ user.username);
+            $("#nameP").html("Profile for " + user.firstName + " " + user.lastName);
+            $("#profile").fadeIn(3000);
         });
     });
 
