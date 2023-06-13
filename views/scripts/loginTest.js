@@ -63,7 +63,7 @@ $(document).ready(function () {
     $("#signOut").on("click", function() {
         sessionStorage.setItem('username', "");
         sessionStorage.setItem('password', "");
-        window.location.href = "http://localhost:7077/logintest.html"
+        window.location.href = "../logintest.html"
     })
 
     $("#profile").hide();
@@ -93,11 +93,11 @@ $(document).ready(function () {
             }
         }).done(function (user) {
             if (user.role == 'user') {
-                window.location.href = "http://localhost:7077/employeeDashboard.html"
+                window.location.href = "../employeeDashboard.html"
             } else if (user.role == 'employer') {
-                window.location.href = "http://localhost:7077/authTestEmployer.html"
+                window.location.href = "../employerDashboard.html"
             } else if (user.role == 'admin') {
-                window.location.href = "http://localhost:7077/users.html"
+                window.location.href = "../users.html"
             }
             else {
                 alert("authentication invalid");

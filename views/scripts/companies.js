@@ -13,7 +13,7 @@ $(document).ready(function () {
     $("#signOut").on("click", function() {
         sessionStorage.setItem('username', "");
         sessionStorage.setItem('password', "");
-        window.location.href = "http://localhost:7077/logintest.html"
+        window.location.href = "../logintest.html"
     })
 
 
@@ -37,7 +37,7 @@ $(document).ready(function () {
     })
 
     $("#toCompanies").on("click", function () {
-        window.location.href = "http://localhost:7077/allcompanies.html"
+        window.location.href = "../allcompanies.html"
     })
 
 
@@ -157,7 +157,7 @@ $(document).ready(function () {
         
     });
     $("#toCompanyJobs").on("click", function () {
-        window.location.href = `http://localhost:7077/companyjobs.html?id=${companyParam}`;
+        window.location.href = `../companyjobs.html?id=${companyParam}`;
     })
 });
 

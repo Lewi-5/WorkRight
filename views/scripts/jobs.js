@@ -7,7 +7,7 @@ $(document).ready(function() {
     $("#signOut").on("click", function() {
         sessionStorage.setItem('username', "");
         sessionStorage.setItem('password', "");
-        window.location.href = "http://localhost:7077/logintest.html"
+        window.location.href = "../logintest.html"
     })
 
     $("#loadMore").click(function() {
@@ -17,13 +17,13 @@ $(document).ready(function() {
 
     $(".jobBtn").on("click", function() {
         console.log("button clicked");
-        window.location.href = "http://localhost:7077/job.html?id=" + currId;
+        window.location.href = "../job.html?id=" + currId;
     });
 
     //doesn't word this way, job_listing doesn't trigger click event
     $(".job-listing").on("click", function() {
         const jobID = $(this).data('id');
-        window.location.href = './job.html?id=' + jobID;
+        window.location.href = '../job.html?id=' + jobID;
     });
 
 
@@ -77,7 +77,7 @@ $(document).ready(function() {
 });
 
 function selectItem(id) {
-    window.location.href = './job.html?id='+id;
+    window.location.href = '../job.html?id='+id;
 
     // $.ajax({
     //     url: "/api/jobs/" + id,

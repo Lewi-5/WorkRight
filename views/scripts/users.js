@@ -23,10 +23,10 @@ $(document).ready(function () {
         $(this).css("background-color", "#ec3d3d") })
       
     $("#toPostings").on("click", function () {
-        window.location.href = "http://localhost:7077/adminJobs.html"
+        window.location.href = "../adminJobs.html"
     })
     $("#toCompanies").on("click", function () {
-        window.location.href = "http://localhost:7077/allcompanies.html"
+        window.location.href = "../allcompanies.html"
     })
 
     $.ajax({

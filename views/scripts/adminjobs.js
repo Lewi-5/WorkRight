@@ -9,7 +9,7 @@ $(document).ready(function () {
     $("#signOut").on("click", function() {
         sessionStorage.setItem('username', "");
         sessionStorage.setItem('password', "");
-        window.location.href = "http://localhost:7077/logintest.html"
+        window.location.href = "../logintest.html"
     })
 
     $("#toUsers, #toCompanies").css({
@@ -30,10 +30,10 @@ $(document).ready(function () {
         $(this).css("background-color", "#ec3d3d") })
       
     $("#toUsers").on("click", function () {
-        window.location.href = "http://localhost:7077/users.html"
+        window.location.href = "../users.html"
     })
     $("#toCompanies").on("click", function () {
-        window.location.href = "http://localhost:7077/allcompanies.html"
+        window.location.href = "../allcompanies.html"
     })
 
     $.ajax({
@@ -45,7 +45,7 @@ $(document).ready(function () {
         error: function (jqxhr, status, errorThrown) {
             alert("AJAX error: " + jqxhr.responseText);
             setTimeout(() => {
-                window.location.href = "http://localhost:7077/loginTest.html"
+                window.location.href = "../loginTest.html"
             }, 3000);
         }
     }).done(function (account) {
