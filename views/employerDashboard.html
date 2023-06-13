@@ -11,12 +11,163 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
     <link rel="stylesheet" target=_blank href="./styles/main.css">
     <link target=_blank href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    
+    
     <script>
+        $(document).ready(function () {
 
+            refreshPage();
+            const queryString = window.location.search;
+
+            const urlParams = new URLSearchParams(queryString);
+            const id = urlParams.get('id');
+            console.log("id = " + id);
+            getUser(id);
+
+            $("#edit").on("click", function(){
+                $("#currentId").hide();
+                update(id);
+
+            });
+
+            $('#deleteuser').on("click", function(){
+                $("#popupMessage").dialog({
+                    modal: true,
+                    buttons: {
+                        Yes: function() {
+                            $.ajax({
+                                url:"/api/users/"+id,
+                                type:"delete",
+                                dataType:"json",
+                                error: function (jqxhr, status, errorThrown) {
+                                alert("AJAX error: " + jqxhr.responseText);
+                            }
+                            }).done(function(company){
+                                refreshPage();
+                            });
+                            $(this).dialog("close");
+                        },
+                        Cancel: function() {
+                            $(this).dialog("close");
+                        }
+                    }
+                });
+            });
+        });
+
+        function update(currId) {
+            console.log("button clicked");
+            let usernameInpt = $("#username").val();
+            let passwordInpt = $("#password").val();
+            let firstNameInpt = $("#firstName").val();
+            let lastNameInpt = $("#lastName").val();
+            let roleInpt = $("#role").val();
+
+            if (usernameInpt == null || usernameInpt == "") {
+                $(".nameWarning").show();
+                return false;
+            }
+            if (passwordInpt == null || passwordInpt == "") {
+                $(".passwordWarning").show();
+                return false;
+            }
+            if (firstNameInpt == null || firstNameInpt == "") {
+                $(".fnamedWarning").show();
+                return false;
+            }
+            if (lastNameInpt == null || lastNameInpt == "") {
+                $(".lnameWarning").show();
+                return false;
+            }
+            if (roleInpt == null || roleInpt == "") {
+                $(".lnameWarning").show();
+                return false;
+            }
+
+
+            let requestData = {
+                username: usernameInpt,
+                password: passwordInpt,
+                firstName: firstNameInpt,
+                lastName: lastNameInpt,
+                role: roleInpt
+            };
+
+            console.log(sessionStorage.getItem('username'))
+            console.log(sessionStorage.getItem('password'))
+
+            $.ajax({
+                url: `/api/users/${currId}`,
+                headers: { 'x-auth-username': sessionStorage.getItem('username'), 'x-auth-password': sessionStorage.getItem('password') },
+                type: "PATCH",
+                dataType: "json",
+                //contentType: "application/json",
+                data: requestData,
+                error: function (jqxhr, status, errorThrown) {
+                    alert("AJAX error: " + jqxhr.responseText);
+                }
+            }).done(function (requestData) {
+                $("#popupMessage").dialog({
+                    modal: true,
+                    buttons: {
+                        OK: function() {
+                            $(this).dialog("close");
+                        }
+                    }
+                });
+            });
+        }
+
+        
+        function refreshPage() {
+            $(".nameWarning").hide();
+            $(".passwordWarning").hide();
+            $(".fnamedWarning").hide();
+            $(".fnameWarning").hide();
+            $(".lnameWarning").hide();
+            $(".namedupWarning").hide();
+            $("#username").val("");
+            $("#password").val("");
+            $("#firstName").val("");
+            $("#lastName").val("");
+        }
+        //get company
+        function getUser(id) {
+            console.log("/api/users/"+id);
+            $.ajax({
+                url:"/api/users/"+id,
+                type:"GET",
+                dataType:"json",
+                error: function (jqxhr, status, errorThrown) {
+                    alert("AJAX error: " + jqxhr.responseText);
+                    }
+            }).done(function(user){
+                $("#username").val(user.username);
+                //$("#password").val(user.password);
+                $("#firstName").val(user.firstName);
+                $("#lastName").val(user.lastName);
+                $("#role").val(user.role);
+            });
+        }
+       
     </script>
+
 </head>
 
 <body>
+    <div id="popupMessage" style="display: none;">
+        <p>Congratulations.</p>
+        <p>Your profile updated.</p>
+    </div>
+
+    <div id="deletepopupMessage" style="display: none;">
+        <p>Are you sure you want to delete this company.</p>
+    </div>
+
     <header>
         <div>
             <img src="./images/logo_transparent.png" alt="Logo">
@@ -29,6 +180,8 @@
             </nav>
         </div>
     </header>
+
+
     <div class="hero-image">
         <div class="hero-text">
             <h4>With over 2.3 billion visitors, WorkRight is the #1 destination to find and list incredible jobs.
@@ -95,10 +248,10 @@
                         <option value="admin">Admin</option>
                     </select>
                 </div>
-                <button type="submit" class="editBtn">Edit Profile</button>
-                <button type="submit" class="cancelBtn">Cancel</button>
+                <button type="submit" id="edit" class="editBtn">Edit Profile</button>
+                <button type="submit" id="cancel" class="cancelBtn">Cancel</button>
                 <br>
-                <button type="submit" class="deleteBtn mt-2 mb-2">Delete My Account</button>
+                <button type="submit" id="deleteuser" class="deleteBtn mt-2 mb-2">Delete My Account</button>
                 <br>
                 <p class="p-3" id="resultMessage"></p>
 
