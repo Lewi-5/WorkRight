@@ -9,12 +9,6 @@ const jobsController = require('../controllers/jobs.controller');
 const companiesController = require('../controllers/companies.controller');
 
 
-
-//TODO: how to put static files in router? use app.get in server for now
-// router
-//     .route('../addItem.html')
-//     .get()
-
 router.route('^/$|/index.html')
   .get((req, res) => {
     res.sendFile('index.html', { root: 'views' });

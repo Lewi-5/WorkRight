@@ -193,7 +193,7 @@ exports.update = (req, res) => {
 };
 
 exports.delete = (req, res) => {
-    console.log("headers 1st time: " + req.headers)
+    //console.log("headers 1st time: " + req.headers)
     Auth.execIfAuthValid(req, res, ['admin'], (req, res, user) => {
         User.remove(req.params.id, (err, data) => {
             if (err) {

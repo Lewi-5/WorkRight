@@ -24,7 +24,7 @@ $(document).ready(function () {
             $("#updateCompany").hide();
             $("#deleteCompany").hide();
         } else if (user.role == 'admin') {
-            $("#adminTitle").html(`Hello, ${user.username}, Welcome to the WorkRight Company Administration`)
+            $("#adminTitle").html(`Hello, ${user.username}, Welcome to WorkRight Company Administration`)
         }
         else {
             alert("authentication invalid");

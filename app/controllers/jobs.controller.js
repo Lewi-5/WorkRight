@@ -1,4 +1,5 @@
 const Jobs = require('../models/jobs.model');
+const Auth = require("../utils/auth");
 
 
 // validation function
@@ -136,6 +137,7 @@ exports.update = (req, res) => {
 
 // Delete a job with the specified id in the request
 exports.delete = (req, res) => {
+  Auth.execIfAuthValid(req, res, ['admin'], (req, res, user) => {
   Jobs.remove(req.params.id, (err, data) => {
     if (err) {
       if (err.kind === "not_found") {
@@ -151,5 +153,6 @@ exports.delete = (req, res) => {
       res.status(200);
       res.send({ message: `Job posting was deleted successfully!` });
     }
+  });
   });
 };
