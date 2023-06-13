@@ -3,6 +3,9 @@ let password = "";
 
 $(document).ready(function () {
 
+    $("input").css("border-radius", "5px");
+    $("input").css("box-shadow", "inset 0 0 1px 1px #333");
+
     $("#passwordWarninglogin").hide();
     $("#passwordWarning1").hide();
     $("#passwordWarning2").hide();
@@ -64,6 +67,7 @@ $(document).ready(function () {
             $("#industry").val("Finance");
 
         });
+        });
 
         $("#signOut").on("click", function () {
             sessionStorage.setItem('username', "");
@@ -73,18 +77,18 @@ $(document).ready(function () {
 
         $("#profile").hide();
 
-        $("#loginButton").click(function () {
-
+        $("#loginButton").on("click", function () {
+            console.log("login clicked")
             let username = $("input[name=username]").val();
             let password = $("input[name=password]").val();
             console.log("username + " + username);
             console.log("password + " + validatePassword(password));
-            if (!validatePassword(password)) {
-                $("#passwordWarninglogin").show();
-                return false;
-            } else {
-                $("#passwordWarninglogin").hide();
-            }
+            // if (!validatePassword(password)) {
+            //     $("#passwordWarninglogin").show();
+            //     return false;
+            // } else {
+            //     $("#passwordWarninglogin").hide();
+            // }
             sessionStorage.setItem('username', username);
             sessionStorage.setItem('password', password);
 
@@ -107,14 +111,10 @@ $(document).ready(function () {
                 else {
                     alert("authentication invalid");
                 }
-                $("#loginPane").hide();
-                $("#welcomeBack").html("Welcome back " + user.username);
-                $("#nameP").html("Profile for " + user.firstName + " " + user.lastName);
-                $("#profile").fadeIn(3000);
+                
             });
         });
 
-    });
 });
 
 function validatePassword(password) {
