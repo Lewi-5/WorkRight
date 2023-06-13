@@ -83,6 +83,12 @@
 
         });
 
+        $("#signOut").on("click", function() {
+            sessionStorage.setItem('username', "");
+            sessionStorage.setItem('password', "");
+            window.location.href = "http://localhost:7077/logintest.html"
+        })
+
         function validatePassword(password) {
             const regex = /^(?=.*[A-Za-z])(?=.*\d).{8,}$/;
             return regex.test(password);
@@ -194,9 +200,10 @@
             <img src="./images/logo_transparent.png" alt="Logo">
             <nav>
                 <ul>
-                    <li><a target=_blank href="#">Job Listings</a></li>
-                    <li><a target=_blank href="#">Job Seekers</a></li>
-                    <li><a target=_blank href="#">Employers</a></li>
+                    <li><a href="http://localhost:7077/jobs.html">Job Listings</a></li>
+                    <li><a href="http://localhost:7077/logintest.html">Job Seekers</a></li>
+                    <li><a href="http://localhost:7077/logintest.html">Employers</a></li>
+                    <button id="signOut">Sign Out</button>
                 </ul>
             </nav>
         </div>
@@ -213,7 +220,7 @@
         <div class="hero-text">
             <h4>With over 2.3 billion visitors, WorkRight is the #1 destination to find and list incredible jobs.
             </h4>
-            <button>Update my Details</button>
+            <button>WorkRight</button>
         </div>
     </div>
     <div class="container p-3">

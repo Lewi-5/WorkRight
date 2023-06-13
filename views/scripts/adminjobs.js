@@ -6,6 +6,12 @@ $(document).ready(function () {
 
     refreshJobsList();
 
+    $("#signOut").on("click", function() {
+        sessionStorage.setItem('username', "");
+        sessionStorage.setItem('password', "");
+        window.location.href = "http://localhost:7077/logintest.html"
+    })
+
     $("#toUsers, #toCompanies").css({
         "border": "none",
         "outline": "0",

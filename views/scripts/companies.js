@@ -10,6 +10,11 @@ $(document).ready(function () {
     $("#postcode").val("");
     $("#companySelect").val("");
 
+    $("#signOut").on("click", function() {
+        sessionStorage.setItem('username', "");
+        sessionStorage.setItem('password', "");
+        window.location.href = "http://localhost:7077/logintest.html"
+    })
 
 
     $("#modify, .workBtn").css({

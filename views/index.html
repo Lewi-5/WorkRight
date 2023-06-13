@@ -1,53 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Work Right</title>
-        <link rel="icon" type="image/x-icon" href="./images/favicon.png">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-        <link rel="stylesheet" href="styles/main.css">
-        <script>
-            $(document).ready(function () {
-                $("#user").on("click",function(){
-                    window.open('users.html', '_self');
-                    });
-                $("#company").on("click",function(){
-                    window.open('companies.html?id=0', '_self');
-                    });
+
+<head>
+    <meta charset="UTF-8">
+    <title>Work Right</title>
+    <link rel="icon" type="image/x-icon" href="./images/favicon.png">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="styles/main.css">
+    <script>
+        $(document).ready(function () {
+            $("#user").on("click", function () {
+                window.open('users.html', '_self');
             });
-        </script>
-    </head>
-    <body>
+            $("#company").on("click", function () {
+                window.open('companies.html?id=0', '_self');
+            });
+            //for demo...
+            $("#workRight").fadeIn(1000);
+            $("#byLine").fadeIn(2000);
 
-        <header>
-            <div>
-                <img src="./images/logo_transparent.png" alt="Logo">
-                <nav>
-                    <ul>
-                        <li><a href="#">Job Listings</a></li>
-                        <li><a href="#">Job Seekers</a></li>
-                        <li><a href="#">Employers</a></li>
-                    </ul>
-                </nav>
-            </div>
-        </header>
-        <div class="hero-image">
-            <div class="hero-text">
-              <h4>With over 2.3 billion visitors, WorkRight is the #1 destination to find and list incredible tech jobs.</h4>
-              <button>Update my Deteils</button>
-            </div>
-          </div>
-        <div style="height: 450px; align-items: center;">
-            <button id="user">To User Table</button>
-            <button id="company">Add Company</button>
+            setTimeout(() => {
+                window.location.href = "http://localhost:7077/loginTest.html"
+            }, 4200);
+        });
+    </script>
+</head>
 
+<body>
+
+    <header>
+        <div>
+            <img src="./images/logo_transparent.png" alt="Logo">
+            <nav>
+                <ul>
+                    <li><a href="#">Job Listings</a></li>
+                    <li><a href="#">Job Seekers</a></li>
+                    <li><a href="#">Employers</a></li>
+                </ul>
+            </nav>
         </div>
-        <footer>
-            <div>
-                <p>WorkRight &copy; 2023</p>
-            </div>
-        </footer>
-    </body>
+    </header>
+    <div class="hero-image">
+        <div class="hero-text">
+            <h4>With over 2.3 billion visitors, WorkRight is the #1 destination to find and list incredible tech jobs.
+            </h4>
+            <button>WorkRight</button>
+        </div>
+    </div>
+
+    <div class="container" style="display: flex;justify-content: center;align-items: center;">
+
+        <h1 id="workRight" style="color: #ec3d3d; display: none;">Welcome to WorkRight</h1>
+
+
+    </div>
+
+    <div class="container" style="display: flex;justify-content: center;align-items: center;">
+
+
+        <h2 id="byLine" style="color: #ec3d3d; display: none;">Building the future of Job Search</h2>
+    </div>
+    <div style="height: 450px; align-items: center;">
+
+    </div>
+    <footer>
+        <div>
+            <p>WorkRight &copy; 2023</p>
+        </div>
+    </footer>
+</body>
+
 </html>

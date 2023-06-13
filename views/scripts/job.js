@@ -4,6 +4,11 @@ $(document).ready(function () {
     const urlParams = new URLSearchParams(queryString);
     const id = urlParams.get('id')
     
+    $("#signOut").on("click", function() {
+      sessionStorage.setItem('username', "");
+      sessionStorage.setItem('password', "");
+      window.location.href = "http://localhost:7077/logintest.html"
+  })
 
     $.ajax({
         url: "/api/jobs/"+id,

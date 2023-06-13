@@ -65,6 +65,12 @@ $(document).ready(function () {
     $('.lnameWarning').hide();
     $('.namedupWarning').hide();
 
+    $("#signOut").on("click", function() {
+        sessionStorage.setItem('username', "");
+        sessionStorage.setItem('password', "");
+        window.location.href = "http://localhost:7077/logintest.html"
+    })
+
     $(".addBtn").on("click", function () {
         if (checkInputs() == false) {
             return false;

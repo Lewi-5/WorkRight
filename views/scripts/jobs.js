@@ -4,6 +4,12 @@ let currId = 0;
 $(document).ready(function() {
     loadJobs();
 
+    $("#signOut").on("click", function() {
+        sessionStorage.setItem('username', "");
+        sessionStorage.setItem('password', "");
+        window.location.href = "http://localhost:7077/logintest.html"
+    })
+
     $("#loadMore").click(function() {
         page++;
         loadJobs();
