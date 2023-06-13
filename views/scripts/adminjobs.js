@@ -9,7 +9,7 @@ $(document).ready(function () {
     $("#signOut").on("click", function() {
         sessionStorage.setItem('username', "");
         sessionStorage.setItem('password', "");
-        window.location.href = "../logintest.html"
+        window.location.href = "../loginTest.html"
     })
 
     $("#toUsers, #toCompanies").css({
