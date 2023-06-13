@@ -3,6 +3,10 @@ let password = "";
 
 $(document).ready(function () {
 
+    $("#passwordWarninglogin").hide();
+    $("#passwordWarning1").hide();
+    $("#passwordWarning2").hide();
+
     $("input[name=username]").val("");
     $("input[name=password]").val("");
     $("input[name=firstName]").val("");
@@ -16,8 +20,19 @@ $(document).ready(function () {
         var newLastName = $("input[name=lastName]").val();
         var newUsername = $("input[name=newUsername]").val();
         var newPass1 = $("input[name=newPass1]").val();
+        if(!validatePassword(newPass1)){
+            $("#passwordWarning1").show();
+            return false;
+        }else{
+            $("#passwordWarning1").hide();
+        }
         var newPass2 = $("input[name=newPass2]").val();
-        var role = $("#role").val();
+        if(!validatePassword(newPass2)){
+            $("#passwordWarnings").show();
+            return false;
+        }else{
+            $("#passwordWarning2").hide();
+        }
         if (newPass1 != newPass2) {
             alert("Both passwords must be the same");
             return;
@@ -48,8 +63,17 @@ $(document).ready(function () {
     $("#profile").hide();
 
     $("#loginButton").click(function () {
+        
         let username = $("input[name=username]").val();
         let password = $("input[name=password]").val();
+        console.log("username + "+ username);
+        console.log("password + "+ validatePassword(password));
+        if(!validatePassword(password)){
+            $("#passwordWarninglogin").show();
+            return false;
+        }else{
+            $("#passwordWarninglogin").hide();
+        }
         sessionStorage.setItem('username', username);
         sessionStorage.setItem('password', password);
 
@@ -80,4 +104,9 @@ $(document).ready(function () {
     });
 
 });
+
+function validatePassword(password) {
+    const regex = /^(?=.*[A-Za-z])(?=.*\d).{8,}$/;
+    return regex.test(password);
+}
 

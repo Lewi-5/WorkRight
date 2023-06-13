@@ -1,0 +1,179 @@
+Project submissions - requirements and guidelines
+=================================================
+
+Your grade for the project is based on the following components:
+1. Presentation in front of the class,
+2. Difficulty of the challenge you took on and quality and
+completeness of your solution to it.
+How much have you learned from doing the project.
+3. Use of tools
+
+After the presentation you will need to submit these files:
+* Presentation PowerPoint or PDF file with slides.
+- in comment you MUST include 3 URLs: to Git and to Trello you used, and URL to the project hosted online.
+Add user senditaway@hotmail.com for read-only access.
+* Source code of your solution.
+* Source code must be in GitHub repository.
+* Export of the database structure (from PhpMyAdmin or MySQL Workbench) *without* data since you have BLOBs.
+Except if you have large BLOBs then either take screenshots of database structure and data or upload multiple / split ZIP files.
+
+
+ADDITIONAL NOTES FOR PHP AND Java Spring COURSE ONLY:
+* You are required to upload your project to web hosting
+to allow the teacher and students to access your project and test it.
+You must provide URL during your submission as comment.
+
+
+Also please note:
+
+As part of the project evaluation teacher reserves the right to interview any student about the code of the project (to make sure he/she is the genuine author of it and the extent of their contribution to the project), as well as to general knowledge of the subjects covered in the course.
+
+During presentation please indicate who did what.
+
+
+Length and Evaluation of the Presentation
+-----------------------------------------
+
+You must do a live demo of your project before your presentation
+is done but you are *not* allowed to do a live demo as a part
+of your presentation or instead of it.
+For full marks the demo web app must be hosted in the cloud.
+
+You will only have 15-20 minutes (10-12 minutes for a two person project)
+to present plus a couple minutes to answer questions.
+On average a person takes about 1 minute per slide so you should have
+about 15-20 slides in your presentation.
+The limit is 25 slides, if you go faster through them.
+
+Games are an exception: you will take 1-2 minutes to do a short demo.
+You still have to present for reminder of your time.
+
+*Both* (or all three) members of the project must present and each of them
+must talk about more-less 50% (or 33%) of the slides.
+
+Each member of the team is evaluated *individually* for their
+contribution to the project and quality of their presentation.
+
+The total time per team for both demo + presentation is 25 minutes max.
+
+
+Practice and Adjustments
+------------------------
+
+You need to *practice* giving your presentation at least a couple of times,
+the day before delivering it. You usually will discover that
+some slides need to be split into multiple slides and some
+must be removed.
+
+Rule of thumb: if you're spending more than 1 minute on a slide
+then either:
+- you need to explain less about this slide, or
+- you need to split this slide into two or more slides.
+
+You will not know which slides to split until you *practice*
+your delivery. I will know, and the class will know if
+you haven't practiced and it will affect your grade.
+
+
+Content of the Presentation
+---------------------------
+
+* 1 slide: Title
+- title of presentation,
+- subject of the project,
+- names of team members
+
+* 1 slides: Background, high level view
+- Background of the project, e.g.
+. explain a game you were implementing,
+. explain what was the purpose of system
+you were implementing and what problem
+does it solve.
+. you're NOT talking about your particular solution.
+. You're talking about the class of solutions.
+. You can talk about business perspective on this one slide only.
+
+* 2-4 slides: Your solution overview
+- show your solution from high level, e.g.
+screenshot(s), list main features from
+user point of view, features, functionalities.
+Say WHAT was implemented BUT NO DETAILS ON HOW.
+
+* 4-7 slides: Challenges and solutions
+- show database structure here
+- talk about each of the interesting technologies you used
+and each major problem you had to solve on your own
+to make the solution work.
+
+* 4-7 slides: What we learned - teach it! Teach one or two things.
+- talk about specific, low-level solutions
+and teach them to the students and teacher
+= Teach me how to solve ONE (or two) problem.
+
+* 1 slide: Future work
+- say what was not done yet and could be
+solved if your project continued.
+- don't go too far into the future - what would you have done if you had an extra week?
+
+* 1 slide: Summary
+- what was done and with what result.
+
+Total slides count ~15-20. You are allowed to add more slides
+only if you can stay within the maximum minute limit for your presentation.
+
+
+What Not To Do
+==============
+
+These are some of the "don'ts" - mistakes that students presenting make often. Avoid these!
+
+* Skipping practice.
+You don't know how your presentation will "flow"
+in front of a room until you practiced delivering it.
+Sit in front of your computer or stand up and
+speak *out loud* to yourself as if you were talking
+to a room full of people.
+
+Deliver the content of each slide.
+Make corrections.
+Repeat.
+
+If you don't practice it will show and you will lose marks.
+
+* Skipping breakfast this morning.
+
+* Speaking too fast, or mumbling.
+
+* Putting too much text or code on a slide.
+You must not have more than 40 words per slide.
+If you do - you will lose marks.
+
+* Fonts too small
+If your font is too small to read by someone sitting at the
+back (that's where the teacher is sitting during presentation)
+you will lose marks.
+
+* Too much code
+It is okay to take a screenshot of a 5-20 lines of code
+when talking about your solution. But if there's too many lines
+then code becomes unreadable and you will lose marks.
+
+* Irrelevant content
+The presentation must flow from one item to another.
+If you put in an item and the audience is wondering why
+was it even there because it does not seem relevant
+- you will lose marks.
+
+* More than 2 font types, more than 3 font sizes,
+use of animations, unreadable colors, videos.
+Any of the above will have you lose marks.
+
+* Reading from a slide when presenting.
+If all you do is read from a slide when you're presenting
+then it looks like either you don't know what you're talking
+about or you have not practiced.
+Either way - if you're reading from a slide will lose marks.
+
+* Skipping practice (yes again).
+This is the only way to get your presentation into good shape.
+Practice or your presentation will not be great.

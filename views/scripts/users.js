@@ -172,7 +172,7 @@ $(document).ready(function () {
 
     $('#password').on('blur', function () {
         let passwordInpt = $("#password").val();
-        if (passwordInpt == null || passwordInpt == "") {
+        if(!validatePassword(passwordInpt)){
             $(".passwordWarning").show();
             return false;
         } else {
@@ -205,6 +205,10 @@ $(document).ready(function () {
 });
 
 
+function validatePassword(password) {
+    const regex = /^(?=.*[A-Za-z])(?=.*\d).{8,}$/;
+    return regex.test(password);
+}
 
 
 function checkInputs() {
@@ -362,10 +366,11 @@ function update() {
         $(".nameWarning").show();
         return false;
     }
-    if (passwordInpt == null || passwordInpt == "") {
+    if(!validatePassword(passwordInpt)){
         $(".passwordWarning").show();
         return false;
     }
+     
     if (firstNameInpt == null || firstNameInpt == "") {
         $(".fnamedWarning").show();
         return false;

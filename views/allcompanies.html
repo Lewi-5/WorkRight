@@ -83,7 +83,7 @@
                     }
                 });
 
-                $('#getJods').on("click", function(){
+                $('#getJobs').on("click", function(){
                     if(companyid == null || companyid == ""){
                         alert("Please select company!");
                         //$("#warning").modal("show");
@@ -103,6 +103,7 @@
             });
             //refreshTodoList
             function refreshTodoList(params) {
+                $("#jobListings").empty();
                 const sortBy = params ? params : "id";
                 $.ajax({
                     url:"/api/allcompanies?sortBy="+sortBy,
@@ -126,7 +127,10 @@
                                 minute: '2-digit',
                                 second: '2-digit'
                             });
+                        }else{
+                            formattedDatetime = "";
                         }
+                        //$("#jobListings").empty();
                         $('#jobListings').append(`
                             <div class="job-card col-md-6 job-listing" onclick="selectItem(${company.ID})">
                             <div class="card" id="${company.ID}" >
