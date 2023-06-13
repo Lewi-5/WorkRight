@@ -1,4 +1,3 @@
-
 <html lang="en">
 
 <head>
@@ -7,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WorkRight Employee Dashboard</title>
     <link rel="icon" type="image/x-icon" href="./images/favicon.png">
-    <link rel="stylesheet" target=_blank href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" target=_blank
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" target=_blank href="./styles/main.css">
     <link target=_blank href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -22,59 +22,79 @@
             refreshPage();
             const queryString = window.location.search;
 
+            $.ajax({
+                url: "/api/users/me",
+                headers: { 'x-auth-username': sessionStorage.getItem('username'), 'x-auth-password': sessionStorage.getItem('password') },
+                type: "GET",
+                dataType: "json",
+                // ContentType: "application/json",
+                error: function (jqxhr, status, errorThrown) {
+                    alert("AJAX error: " + jqxhr.responseText);
+                    setTimeout(() => {
+                        window.location.href = "./loginTest.html"
+                    }, 3000);
+                }
+            }).done(function (account) {
+                console.log(account);
+                $("#welcomeBack").html("Welcome back " + account.username);
+                $("#nameP").html("<em>WorkRight Administrator:</em> " + account.firstName + " " + account.lastName);
+                $("#rolePane").fadeIn(3000);
+            });
+
             const urlParams = new URLSearchParams(queryString);
             const id = urlParams.get('id');
             console.log("id = " + id);
             getUser(id);
 
-            $("#edit").on("click", function(){
+            $("#edit").on("click", function () {
                 $("#currentId").hide();
                 update(id);
 
             });
 
             $(".linkBtn").css({
-            "border": "none",
-            "outline": "0",
-            "display": "inline-block",
-            "padding": "15px 25px",
-            "margin-top": "40px",
-            "color": "rgb(250, 248, 248)",
-            "background-color": "#ec3d3d",
-            "border-radius": "2%",
-            "text-align": "center",
-            "cursor": "pointer"
+                "border": "none",
+                "outline": "0",
+                "display": "inline-block",
+                "padding": "15px 25px",
+                "margin-top": "40px",
+                "color": "rgb(250, 248, 248)",
+                "background-color": "#ec3d3d",
+                "border-radius": "2%",
+                "text-align": "center",
+                "cursor": "pointer"
             });
             $(".linkBtn").hover(function () {
                 $(this).css("background-color", "#a01c1c")
-            },function () {
-                $(this).css("background-color", "#ec3d3d") })
-      
-    $("#toJobs").on("click", function () {
-        window.location.href = "http://localhost:7077/jobs.html"
-    })
-    $("#toCompanies").on("click", function () {
-        window.location.href = "http://localhost:7077/allcompanies.html"
-    })
+            }, function () {
+                $(this).css("background-color", "#ec3d3d")
+            })
 
-            $('#delete').on("click", function(){
+            $("#toJobs").on("click", function () {
+                window.location.href = "http://localhost:7077/jobs.html"
+            })
+            $("#toCompanies").on("click", function () {
+                window.location.href = "http://localhost:7077/allcompanies.html"
+            })
+
+            $('#delete').on("click", function () {
                 $("#deletepopupMessage").dialog({
                     modal: true,
                     buttons: {
-                        Yes: function() {
+                        Yes: function () {
                             $.ajax({
-                                url:"/api/users/"+id,
-                                type:"delete",
-                                dataType:"json",
+                                url: "/api/users/" + id,
+                                type: "delete",
+                                dataType: "json",
                                 error: function (jqxhr, status, errorThrown) {
-                                alert("AJAX error: " + jqxhr.responseText);
-                            }
-                            }).done(function(company){
+                                    alert("AJAX error: " + jqxhr.responseText);
+                                }
+                            }).done(function (company) {
                                 refreshPage();
                             });
                             $(this).dialog("close");
                         },
-                        Cancel: function() {
+                        Cancel: function () {
                             $(this).dialog("close");
                         }
                     }
@@ -83,7 +103,7 @@
 
         });
 
-        $("#signOut").on("click", function() {
+        $("#signOut").on("click", function () {
             sessionStorage.setItem('username', "");
             sessionStorage.setItem('password', "");
             window.location.href = "http://localhost:7077/logintest.html"
@@ -95,7 +115,7 @@
         }
 
         function update(currId) {
-             console.log("button clicked");
+            console.log("button clicked");
             let usernameInpt = $("#username").val();
             let passwordInpt = $("#password").val();
             let firstNameInpt = $("#firstName").val();
@@ -107,13 +127,13 @@
                 return false;
             }
             //if (passwordInpt == null || passwordInpt == "") {
-            if(!validatePassword(passwordInpt)){
+            if (!validatePassword(passwordInpt)) {
                 $(".passwordWarning").show();
                 return false;
-            }else{
+            } else {
                 $(".passwordWarning").hide();
             }
-                
+
             //}
             if (firstNameInpt == null || firstNameInpt == "") {
                 $(".fnamedWarning").show();
@@ -151,7 +171,7 @@
                 $("#popupMessage").dialog({
                     modal: true,
                     buttons: {
-                        OK: function() {
+                        OK: function () {
                             $(this).dialog("close");
                         }
                     }
@@ -159,7 +179,7 @@
             });
         }
 
-        
+
         function refreshPage() {
             $(".nameWarning").hide();
             $(".passwordWarning").hide();
@@ -174,15 +194,15 @@
         }
         //get company
         function getUser(id) {
-            console.log("/api/users/"+id);
+            console.log("/api/users/" + id);
             $.ajax({
-                url:"/api/users/"+id,
-                type:"GET",
-                dataType:"json",
+                url: "/api/users/" + id,
+                type: "GET",
+                dataType: "json",
                 error: function (jqxhr, status, errorThrown) {
                     alert("AJAX error: " + jqxhr.responseText);
-                    }
-            }).done(function(user){
+                }
+            }).done(function (user) {
                 $("#username").val(user.username);
                 $("#password").val(user.password);
                 $("#firstName").val(user.firstName);
@@ -190,7 +210,7 @@
                 $("#role").val(user.role);
             });
         }
-       
+
     </script>
 </head>
 
@@ -226,7 +246,9 @@
     <div class="container p-3">
         <div class="row">
             <div class="col-4 p-3" id="rolePane" style="display: none">
-                <div id="roleDisplay"><h2 class="bg-dark p-2 text-light bg-opacity-50">Job-Seeker</h2></div>
+                <div id="roleDisplay">
+                    <h2 class="bg-dark p-2 text-light bg-opacity-50">Job-Seeker</h2>
+                </div>
                 <h3 id="welcomeBack"></h3>
                 <h3 id="nameP"></h3>
                 <p>Your industry: Finance</p>
@@ -262,7 +284,8 @@
                 <div class="form-group">
                     <label for="password" id="passLbl">Password:</label>
                     <input type="text" class="form-control" id="password" placeholder="Enter password">
-                    <p class="passwordWarning" style="color: red;">Password has to be Minimum eight characters, at least one letter and one number</p>
+                    <p class="passwordWarning" style="color: red;">Password has to be Minimum eight characters, at least
+                        one letter and one number</p>
                 </div>
                 <div class="form-group">
                     <label for="firstName">First Name:</label>
