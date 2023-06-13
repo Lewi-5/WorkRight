@@ -117,7 +117,6 @@ function loadJobs() {
                             <div class="card-body">
                                 <h5 class="card-title">${job.industry}</h5>
                                 <p class="card-text">${job.description}</p>
-                                <button class="jobBtn">Learn More</button>
                             </div>
                         </div>
                     </div>
