@@ -2,16 +2,15 @@
 var companyid = "";
 $(document).ready(function () {
     const selectedOption = $("#sortSelect").val();
-    refreshTodoList(selectedOption);
-
+    refreshCompaniesList(selectedOption);
+    //if new button click pass id=0
     $('#addNewCompany').on("click", function(){
         window.open('./companies.html?id=0', '_self');
     });
 
+    //update button clicked
     $('#updateCompany').on("click", function(){
         if(companyid == null || companyid == ""){
-            //alert("Please select company!");
-            //$("#warning").modal("show");
             $("#popupMessage").dialog({
                 modal: true,
                 buttons: {
@@ -26,10 +25,10 @@ $(document).ready(function () {
         }
     });
 
+    //delete button clicked
     $('#deleteCompany').on("click", function(){
         if(companyid == null || companyid == ""){
-            //alert("Please select company!");     //TODO change the pop pup
-            //$("#warning").modal("show");
+            //popup message 
             $("#popupMessage").dialog({
                 modal: true,
                 buttons: {
@@ -39,7 +38,7 @@ $(document).ready(function () {
                 }
             });
         }else{
-            $("#deletepopupMessage").dialog({
+            $("#deletepopupMessage").dialog({ //popup message 
                 modal: true,
                 buttons: {
                     Yes: function() {
@@ -51,7 +50,7 @@ $(document).ready(function () {
                             alert("AJAX error: " + jqxhr.responseText);
                         }
                         }).done(function(company){
-                            refreshTodoList();
+                            refreshCompaniesList();
                         });
                         $(this).dialog("close");
                     },
@@ -64,26 +63,32 @@ $(document).ready(function () {
         }
     });
 
+    //get job button clicked
     $('#getJobs').on("click", function(){
         if(companyid == null || companyid == ""){
-            alert("Please select company!");
-            //$("#warning").modal("show");
+            $("#popupMessage").dialog({
+                modal: true,
+                buttons: {
+                    OK: function() {
+                        $(this).dialog("close");
+                    }
+                }
+            });
         }else{
             window.open('./companyJobs.html?id='+companyid, '_blank');
         }
-        // ./companyJobs.html?id=29
     });
 
+    // Perform sorting based on the selected option
     $('#sortSelect').change(function() {                  
         var selectedOption = $("#sortSelect").val();
-
-        // Perform sorting based on the selected option
-        refreshTodoList(selectedOption)
-
+        refreshCompaniesList(selectedOption)
     });
 });
-//refreshTodoList
-function refreshTodoList(params) {
+
+//refreshCompaniesList
+function refreshCompaniesList(params) {
+    //empty content before getting new data
     $("#jobListings").empty();
     const sortBy = params ? params : "id";
     $.ajax({
@@ -99,6 +104,7 @@ function refreshTodoList(params) {
             var company = companiesList[i];
             console.log("company.createDate = " + company.createDate);
             if(company.createDate){
+                //formatting the datetiem display
                 var datetime = new Date(company.createDate);
                 var formattedDatetime = datetime.toLocaleString('en-US', {
                     year: 'numeric',
@@ -111,7 +117,7 @@ function refreshTodoList(params) {
             }else{
                 formattedDatetime = "";
             }
-            //$("#jobListings").empty();
+
             $('#jobListings').append(`
                 <div class="job-card col-md-6 job-listing" onclick="selectItem(${company.ID})">
                 <div class="card" id="${company.ID}" >
@@ -130,15 +136,12 @@ function refreshTodoList(params) {
 
     });
 }
+
 //when click one row
 function selectItem(id) {
     companyid = id;
-console.log("selectItem id = "+ id);
-    //window.open('companies.html?id='+id, '_self');
-
     // Remove the 'selected-row' class from all rows
     $('.card').removeClass('selected-row');
-        
     // Add the 'selected-row' class to the clicked row
     $(`#${id}`).addClass('selected-row');
 }

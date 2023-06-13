@@ -32,31 +32,32 @@
                 </nav>
             </div>
         </header>
-        <div id="popupMessage" style="display: none;">
-            <p>Please select a company by click on the record.</p>
-        </div>
-        <div id="deletepopupMessage" style="display: none;">
-            <p>Are you sure you want to delete this company.</p>
-        </div>
-        
-        <div class="container" style="width: 90%; margin: auto;">
-            <div>
-                <button id="addNewCompany">Add New</button>
-                <button id="updateCompany">Update company</button>
-                <button id="deleteCompany">Delete company</button>
-                <button id="getJobs">View Jobs</button><br><br>
+        <main>
+            <div id="popupMessage" style="display: none;">
+                <p>Please select a company by click on the record.</p>
             </div>
-            <select id="sortSelect">
-                <option value="name">Sort by Company Name</option>
-                <option value="industry">Sort by industry</option>
-                <option value="createDate">Sort by create date</option>
-            </select>
-
-            <div id="jobListings" class="row">
-                    <!-- // jobs listings apended here -->
+            <div id="deletepopupMessage" style="display: none;">
+                <p>Are you sure you want to delete this company.</p>
             </div>
-        </div>
+            
+            <div class="container" style="width: 90%; margin: auto;">
+                <div>
+                    <button id="addNewCompany">Add New</button>
+                    <button id="updateCompany">Update company</button>
+                    <button id="deleteCompany">Delete company</button>
+                    <button id="getJobs">View Jobs</button><br><br>
+                </div>
+                <select id="sortSelect">
+                    <option value="name">Sort by Company Name</option>
+                    <option value="industry">Sort by industry</option>
+                    <option value="createDate">Sort by create date</option>
+                </select>
 
+                <div id="jobListings" class="row">
+                        <!-- // jobs listings apended here -->
+                </div>
+            </div>
+        </main>
 
         <footer>
             <div>

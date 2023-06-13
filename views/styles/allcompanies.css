@@ -4,6 +4,7 @@ body {
     margin: 0;
     padding: 0;
     background-color: #f4f4f4;
+    
 }
 
 div {
@@ -37,6 +38,7 @@ header {
     background-color: #f7f5f5;
     color: #000000;
     padding: 10px 0;
+    width: 90%;
 }
 
 header img {
@@ -48,6 +50,7 @@ header img {
 nav {
     float: right;
     margin-right: 20px;
+    font-size: 20px;
 }
 
 nav ul {
@@ -68,7 +71,7 @@ nav ul li a {
 
 #modify{
     margin: 30px;
-    padding: auto;
+    padding: 5ps;
     width: 90px;
     height: 40px;
 }
@@ -88,6 +91,17 @@ div label{
     color: red;
   }
 
+button{
+    font-size: 16px;
+    padding: 10px;
+    width: 150px;
+}
+
+button:hover{
+    background-color: #695d5d;
+    color: white;
+
+}
 input{
     width: 250px;
 }

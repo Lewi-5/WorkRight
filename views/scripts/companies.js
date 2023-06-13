@@ -1,21 +1,23 @@
 $(document).ready(function () {
     
-    //get url params : id
+    
     $('.postalCodeWarning').hide();
     $('.nameWarning').hide();
-    const queryString = window.location.search;
 
+    //get url params : id
+    const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     const id = urlParams.get('id')
-//console.log(`id = ${id}`);
+
+    //if id=0, it is a new require, if not then update
     if(id == 0 ){
         $("#modify").text("Add New");
     }else{
         $("#modify").text("Update");
          getCompany(id);
-        
     }
 
+    //check name can not be empty
     $('#companyname').on('blur', function() {
         let companyname = $("#companyname").val();
         if (companyname == null || companyname ==""){
@@ -26,6 +28,7 @@ $(document).ready(function () {
         }
     });
 
+    //validate postcode
     $('#postcode').on('blur', function() {
         let postcode = $("#postcode").val();
         const PosteCodeRegex = /^[A-Za-z]\d[A-Za-z]\d[A-Za-z]\d$/;
@@ -38,8 +41,9 @@ $(document).ready(function () {
         }
     });
 
+    //if update button clicked
     $("#modify").on("click", function(){
-        //if(!validateData()) return false;
+        
         if($("#modify").text() === "Update"){
             updateCpmpany(id);
         }else{
@@ -116,14 +120,11 @@ function addNew() {
     }               
         const desc = $("#desc").val();
         const industry = $("#industry").val();
-
         const streetno = $("#streetno").val();                    
         const street = $("#street").val();
         const city = $("#city").val();
-
         const province = $("#province").val();
         const postcode = $("#postcode").val();
-
         const currentdate = new Date();
         const createdate = currentdate.toLocaleString();
         var company = {
@@ -173,7 +174,6 @@ function getCompany(id) {
 }
 
 function validateData() {
-
     const companyname = $("#companyname").val();
     if(companyname == null || companyname ==""){
         $(".nameWarning").show();
@@ -193,25 +193,3 @@ function validateData() {
     return true;
 }
 
-//refreshTodoList
-function refreshTodoList(params) {
-    $.ajax({
-        url:"/api/companies",
-        type:"GET",
-        dataType:"json",
-        error: function (jqxhr, status, errorThrown) {
-            alert("AJAX error: " + jqxhr.responseText);
-            }
-    }).done(function(companiesList){
-        var result = '<tr><th>Name</th><th>Description</th><th>Industry</th></tr>';
-        for (var i = 0; i < companiesList.length; i++) {
-            var company = companiesList[i];
-            result += '<tr onclick="selectItem(' + company.id + ')">';
-            result += '<td>' + company.name + '</td>';
-            result += '<td>' + company.description + '</td>';
-            result += '<td>' + company.industry + '</td>';
-            result += '</tr>' + "\n";
-        }
-        $("#listTable").html(result);
-    });
-}
