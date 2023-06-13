@@ -9,10 +9,11 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-        <link rel="stylesheet" href="./styles/companies.css">
-
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
         <link href="https://fonts.googleapis.com/css2?family=EB+Garamond&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="./styles/companies.css">
+
 
         <script>
             $(document).ready(function () {
@@ -35,13 +36,8 @@
                         alert("AJAX error: " + jqxhr.responseText);
                         }
                 }).done(function(jobs){
-                    
-                    var result = '<tr><th>title</th><th>Description</th><th>Industry</th><th>salary</th><th>type</th><th>status</th><th>createDate</th></tr>';
-                    for (var i = 0; i < jobs.length; i++) {
-                        var job = jobs[i];
-
-                        if(job.createDate){
-                            var datetime = new Date(job.createDate);
+                    jobs.forEach(job => {
+                        var datetime = new Date(job.createDate);
                             var formattedDatetime = datetime.toLocaleString('en-US', {
                                 year: 'numeric',
                                 month: '2-digit',
@@ -50,17 +46,48 @@
                                 minute: '2-digit',
                                 second: '2-digit'
                             });
-                        }
-                        result += '<tr>';
-                        result += '<td>' + job.title + '</td>';
-                        result += '<td>' + job.description + '</td>';
-                        result += '<td>' + job.industry + '</td>';
-                        result += '<td>' + job.salary + '</td>';
-                        result += '<td>' + job.type + '</td>';
-                        result += '<td>' + job.status + '</td>';
-                        result += '<td>' + formattedDatetime + '</td>';
-                        result += '</tr>' + "\n";
-                    }
+                        $('#jobListings').append(`
+                        <div class="job-card col-md-6 job-listing" data-id="${job.jobId}" onclick="selectItem(${job.jobId})">
+                        <div class="card">
+                                    <div class="card-header">The job title is: ${job.title}</div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">This job is in ${job.industry} industry</h5>
+                                        <p class="card-text">Job descriptiong as :${job.description}</p>
+                                        <p class="card-text">Salary is : $${job.salary}/hour</p>
+                                        <p class="card-text">Job type is : ${job.type}</p>
+                                        <p class="card-text">This job status is : ${job.status}</p>
+                                        <p class="card-text">Create at : ${job.formattedDatetime}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        `);
+                    });
+                            
+                    // var result = '<tr><th>title</th><th>Description</th><th>Industry</th><th>salary</th><th>type</th><th>status</th><th>createDate</th></tr>';
+                    // for (var i = 0; i < jobs.length; i++) {
+                    //     var job = jobs[i];
+
+                    //     if(job.createDate){
+                    //         var datetime = new Date(job.createDate);
+                    //         var formattedDatetime = datetime.toLocaleString('en-US', {
+                    //             year: 'numeric',
+                    //             month: '2-digit',
+                    //             day: '2-digit',
+                    //             hour: '2-digit',
+                    //             minute: '2-digit',
+                    //             second: '2-digit'
+                    //         });
+                    //     }
+                    //     result += '<tr>';
+                    //     result += '<td>' + job.title + '</td>';
+                    //     result += '<td>' + job.description + '</td>';
+                    //     result += '<td>' + job.industry + '</td>';
+                    //     result += '<td>' + job.salary + '</td>';
+                    //     result += '<td>' + job.type + '</td>';
+                    //     result += '<td>' + job.status + '</td>';
+                    //     result += '<td>' + formattedDatetime + '</td>';
+                    //     result += '</tr>' + "\n";
+                    // }
                     $("#sumery").text(jobs[0].name + " have " + jobs.length + " jobs posted as following:");
                     $("#listTable").html(result);
                 });
@@ -82,13 +109,18 @@
                 </nav>
             </div>
         </header>
-
-        <div id="centerContent">
+        <div class="container" style="width: 90%; margin: auto;">
+            <div id="jobListings" class="row">
+                    <!-- // jobs listings apended here -->
+            </div>
+            
+        </div>
+        <!--<div id="centerContent">
             <div id="listPane">
                 <h4 id="sumery"></h4>
                 <table id="listTable" border="1"></table>
             </div>
-        </div>
+        </div>-->
 
         <footer>
             <div>
