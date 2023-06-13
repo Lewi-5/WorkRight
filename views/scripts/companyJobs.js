@@ -6,17 +6,6 @@ $(document).ready(function () {
     const id = urlParams.get('id');
 
     refreshJobList(id);
-
-    $.ajax({
-        url:"/api/companies/"+id,
-        type:"GET",
-        dataType:"json",
-        error: function (jqxhr, status, errorThrown) {
-            alert("AJAX error: " + jqxhr.responseText);
-            }
-    }).done(function(company){
-        $("#companyTitle").html(company.name);
-    });
 });
 
 $("#signOut").on("click", function() {
@@ -63,8 +52,8 @@ function refreshJobList(id) {
                 </div>
             `);
         });
-
-        $("#sumery").text(jobs[0].name + " have " + jobs.length + " jobs posted as following:");
+        //print infomation in title
+        $("#companyTitle").text(jobs[0].name + " have " + jobs.length + " jobs posted as following:");
         $("#listTable").html(result);
     });
 }
