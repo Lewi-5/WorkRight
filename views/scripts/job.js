@@ -41,5 +41,38 @@ $(document).ready(function () {
           console.log('Error occurred while fetching job details');
         }
       });
+
+      function submitApplication() {
+        const fullname = document.getElementById('fullname').value;
+        const email = document.getElementById('email').value;
+        const phone = document.getElementById('phone').value;
+        const applied = document.getElementById('applied').checked;
+        const resume = document.getElementById('resume').files[0];
+        
+        let reader = new FileReader();
+        reader.readAsDataURL(resume);
+        reader.onload = function () {
+            const base64Resume = reader.result.split(",")[1];
+    
+            fetch('/api/submitApplication', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    fullname: fullname,
+                    email: email,
+                    phone: phone,
+                    applied: applied,
+                    resume: base64Resume
+                })
+            }).then(response => response.json())
+              .then(data => console.log(data));
+        };
+        reader.onerror = function (error) {
+            console.log('Error: ', error);
+        };
+    }
+    
     });
     
