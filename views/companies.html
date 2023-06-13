@@ -1,85 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Company</title>
+        <link rel="icon" type="image/x-icon" href="./images/favicon.png">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="styles/styles.css">
+        <link rel="stylesheet" href="styles/companies.css">
+        <script src="./scripts/companies.js">
+        </script>
+    </head>
+    <body>
 
-<head>
-    <meta charset="UTF-8">
-    <title>WorkRight Company Form</title>
-    <link rel="icon" type="image/x-icon" href="./images/favicon.png">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <link rel="stylesheet" href="styles/styles.css">
-    <link rel="stylesheet" href="styles/companies.css">
-    <script src="./scripts/companies.js"> </script>
-
-</head>
-
-<body>
-
-    <header>
-        <div>
-            <a href="index.html">
-            <img src="/images/logo_transparent.png" alt="Logo">
-            </a>
-            <nav>
-                <ul>
-                    <li><a href="./jobs.html">Job Listings</a></li>
-                    <li><a href="./logintest.html">Job Seekers</a></li>
-                    <li><a href="./logintest.html">Employers</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
-
-    <div id="popupMessage" style="display: none;">
-        <p>You company was sucessfully added</p>
-    </div>
-
-    <div class="container">
-        <div class="row">
-            <div class="col-4">
-                
-
+        <header>
+            <div>
+                <img src="/images/logo_transparent.png" alt="Logo">
+                <nav>
+                    <ul>
+                        <li><a href="#">Job Listings</a></li>
+                        <li><a href="#">Job Seekers</a></li>
+                        <li><a href="#">Employers</a></li>
+                    </ul>
+                </nav>
             </div>
-            <div class="col-4">
-
-                <div class="col d-flex justify-content-center align-items-center">
-                    <!--stop gap for demo, will need a better solution to this-->
-                    <label for="companySelect">See only posts from a certain employer:</label>
-                    <select id="companySelect">
-                        <option value="">Select a company</option>
-                        <option value="C&T">C&T</option>
-                        <option value="Company C">Company C</option>
-                        <option value="hello">hello</option>
-                        <option value="hello world">hello world</option>
-                        <option value="workrignt">workrignt</option>
-                        <option value="workrignt1">workrignt1</option>
-                        <option value="hellohello">hellohello</option>
-                        <option value="difdfgdfg">difdfgdfg</option>
-                        <option value="helloWorld">helloWorld</option>
-                        <option value="helloWorld12">helloWorld12</option>
-                        <option value="helloWorld123">helloWorld123</option>
-                        <option value="Brighteye">Brighteye</option>
-                        <option value="company baby">company baby</option>
-                        <option value="Customers Inc.">Customers Inc.</option>
-                    </select>
-                    <button class="workBtn" id="toCompanyJobs">Recent Company Postings</button>
-                    <br>
-                    <button class="workBtn" id="toCompanies">WorkRight Company List</button>
+        </header>
+    
+        <!-- Modal -->
+        <div class="modal fade" id="addsuccess" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Congratulations</h5>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      </div>
+                    <div class="modal-body">
+                        <p>Think you, your company is added.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="modalclose" class="btn btn-primary" data-dismiss="modal">Close</button>
+                    </div>
                 </div>
-                <div id="listPane">
+            </div>
+        </div>
+        <div id="listedContent">
+
+            <div id="listPane">
                     <div>
                         <label for="companyname">Company Name: </label>
-                        <input type="text" id="companyname" required>
+                        <input type="text" id = "companyname" required>
                         <p class="nameWarning" style="color: red;">Not a valid company name</p>
                     </div>
-                    <label for="desc">Description: </label>
-                    <textarea id="desc"></textarea>
+                        <label for="desc">Description: </label>
+                        <textarea id = "desc" ></textarea>
                     <div>
-                        <label for="industry">Industry: </label>
+                    <label for="industry">Industry: </label>
                         <select id="industry">
                             <option value="Finance">Finance</option>
                             <option value="Medical">Medical</option>
@@ -93,16 +70,16 @@
                     </div>
                     <div>
                         <label for="streetno">Street No: </label>
-                        <input type="text" id="streetno">
+                        <input type="text" id = "streetno" >
                         <p class="streetnowarn"></p>
                     </div>
                     <div>
                         <label for="street">Street: </label>
-                        <input type="text" id="street">
+                        <input type="text" id = "street" >
                     </div>
                     <div>
                         <label for="city">City: </label>
-                        <input type="text" id="city">
+                        <input type="text" id = "city" >
                     </div>
                     <div>
                         <label for="province">Province: </label>
@@ -121,26 +98,19 @@
                     </div>
                     <div>
                         <label for="postcode">Postcode: </label>
-                        <input type="text" id="postcode">
+                        <input type="text" id = "postcode" >
                         <p class="postalCodeWarning">Not a valid postal code</p>
                     </div>
                     <div class="centercontent">
                         <button id="modify">Add</button>
                     </div>
-                </div>
-            </div>
-            <div class="col-4">
-                
 
             </div>
         </div>
-    </div>
-    </div>
-    <footer>
-        <div>
-            <p>WorkRight &copy; 2023</p>
-        </div>
-    </footer>
-</body>
-
+        <footer>
+            <div>
+                <p>WorkRight &copy; 2023</p>
+            </div>
+        </footer>
+    </body>
 </html>

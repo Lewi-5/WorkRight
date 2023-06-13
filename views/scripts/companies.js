@@ -1,47 +1,5 @@
 $(document).ready(function () {
-
-
-    $("#companyname").val("");
-    $("#desc").val("");
-    $("#industry").val("Finance");
-    $("#streetno").val("");
-    $("#street").val("");
-    $("#city").val("");
-    $("#province").val("Alberta");
-    $("#postcode").val("");
-    $("#companySelect").val("");
-
-    $("#signOut").on("click", function() {
-        sessionStorage.setItem('username', "");
-        sessionStorage.setItem('password', "");
-        window.location.href = "../loginTest.html"
-    })
-
-
-    $("#modify, .workBtn").css({
-        "border": "none",
-        "outline": "0",
-        "display": "inline-block",
-        "padding": "15px 25px",
-        "margin-top": "40px",
-        "margin-bottom": "40px",
-        "color": "rgb(250, 248, 248)",
-        "background-color": "#ec3d3d",
-        "border-radius": "4%",
-        "text-align": "center",
-        "cursor": "pointer"
-    });
-    $("#modify, .workBtn").hover(function () {
-        $(this).css("background-color", "#a01c1c")
-    }, function () {
-        $(this).css("background-color", "#ec3d3d")
-    })
-
-    $("#toCompanies").on("click", function () {
-        window.location.href = "../allcompanies.html"
-    })
-
-
+    
     //get url params : id
     $('.postalCodeWarning').hide();
     $('.nameWarning').hide();
@@ -49,242 +7,160 @@ $(document).ready(function () {
 
     const urlParams = new URLSearchParams(queryString);
     const id = urlParams.get('id')
-    //console.log(`id = ${id}`);
-    if (id == 0) {
-        $("#modify").html("Add New");
-    } else {
-        $("#modify").html("Update");
-        getCompany(id);
-
+//console.log(`id = ${id}`);
+    if(id == 0 ){
+        $("#modify").text("Add New");
+    }else{
+        $("#modify").text("Update");
+         getCompany(id);
+        
     }
 
-    $('#companyname').on('blur', function () {
+    $('#companyname').on('blur', function() {
         let companyname = $("#companyname").val();
-        if (companyname == null || companyname == "") {
+        if (companyname == null || companyname ==""){
             $(".nameWarning").show();
             return false;
-        } else {
+        } else{
             $(".nameWarning").hide();
         }
     });
 
-    $('#postcode').on('blur', function () {
+    $('#postcode').on('blur', function() {
         let postcode = $("#postcode").val();
         const PosteCodeRegex = /^[A-Za-z]\d[A-Za-z]\d[A-Za-z]\d$/;
-        if (postcode !== null || postcode !== "") {
-            if (PosteCodeRegex.test(postcode)) {
+        if (postcode !== null || postcode !==""){
+            if( PosteCodeRegex.test(postcode)){
                 $('.postalCodeWarning').hide();
-            } else {
+            }else{
                 $('.postalCodeWarning').show();
             }
         }
     });
 
-    $("#modify").on("click", function () {
+    $("#modify").on("click", function(){
         //if(!validateData()) return false;
-        if ($("#modify").text() === "Update") {
+        if($("#modify").text() === "Update"){
             updateCpmpany(id);
-        } else {
+        }else{
             addNew();
         }
     });
 
+    $("#modalclose").on("click",function(){
+        console.log("modalclose clicked, return to index");
+        window.open('allcompanies.html', '_self');
+    });
     $('.postalCodeWarning').hide();
     $('.nameWarning').hide();
-
-    var company = "hello"; // Replace with the desired string
-
-    //FIXME: SHORT TERM SOLUTION OF COMPANY JOBS LINK FOR DEMO USE ONLY
-
-    $("#toCompanyJobs").prop("disabled", true);
-    $("#toCompanyJobs").css("background-color", "#grey")
-
-    $("#companySelect").change(function () {
-        $("#toCompanyJobs").prop("disabled", false);
-        $("#toCompanyJobs").css("background-color", "#ec3d3d")
-    });
-
-        let companyParam;
-    $("#companySelect").change(function () {
-        let valSelected = $(this).val();
-        
-        switch (valSelected) {
-            case "C&T":
-                companyParam = 28;
-                break;
-            case "Company C":
-                companyParam = 30;
-                break;
-            case "hello":
-                companyParam = 35;
-                break;
-            case "hello world":
-                companyParam = 37;
-                break;
-            case "workrignt":
-                companyParam = 39;
-                break;
-            case "workrignt1":
-                companyParam = 40;
-                break;
-            case "hellohello":
-                companyParam = 41;
-                break;
-            case "difdfgdfg":
-                companyParam = 42;
-                break;
-            case "helloWorld":
-                companyParam = 43;
-                break;
-            case "helloWorld12":
-                companyParam = 44;
-                break;
-            case "helloWorld123":
-                companyParam = 47;
-                break;
-            case "Brighteye":
-                companyParam = 48;
-                break;
-            case "company baby":
-                companyParam = 28;
-                break;
-            case "Customers Inc.":
-                companyParam = 28;
-                break;
-            default:
-
-                break;
-        }
-        
-    });
-    $("#toCompanyJobs").on("click", function () {
-        window.location.href = `../companyjobs.html?id=${companyParam}`;
-    })
 });
 
 //update company
 function updateCpmpany(id) {
-    if (validateData() == false) {
+    if (validateData() == false){
         return false;
     }
-    const name = $("#companyname").val();
-    console.log("name= " + name);
-    if (name == null || name == "") {
+    const name = $("#companyname").val();  
+    console.log("name= "+ name );
+    if (name == null || name ==""){
         $(".nameWarning").show();
         return false;
-    }
+    } 
     const desc = $("#desc").val();
     const industry = $("#industry").val();
 
-    const streetno = $("#streetno").val();
+    const streetno = $("#streetno").val();                    
     const street = $("#street").val();
     const city = $("#city").val();
 
     const province = $("#province").val();
     const postcode = $("#postcode").val();
 
-    const now = new Date();
-    var updatedate = now.toISOString().slice(0, 19).replace('T', ' ');
+    const currentdate = new Date();
+    const createdate = currentdate.toLocaleString();
     var company = {
-        name: name,
-        description: desc,
-        industry: industry,
-        streetNo: streetno,
-        street: street,
-        city: city,
-        province: province,
-        postcode: postcode,
-        lastUpdate: updatedate,
+        name : name,
+        description : desc,
+        industry : industry,
+        streetno : streetno,
+        street : street,
+        city : city,
+        province : province,
+        postcode : postcode,
+        ceate_date : createdate,
     };
 
     $.ajax({
-        url: "/api/companies/" + id,
-        type: "put",
-        dataType: "json",
-        data: company,
+        url:"/api/companies/"+id,
+        type:"put",
+        dataType:"json",
+        data:company,
         error: function (jqxhr, status, errorThrown) {
-            alert("AJAX error: " + jqxhr.responseText);
+        alert("AJAX error: " + jqxhr.responseText);
         }
-    }).done(function (company) {
-        $("#popupMessage").dialog({
-            modal: true,
-            buttons: {
-                OK: function () {
-                    $(this).dialog("close");
-                }
-            }
-        });
-        window.open('allcompanies.html', '_self');
+    }).done(function(company){
+        $("#addsuccess").modal("show");
     });
 }
 
 //add new company
 function addNew() {
-    if (validateData() == false) {
+    if (validateData() == false){
         return false;
     }
-    const name = $("#companyname").val();
-    console.log("name= " + name);
-    if (name == null || name == "") {
+    const name = $("#companyname").val();     
+    console.log("name= "+ name );
+    if (name == null || name ==""){
         $(".nameWarning").show();
         return false;
-    }
-    const desc = $("#desc").val();
-    const industry = $("#industry").val();
+    }               
+        const desc = $("#desc").val();
+        const industry = $("#industry").val();
 
-    const streetno = $("#streetno").val();
-    const street = $("#street").val();
-    const city = $("#city").val();
+        const streetno = $("#streetno").val();                    
+        const street = $("#street").val();
+        const city = $("#city").val();
 
-    const province = $("#province").val();
-    const postcode = $("#postcode").val();
+        const province = $("#province").val();
+        const postcode = $("#postcode").val();
 
-    const now = new Date();
-    var createdate = now.toISOString().slice(0, 19).replace('T', ' ');
-    var company = {
-        name: name,
-        description: desc,
-        industry: industry,
-        streetno: streetno,
-        street: street,
-        city: city,
-        province: province,
-        postcode: postcode,
-        createDate: createdate,
-    };
+        const currentdate = new Date();
+        const createdate = currentdate.toLocaleString();
+        var company = {
+            name : name,
+            description : desc,
+            industry : industry,
+            streetno : streetno,
+            street : street,
+            city : city,
+            province : province,
+            postcode : postcode,
+            ceate_date : createdate,
+        };
 
-    $.ajax({
-        url: "/api/companies/",
-        type: "post",
-        dataType: "json",
-        data: company,
-        error: function (jqxhr, status, errorThrown) {
+        $.ajax({
+            url:"/api/companies/",
+            type:"post",
+            dataType:"json",
+            data:company,
+            error: function (jqxhr, status, errorThrown) {
             alert("AJAX error: " + jqxhr.responseText);
-        }
-    }).done(function (company) {
-        $("#popupMessage").dialog({
-            modal: true,
-            buttons: {
-                OK: function () {
-                    $(this).dialog("close");
-                }
             }
+        }).done(function(company){
+            $("#addsuccess").modal("show");
         });
-        window.open('allcompanies.html', '_self');
-    });
-
 }
 //get company
 function getCompany(id) {
-    console.log("/api/Companies/" + id);
+    console.log("/api/Companies/"+id);
     $.ajax({
-        url: "/api/Companies/" + id,
-        type: "GET",
-        dataType: "json",
+        url:"/api/Companies/"+id,
+        type:"GET",
+        dataType:"json",
         error: function (jqxhr, status, errorThrown) {
             alert("AJAX error: " + jqxhr.responseText);
-        }
-    }).done(function (company) {
+            }
+    }).done(function(company){
         $("#companyname").val(company.name);
         $("#desc").val(company.description);
         $("#industry").val(company.industry);
@@ -299,7 +175,7 @@ function getCompany(id) {
 function validateData() {
 
     const companyname = $("#companyname").val();
-    if (companyname == null || companyname == "") {
+    if(companyname == null || companyname ==""){
         $(".nameWarning").show();
         return false;
     }
@@ -308,8 +184,8 @@ function validateData() {
     //validat postcode
     const postalCode = $("#postcode").val();
     const PosteCodeRegex = /^[A-Za-z]\d[A-Za-z]?\d[A-Za-z]\d$/;
-    if (postalCode !== null || postalCode !== "") {
-        if (!PosteCodeRegex.test(postalCode)) {
+    if (postalCode !== null || postalCode !==""){
+        if( !PosteCodeRegex.test(postalCode)){
             $('.postalCodeWarning').show();
             return false;
         };
@@ -320,13 +196,13 @@ function validateData() {
 //refreshTodoList
 function refreshTodoList(params) {
     $.ajax({
-        url: "/api/companies",
-        type: "GET",
-        dataType: "json",
+        url:"/api/companies",
+        type:"GET",
+        dataType:"json",
         error: function (jqxhr, status, errorThrown) {
             alert("AJAX error: " + jqxhr.responseText);
-        }
-    }).done(function (companiesList) {
+            }
+    }).done(function(companiesList){
         var result = '<tr><th>Name</th><th>Description</th><th>Industry</th></tr>';
         for (var i = 0; i < companiesList.length; i++) {
             var company = companiesList[i];
