@@ -23,6 +23,17 @@
                 const id = urlParams.get('id');
                 console.log("id = " + id);
                 refreshTodoList(id);
+
+                $.ajax({
+                    url:"/api/companies/"+id,
+                    type:"GET",
+                    dataType:"json",
+                    error: function (jqxhr, status, errorThrown) {
+                        alert("AJAX error: " + jqxhr.responseText);
+                        }
+                }).done(function(company){
+                    $("#companyTitle").html(company.name);
+                });
             });
 
             //refreshTodoList
@@ -109,6 +120,9 @@
                 </nav>
             </div>
         </header>
+        <div class="container" style="display: flex;justify-content: center;align-items: center;">
+        <h1 id="companyTitle">Company Name</h1>
+        </div>
         <div class="container" style="width: 90%; margin: auto;">
             <div id="jobListings" class="row">
                     <!-- // jobs listings apended here -->

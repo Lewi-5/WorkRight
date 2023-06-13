@@ -5,7 +5,7 @@ $(document).ready(function () {
 
     refreshUserList();
 
-    $("#toPostings").css({
+    $("#toPostings , #toCompanies").css({
         "border": "none",
         "outline": "0",
         "display": "inline-block",
@@ -17,13 +17,16 @@ $(document).ready(function () {
         "text-align": "center",
         "cursor": "pointer"
       });
-      $("#toPostings").hover(function () {
+      $("#toPostings, #toCompanies").hover(function () {
         $(this).css("background-color", "#a01c1c")
     },function () {
         $(this).css("background-color", "#ec3d3d") })
       
     $("#toPostings").on("click", function () {
         window.location.href = "http://localhost:7077/adminJobs.html"
+    })
+    $("#toCompanies").on("click", function () {
+        window.location.href = "http://localhost:7077/allcompanies.html"
     })
 
     $.ajax({

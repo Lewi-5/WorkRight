@@ -6,7 +6,7 @@ $(document).ready(function () {
 
     refreshJobsList();
 
-    $("#toUsers").css({
+    $("#toUsers, #toCompanies").css({
         "border": "none",
         "outline": "0",
         "display": "inline-block",
@@ -18,13 +18,16 @@ $(document).ready(function () {
         "text-align": "center",
         "cursor": "pointer"
       });
-      $("#toUsers").hover(function () {
+      $("#toUsers, #toCompanies").hover(function () {
         $(this).css("background-color", "#a01c1c")
     },function () {
         $(this).css("background-color", "#ec3d3d") })
       
     $("#toUsers").on("click", function () {
         window.location.href = "http://localhost:7077/users.html"
+    })
+    $("#toCompanies").on("click", function () {
+        window.location.href = "http://localhost:7077/allcompanies.html"
     })
 
     $.ajax({
