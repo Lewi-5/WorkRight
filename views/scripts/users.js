@@ -53,6 +53,7 @@ $(document).ready(function () {
     $("#firstName").val("");
     $("#lastName").val("");
     $("#role").val("user");
+    $("#industry").val("Finance");
 
     $(".editBtn").hide();
     $(".deleteBtn").hide();
@@ -113,6 +114,7 @@ $(document).ready(function () {
             $("#firstName").val("");
             $("#lastName").val("");
             $("#role").val("user");
+            $("#industry").val("Finance");
             currId = 0;
             $("#currentId").hide();
             refreshUserList();
@@ -133,6 +135,7 @@ $(document).ready(function () {
         $("#firstName").val("");
         $("#lastName").val("");
         $("#role").val("user");
+        $("#industry").val("Finance");
         currId = 0;
         $("#currentId").hide();
     });
@@ -209,7 +212,7 @@ $(document).ready(function () {
         }
     });
 
-    const tableBody = $("#tableBody");
+    //const tableBody = $("#tableBody");
 
 });
 
@@ -325,7 +328,13 @@ function addNew() {
         return false;
     }
     if (roleInpt == null || roleInpt == "") {
-        $(".lnameWarning").show();
+        //$(".lnameWarning").show();
+        alert("please select a role");
+        return false;
+    }
+    if (industryInpt == null || industryInpt == "") {
+        //$(".lnameWarning").show();
+        alert("please select an industry");
         return false;
     }
 
@@ -431,6 +440,7 @@ function update() {
         $("#firstName").val("");
         $("#lastName").val("");
         $("#role").val("user");
+        $("#industry").val("Finance");
         refreshUserList();
         currId = 0;
 
@@ -462,6 +472,7 @@ function selectItem(id) {
         $("#firstName").val(user.firstName);
         $("#lastName").val(user.lastName);
         $("#role").val(user.role);
+        $("#industry").val(user.industry);
         currId = id;
 
     });
@@ -483,13 +494,10 @@ function refreshUserList() {
             for (let i = 0; i < data.length; i++) {
                 let tableRow = $(`<tr id="${data[i].ID}" onclick="selectItem(${data[i].ID})">'><th id="th${i}" scope="row">${data[i].ID}</th></tr>`); // not working yet to create cards of each row
 
-                // let idCell = $(`#th${i}`).text(data[i].ID);
-
-                // let idCell = $("<td></td>").text(data[i].ID);
                 let usernameCell = $("<td></td>").text(data[i].username);
                 let firstNameCell = $("<td></td>").text(data[i].firstName);
                 let lastNameCell = $("<td></td>").text(data[i].lastName);
-                let industryCell = $("<td></td>").text(data[i].industry);
+                let industryCell = $("<td></td>").text(data[i].industry); // INDUSTRY CELL IS HERE
                 let roleCell = $("<td></td>").text(data[i].role);
 
                 tableRow.append(usernameCell, firstNameCell, lastNameCell, industryCell, roleCell);

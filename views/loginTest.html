@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="./styles/main.css">
     <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
     <script src="./scripts/loginTest.js">
-        
+
     </script>
 </head>
 
@@ -20,7 +20,7 @@
     <header>
         <div>
             <a href="index.html">
-            <img src="./images/logo_transparent.png" alt="Logo">
+                <img src="./images/logo_transparent.png" alt="Logo">
             </a>
             <nav>
                 <ul>
@@ -50,46 +50,57 @@
             <div class="col-4 p-3">
             </div>
             <div class="col-4 p-3" id="centerContent">
-                <div class="p-3" id="loginPane" >
+                <div class="p-3" id="loginPane">
                     Username: <input class="mb-3" type="text" name="username"><br>
                     Password: <input class="mb-3" type="password" name="password"><br>
-                    <p id="passwordWarninglogin" style="color: red;">Password has to be Minimum eight characters, at least one letter and one number</p>
+                    <p id="passwordWarninglogin" style="color: red;">Password has to be Minimum eight characters, at
+                        least one letter and one number</p>
                     <button id="loginButton">Login</button>
                 </div>
                 <br>
                 <label for="role">I am a:</label>
-                                            <select id="role">
-                                                <option value="user" selected="selected">Job-Seeker</option>
-                                                <option value="employer">Employer</option>
-                                            </select>
+                <select id="role">
+                    <option value="user" selected="selected">Job-Seeker</option>
+                    <option value="employer">Employer</option>
+                </select>
+                <br>
+                <label for="industry">Industry: </label>
+                <select id="industry">
+                    <option value="Finance">Finance</option>
+                    <option value="Medical">Medical</option>
+                    <option value="Agriculture">Agriculture</option>
+                    <option value="Information">Information</option>
+                    <option value="Catering">Catering</option>
+                    <option value="Transportation">Transportation</option>
+                    <option value="Insurance">Insurance</option>
+                    <option value="Customer Service">Customer Service</option>
+                </select>
                 <div class="p-3" id="registerPane">
+
                     First Name: <input class="mb-3" type="text" name="firstName"><br>
                     Last Name: <input class="mb-3" type="text" name="lastName"><br>
                     Username: <input class="mb-3" type="text" name="newUsername"><br>
                     Password: <input class="mb-3" type="password" name="newPass1"><br>
-                    <p id="passwordWarning1" style="color: red;">Password has to be Minimum eight characters, at least one letter and one number</p>
+                    <p id="passwordWarning1" style="color: red;">Password has to be Minimum eight characters, at least
+                        one letter and one number</p>
                     Password (repeated): <input class="mb-3" type="password" name="newPass2"><br>
-                    <p id="passwordWarning2" style="color: red;">Password has to be Minimum eight characters, at least one letter and one number</p>
+                    <p id="passwordWarning2" style="color: red;">Password has to be Minimum eight characters, at least
+                        one letter and one number</p>
                     <button id="registerButton">Register</button>
                 </div>
             </div>
             <div class="col-4 p-3">
-                
+
             </div>
         </div>
     </div>
     <div class="container p-3" id="profile">
         <div class="row p-3">
             <div class="col-4 p-3">
-                
+
             </div>
             <div class="col-4 p-3">
-                <h3 id="welcomeBack"></h3>
-                <h3 id="nameP"></h3>
-                <p>Your industry: Finance</p>
-                <p>Current Applications: 3</p>
-                <p>Recent postings in your field: 5</p>
-                <p>Jobs headquarted in your commute: 2</p>
+
             </div>
             <div class="col-4 p-3">
 
@@ -97,11 +108,11 @@
         </div>
 
     </div>
-        <footer>
-            <div>
-                <p>WorkRight &copy; 2023</p>
-            </div>
-        </footer>
+    <footer>
+        <div>
+            <p>WorkRight &copy; 2023</p>
+        </div>
+    </footer>
 </body>
 
 </html>
