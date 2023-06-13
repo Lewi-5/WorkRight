@@ -1,6 +1,46 @@
 
 var companyid = "";
 $(document).ready(function () {
+
+    
+    $.ajax({
+        url: "/api/users/me",
+        headers: { 'x-auth-username': sessionStorage.getItem('username'), 'x-auth-password': sessionStorage.getItem('password') },
+        type: "GET",
+        dataType: "json",
+        error: function (jqxhr, status, errorThrown) {
+            alert("AJAX error: " + jqxhr.responseText);
+            setTimeout(() => {
+                window.location.href = "./loginTest.html"
+            }, 3000);
+        }
+    }).done(function (user) {
+        if (user.role == 'user') {
+            $("#addNewCompany").hide();
+            $("#updateCompany").hide();
+            $("#deleteCompany").hide();
+        } else if (user.role == 'employer') {
+            $("#addNewCompany").hide();
+            $("#updateCompany").hide();
+            $("#deleteCompany").hide();
+        } else if (user.role == 'admin') {
+            $("#adminTitle").html(`Hello, ${user.username}, Welcome to the WorkRight Company Administration`)
+        }
+        else {
+            alert("authentication invalid");
+            setTimeout(() => {
+                window.location.href = "./loginTest.html"
+            }, 3000);
+        }
+        
+    });
+
+    $("#signOut").on("click", function() {
+        sessionStorage.setItem('username', "");
+        sessionStorage.setItem('password', "");
+        window.location.href = "../loginTest.html"
+    })
+
     const selectedOption = $("#sortSelect").val();
     refreshCompaniesList(selectedOption);
     //if new button click pass id=0

@@ -38,7 +38,7 @@ $(document).ready(function () {
         error: function (jqxhr, status, errorThrown) {
             alert("AJAX error: " + jqxhr.responseText);
             setTimeout(() => {
-                window.location.href = "http://localhost:7077/loginTest.html"
+                window.location.href = "./loginTest.html"
             }, 3000);
         }
     }).done(function (account) {

@@ -19,6 +19,13 @@ $(document).ready(function () {
     });
 });
 
+$("#signOut").on("click", function() {
+    sessionStorage.setItem('username', "");
+    sessionStorage.setItem('password', "");
+    window.location.href = "../loginTest.html"
+})
+
+
 //refreshJobList
 function refreshJobList(id) {
     //http://localhost:7077/api/allcompanies/jobs/29

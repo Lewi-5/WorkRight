@@ -17,6 +17,13 @@ $(document).ready(function () {
          getCompany(id);
     }
 
+    $("#signOut").on("click", function() {
+        sessionStorage.setItem('username', "");
+        sessionStorage.setItem('password', "");
+        window.location.href = "../loginTest.html"
+    })
+    
+
     //check name can not be empty
     $('#companyname').on('blur', function() {
         let companyname = $("#companyname").val();

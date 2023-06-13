@@ -1,4 +1,5 @@
 const Company = require('../models/companies.model');
+const Auth = require("../utils/auth");
 
 const log = require('npmlog');
 
@@ -137,6 +138,7 @@ console.log("findJobsByCompanyId : req.params.id " + req.params.id);
 
 // Delete a company with the specified id in the request
 exports.delete = (req, res) => {
+    Auth.execIfAuthValid(req, res, ['admin'], (req, res, user) => {
     Company.remove(req.params.id, (err, data) => {
         if (err) {
           if (err.kind === "not_found") {
@@ -152,6 +154,7 @@ exports.delete = (req, res) => {
             res.status(200);
             res.send({ message: `Company was deleted successfully!` });
         }
+      });
       });
 };
 

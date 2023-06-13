@@ -1,20 +1,15 @@
+let currId = 0;
+
 $(document).ready(function () {
 
-    $("#signOut").on("click", function () {
-    sessionStorage.setItem('username', "");
-    sessionStorage.setItem('password', "");
-    window.location.href = "./logintest.html"
-});
-
     refreshPage();
-    const queryString = window.location.search;
-
+    
     $.ajax({
         url: "/api/users/me",
         headers: { 'x-auth-username': sessionStorage.getItem('username'), 'x-auth-password': sessionStorage.getItem('password') },
         type: "GET",
         dataType: "json",
-        // ContentType: "application/json",
+        //contentType: "application/json",
         error: function (jqxhr, status, errorThrown) {
             alert("AJAX error: " + jqxhr.responseText);
             setTimeout(() => {
@@ -22,17 +17,41 @@ $(document).ready(function () {
             }, 3000);
         }
     }).done(function (account) {
-        console.log(account);
+        //console.log(account);
+        currId = account.ID; // worried about this validation, let me explain:
+        // if we grab the id sent back from the authentication on page load, and then move
+        // this id into the global variable currId, are we technically not doing back end validation
+        // when the user wants to change their username? Perhaps on the client side the user
+        // could manipulate currId. So what we need to do is grab the incoming req.header value
+        // for things like patch/delete requests and pass that value into find by username
+        // if the user is trying to update a user other than their own and they are not
+        // an admin, the authentication will fail
         $("#welcomeBack").html("Welcome back " + account.username);
         $("#nameP").html("<em>Job Finder</em>,<br>" + account.firstName + " " + account.lastName);
         $("#rolePane").fadeIn(3000);
         $("#userIndustry").html("Your Industry: " + account.industry);
     });
 
-    const urlParams = new URLSearchParams(queryString);
-    const id = urlParams.get('id');
-    console.log("id = " + id);
-    getUser(id);
+    $("#signOut").on("click", function () {
+    sessionStorage.setItem('username', "");
+    sessionStorage.setItem('password', "");
+    window.location.href = "./logintest.html"
+    });
+
+    
+
+    //refreshPage();
+    //const queryString = window.location.search;
+
+    // console.log(sessionStorage.getItem('username'));
+    // console.log(sessionStorage.getItem('password'));
+
+    
+
+    // const urlParams = new URLSearchParams(queryString);
+    // const id = urlParams.get('id');
+    // console.log("id = " + id);
+    // getUser(id);
 
     $("#edit").on("click", function () {
         $("#currentId").hide();

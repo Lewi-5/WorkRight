@@ -9,12 +9,12 @@ const Auth = require("../utils/auth");
 
 //Create and Save a new User
 exports.create = function (req, res) {
-        if (req.body.role == 'admin') {
-            Auth.execIfAuthValid(req, res, ['admin'], (req, res, user) => { // we check to make sure only admins are making admins
-                
-            });
-        } else
-    
+    if (req.body.role == 'admin') {
+        Auth.execIfAuthValid(req, res, ['admin'], (req, res, user) => { // we check to make sure only admins are making admins
+
+        });
+    } else
+
         isUserValid(req, res, false, function (result) {
             if (!result) {
 
@@ -49,11 +49,12 @@ exports.create = function (req, res) {
                 });
             }
         });
-    
+
 };
 
 exports.findMe = (req, res) => {
-    Auth.execIfAuthValid(req, res, ['user', 'admin'], (req, res, user) => { // null because no roles in the todos project
+    Auth.execIfAuthValid(req, res, null, (req, res, user) => { // null if authenticated user required but no specific role
+        console.log("from the find me controller" + user);
         res.status(200).send(user);
     });
 };
@@ -122,7 +123,30 @@ exports.findOne = (req, res) => {
 
 //Update a User by id
 exports.update = (req, res) => {
-    Auth.execIfAuthValid(req, res, ['admin', 'user'], (req, res, user) => {
+    Auth.execIfAuthValid(req, res, ['admin', 'user'], (req, res, user) => { // FIXME technically this means someone with user credentials could update an account other than their own
+        // User.findByUsername(req.headers['x-auth-username'], function (err, dbResult) { ATTEMPT : cannot get this to work, even being role other than admin i can still update accounts not my own with postman and I get ERR HTTP HEADERS SENT
+        //     console.log("calling HERE" + res);
+        //     if (err) {
+        //         if (err) {
+        //             res.status(403).send({ // (*) identical reaction wheter user was not found or password was invalid or wrong role
+        //                 message: 'Authentication invalid'
+        //             });
+        //         } else {
+        //             res.status(500).send({
+        //                 message: "Error retrieving user with username " + req.headers['x-auth-username']
+        //             });
+        //         }
+        //     } else {
+        //         if (dbResult["Id"] != req.params.id) {
+        //             res.status(403).send({
+        //                 message: 'Authentication invalid'
+        //             })
+        //         } else{
+
+        //         }
+        //     }
+
+        // })
 
         //console.log(req.body);
         isUserValid(req, res, true, function (result) {
@@ -198,7 +222,7 @@ function isUserValid(req, res, isUpdate, callback) {
     //console.log("isValid: ",res);
 
     // validate to make sure the request has all the necessary properties
-    const industryArr = ['Medical','Agriculture','Finance','Information','Catering','Transportation','Insurance','Customer Service'];
+    const industryArr = ['Medical', 'Agriculture', 'Finance', 'Information', 'Catering', 'Transportation', 'Insurance', 'Customer Service'];
     const userProps = ['username', 'password', 'firstName', 'lastName']; // we dont need 'role' because the controller defaults to 'user' role, ditto industry and finance
 
     let reqProps = Object.keys(req.body);
@@ -253,7 +277,7 @@ function isUserValid(req, res, isUpdate, callback) {
         }
     }
     if (req.body.industry !== undefined) {
-        if (!industryArr.includes(req.body.industry )) {
+        if (!industryArr.includes(req.body.industry)) {
             res.status(400).send({ message: "Industry not valid" });
             callback(false);
             return;
