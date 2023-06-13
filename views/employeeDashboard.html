@@ -6,8 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WorkRight Employee Dashboard</title>
     <link rel="icon" type="image/x-icon" href="./images/favicon.png">
-    <link rel="stylesheet" target=_blank
-        href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" target=_blank href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" target=_blank href="./styles/main.css">
     <link target=_blank href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -18,6 +17,12 @@
 
     <script>
         $(document).ready(function () {
+
+            $("#signOut").on("click", function () {
+            sessionStorage.setItem('username', "");
+            sessionStorage.setItem('password', "");
+            window.location.href = "http://localhost:7077/logintest.html"
+        });
 
             refreshPage();
             const queryString = window.location.search;
@@ -37,8 +42,9 @@
             }).done(function (account) {
                 console.log(account);
                 $("#welcomeBack").html("Welcome back " + account.username);
-                $("#nameP").html("<em>WorkRight Administrator:</em> " + account.firstName + " " + account.lastName);
+                $("#nameP").html("<em>Job Finder</em>,<br>" + account.firstName + " " + account.lastName);
                 $("#rolePane").fadeIn(3000);
+                $("#userIndustry").html("Your Industry: " + account.industry);
             });
 
             const urlParams = new URLSearchParams(queryString);
@@ -71,10 +77,10 @@
             })
 
             $("#toJobs").on("click", function () {
-                window.location.href = "http://localhost:7077/jobs.html"
+                window.location.href = "./jobs.html"
             })
             $("#toCompanies").on("click", function () {
-                window.location.href = "http://localhost:7077/allcompanies.html"
+                window.location.href = "./allcompanies.html"
             })
 
             $('#delete').on("click", function () {
@@ -103,11 +109,7 @@
 
         });
 
-        $("#signOut").on("click", function () {
-            sessionStorage.setItem('username', "");
-            sessionStorage.setItem('password', "");
-            window.location.href = "http://localhost:7077/logintest.html"
-        })
+        
 
         function validatePassword(password) {
             const regex = /^(?=.*[A-Za-z])(?=.*\d).{8,}$/;
@@ -194,7 +196,7 @@
         }
         //get company
         function getUser(id) {
-            console.log("/api/users/" + id);
+            //console.log("/api/users/" + id);
             $.ajax({
                 url: "/api/users/" + id,
                 type: "GET",
@@ -251,10 +253,10 @@
                 </div>
                 <h3 id="welcomeBack"></h3>
                 <h3 id="nameP"></h3>
-                <p>Your industry: Finance</p>
-                <p>Current Applications: 3</p>
-                <p>Recent postings in your field: 5</p>
-                <p>Jobs headquarted in your commute: 2</p>
+                <h4 id="userIndustry">Your industry: Finance</h4>
+                <h4 id="userApplications">Current Applications: 3</h4>
+                <h4 id="userPostings">Recent postings in your field: 5</h4>
+                <h4 id="userNearby">Jobs headquarted in your commute: 2</h4>
             </div>
             <div class="col-4 p-3">
                 <h3>Latest Job Postings</h3>

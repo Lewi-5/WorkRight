@@ -1,123 +1,145 @@
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>WorkRight Admin Page</title>
-        <link rel="icon" type="image/x-icon" href="./images/favicon.png">
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-        <link rel="stylesheet" href="./styles/main.css">
-        <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
-        <script src="./scripts/users.js">
-        </script>
-    </head>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WorkRight Admin Page</title>
+    <link rel="icon" type="image/x-icon" href="./images/favicon.png">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="./styles/main.css">
+    <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+    <script src="./scripts/users.js">
+    </script>
+</head>
+
+<body>
 
     <body>
-        <body>
-            <header>
-                <div>
-                    <img src="./images/logo_transparent.png" alt="Logo">
-                    <nav>
-                        <ul>
-                            <li><a href="./jobs.html">Job Listings</a></li>
-                            <li><a href="./logintest.html">Job Seekers</a></li>
-                            <li><a href="./logintest.html">Employers</a></li>
-                            <button id="signOut">Sign Out</button>
-                        </ul>
-                    </nav>
-                </div>
-            </header>
-            <div class="hero-image">
-                <div class="hero-text">
-                    <h4>With over 2.3 billion visitors, WorkRight is the #1 destination to find and list incredible jobs.
-                    </h4>
-                    <button>WorkRight</button>
-                </div>
+        <header>
+            <div>
+                <a href="index.html">
+                <img src="./images/logo_transparent.png" alt="Logo">
+                </a>
+                <nav>
+                    <ul>
+                        <li><a href="./jobs.html">Job Listings</a></li>
+                        <li><a href="./logintest.html">Job Seekers</a></li>
+                        <li><a href="./logintest.html">Employers</a></li>
+                        <button id="signOut">Sign Out</button>
+                    </ul>
+                </nav>
             </div>
+        </header>
+        <div class="hero-image">
+            <div class="hero-text">
+                <h4>With over 2.3 billion visitors, WorkRight is the #1 destination to find and list incredible jobs.
+                </h4>
+                <button>WorkRight</button>
+            </div>
+        </div>
         <div class="usersTable container p-3">
-                    <div class="row"> 
-                            <div class="col-4">
-                                <h1>Create New User</h1>
-                                
-                                    <div class="form-group">
-                                        <p id="currentId">Current Id</p>
-                                        <label for="username">Username:</label>
-                                        <input type="text" class="form-control" id="username" placeholder="Enter new username for user">
-                                        <p class="nameWarning" style="color: red;">Not a valid user name</p>
-                                        <p class="namedupWarning" style="color: red;">User name already exist.</p>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="password" id="passLbl">Password:</label>
-                                        <input type="password" class="form-control" id="password" placeholder="Enter password">
-                                        <p class="passwordWarning" style="color: red;">Password has to be Minimum eight characters, at least one letter and one number</p>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="firstName">First Name:</label>
-                                        <input type="text" class="form-control" id="firstName" placeholder="Enter First Name">
-                                        <p class="fnameWarning" style="color: red;">Not a valid first name</p>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="lastName">Last Name:</label>
-                                        <input type="text" class="form-control" id="lastName" placeholder="Enter Last Name">
-                                        <p class="lnameWarning" style="color: red;">Not a valid last name</p>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="role">Role</label>
-                                            <select id="role">
-                                                <option value="user">User</option>
-                                                <option value="employer">Employer</option>
-                                                <option value="admin">Admin</option>
-                                            </select>
-                                    </div>
-                                    <button type="submit" class="addBtn">Create new User</button>
-                                    <button type="submit" class="editBtn">Edit User</button>
-                                    <button type="submit" class="cancelBtn">Cancel</button>
-                                    <br>
-                                    <button type="submit" class="deleteBtn mt-2 mb-2">Delete User</button>
-                                    <br>
-                                    <p class="p-3"id="resultMessage"></p>
-                                
-                            
-                            </div>
-                            <div class="col-4">
-                            
-                                    <h1>Users</h1>
-                        <table class="table">
-                            <thead>
-                                    <tr>
-                                        
-                                        <th scope="col">ID</th>
-                                        <th scope="col">username</th>
-                                        <th scope="col">first name</th>
-                                        <th scope="col">last name</th>
-                                        <th scope="col">Role</th>
-                                            
-                                    </tr>
-                            </thead>
-                            <tbody id="tableBody">
+            <div class="row">
+                <div class="col-3">
+                    <h1>Create New User</h1>
 
-                            </tbody>
-                        </table>
-
+                    <div class="form-group">
+                        <p id="currentId">Current Id</p>
+                        <label for="username">Username:</label>
+                        <input type="text" class="form-control" id="username" placeholder="Enter new username for user">
+                        <p class="nameWarning" style="color: red;">Not a valid user name</p>
+                        <p class="namedupWarning" style="color: red;">User name already exist.</p>
                     </div>
-                    
-                    <div class="col-1">
-
+                    <div class="form-group">
+                        <label for="password" id="passLbl">Password:</label>
+                        <input type="password" class="form-control" id="password" placeholder="Enter password">
+                        <p class="passwordWarning" style="color: red;">Password has to be Minimum eight characters, at
+                            least one letter and one number</p>
                     </div>
-                    <div class="col-3 align-content-center" id="rolePane" style="display: none">
-                        <div id="roleDisplay"><h2 class="bg-dark p-2 text-light bg-opacity-50">Admin Account</h2></div>
-                        <h4 id="welcomeBack"></h3>
-                        <h4 id="nameP"></h3>
+                    <div class="form-group">
+                        <label for="firstName">First Name:</label>
+                        <input type="text" class="form-control" id="firstName" placeholder="Enter First Name">
+                        <p class="fnameWarning" style="color: red;">Not a valid first name</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName">Last Name:</label>
+                        <input type="text" class="form-control" id="lastName" placeholder="Enter Last Name">
+                        <p class="lnameWarning" style="color: red;">Not a valid last name</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="role">Role</label>
+                        <select id="role">
+                            <option value="user">User</option>
+                            <option value="employer">Employer</option>
+                            <option value="admin">Admin</option>
+                        </select>
+                        <br>
+                        <label for="industry">Industry: </label>
+                        <select id="industry">
+                            <option value="Finance">Finance</option>
+                            <option value="Medical">Medical</option>
+                            <option value="Agriculture">Agriculture</option>
+                            <option value="Information">Information</option>
+                            <option value="Catering">Catering</option>
+                            <option value="Transportation">Transportation</option>
+                            <option value="Insurance">Insurance</option>
+                            <option value="Customer Service">Customer Service</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="addBtn">Create new User</button>
+                    <button type="submit" class="editBtn">Edit User</button>
+                    <button type="submit" class="cancelBtn">Cancel</button>
+                    <br>
+                    <button type="submit" class="deleteBtn mt-2 mb-2">Delete User</button>
+                    <br>
+                    <p class="p-3" id="resultMessage"></p>
+
+
+                </div>
+                <div class="col-5">
+
+                    <h1>Users</h1>
+                    <table class="table">
+                        <thead>
+                            <tr>
+
+                                <th scope="col">ID</th>
+                                <th scope="col">username</th>
+                                <th scope="col">first name</th>
+                                <th scope="col">last name</th>
+                                <th scope="col">Industry</th>
+                                <th scope="col">Role</th>
+
+                            </tr>
+                        </thead>
+                        <tbody id="tableBody">
+
+                        </tbody>
+                    </table>
+
+                </div>
+
+                <div class="col-1">
+
+                </div>
+                <div class="col-3 align-content-center" id="rolePane" style="display: none">
+                    <div id="roleDisplay">
+                        <h2 class="bg-dark p-2 text-light bg-opacity-50">Admin Account</h2>
+                    </div>
+                    <h4 id="welcomeBack">
+                        </h3>
+                        <h4 id="nameP">
+                            </h3>
                             <div class="col d-flex justify-content-center align-items-center">
                                 <button id="toPostings">Manage Job Postings</button>
                             </div>
                             <div class="col d-flex justify-content-center align-items-center">
                                 <button id="toCompanies">Manage Companies</button>
                             </div>
-                    </div>  
+                </div>
             </div>
             <footer>
                 <div>

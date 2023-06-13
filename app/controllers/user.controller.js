@@ -31,7 +31,8 @@ exports.create = function (req, res) {
                     firstName: req.body.firstName,
                     lastName: req.body.lastName,
                     // FIXME: only admin can create admins, anonymous registration only creates users
-                    role: req.body.role || 'User' // need to think how this works - does role input appear ? where? where does admin see it?
+                    role: req.body.role || 'User', // need to think how this works - does role input appear ? where? where does admin see it?
+                    industry: req.body.industry || 'Finance'
                 });
 
                 // Save user in the database
@@ -144,7 +145,8 @@ exports.update = (req, res) => {
                         password: passHash,
                         firstName: req.body.firstName,
                         lastName: req.body.lastName,
-                        role: req.body.role
+                        role: req.body.role,
+                        industry: req.body.industry
                     },
                     (err, data) => {
                         if (err) {
@@ -196,7 +198,8 @@ function isUserValid(req, res, isUpdate, callback) {
     //console.log("isValid: ",res);
 
     // validate to make sure the request has all the necessary properties
-    const userProps = ['username', 'password', 'firstName', 'lastName']; // we dont need 'role' because the controller defaults to 'user' role
+    const industryArr = ['Medical','Agriculture','Finance','Information','Catering','Transportation','Insurance','Customer Service'];
+    const userProps = ['username', 'password', 'firstName', 'lastName']; // we dont need 'role' because the controller defaults to 'user' role, ditto industry and finance
 
     let reqProps = Object.keys(req.body);
 
@@ -245,6 +248,13 @@ function isUserValid(req, res, isUpdate, callback) {
     if (req.body.role !== undefined) {
         if (req.body.role != "user" && req.body.role !== "admin" && req.body.role !== "employer") {
             res.status(400).send({ message: "Role must be User or Admin or Employer" });
+            callback(false);
+            return;
+        }
+    }
+    if (req.body.industry !== undefined) {
+        if (!industryArr.includes(req.body.industry )) {
+            res.status(400).send({ message: "Industry not valid" });
             callback(false);
             return;
         }

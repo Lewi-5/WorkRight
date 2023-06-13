@@ -306,6 +306,7 @@ function addNew() {
     let firstNameInpt = $("#firstName").val();
     let lastNameInpt = $("#lastName").val();
     let roleInpt = $("#role").val();
+    let industryInpt = $("#industry").val();
 
     if (usernameInpt == null || usernameInpt == "") {
         $(".nameWarning").show();
@@ -334,7 +335,8 @@ function addNew() {
         password: passwordInpt,
         firstName: firstNameInpt,
         lastName: lastNameInpt,
-        role: roleInpt
+        role: roleInpt,
+        industry: industryInpt
     };
 
     $.ajax({
@@ -370,6 +372,7 @@ function update() {
     let firstNameInpt = $("#firstName").val();
     let lastNameInpt = $("#lastName").val();
     let roleInpt = $("#role").val();
+    let industryInpt = $("#industry").val();
 
     if (usernameInpt == null || usernameInpt == "") {
         $(".nameWarning").show();
@@ -399,7 +402,8 @@ function update() {
         password: passwordInpt,
         firstName: firstNameInpt,
         lastName: lastNameInpt,
-        role: roleInpt
+        role: roleInpt,
+        industry: industryInpt
     };
 
     console.log(sessionStorage.getItem('username'))
@@ -485,9 +489,10 @@ function refreshUserList() {
                 let usernameCell = $("<td></td>").text(data[i].username);
                 let firstNameCell = $("<td></td>").text(data[i].firstName);
                 let lastNameCell = $("<td></td>").text(data[i].lastName);
+                let industryCell = $("<td></td>").text(data[i].industry);
                 let roleCell = $("<td></td>").text(data[i].role);
 
-                tableRow.append(usernameCell, firstNameCell, lastNameCell, roleCell);
+                tableRow.append(usernameCell, firstNameCell, lastNameCell, industryCell, roleCell);
                 tableRow.css("background-color", "#f0f0f0");
                 tableBody.append(tableRow);
             }

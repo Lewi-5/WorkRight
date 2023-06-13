@@ -1,5 +1,6 @@
 $(document).ready(function () {
 
+
     $("#companyname").val("");
     $("#desc").val("");
     $("#industry").val("Finance");

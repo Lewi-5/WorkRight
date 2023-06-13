@@ -12,11 +12,12 @@ const User = function(newUser) {
     this.firstName = newUser.firstName;
     this.lastName = newUser.lastName;
     this.role = newUser.role
+    this.industry = newUser.industry;
   };
   
   User.create = (newUser, result) => {
-    mysql.query("INSERT INTO users (username, password, firstName, lastName, role) VALUES (?, ?, ?, ?, ?);", // changey make sure table name matches!!!
-    [newUser.username, newUser.password, newUser.firstName, newUser.lastName, newUser.role], (err, res) => { // BIG COMMENT
+    mysql.query("INSERT INTO users (username, password, firstName, lastName, role, industry) VALUES (?, ?, ?, ?, ?);", // changey make sure table name matches!!!
+    [newUser.username, newUser.password, newUser.firstName, newUser.lastName, newUser.role, newUser.industry], (err, res) => { // BIG COMMENT
     //mysql.query("INSERT INTO users SET ?", newUser, (err, res) => { // here you can see the original syntax which passed an object into a SET SQL command - this caused issues with enum data type, specifically, it would always assign the enum column to the default even when a non-default value was sent. Changing it to array syntax fixed the issue END BIG COMMENT
       if (err){
           console.log("error:", err);
@@ -110,8 +111,8 @@ const User = function(newUser) {
 User.updateById = (id, updateObj, result) => {
     //let passHash = Auth.hash(updateObj.password); // if you require Auth in models and models in Auth creates a bad loop of logic, do your hashing in controller
     mysql.query(
-      "UPDATE users SET username = ?, password = ?, firstName = ?, lastName = ?, role = ? WHERE id = ?", // changey table name after UPDATE
-      [updateObj.username, updateObj.password, updateObj.firstName, updateObj.lastName, updateObj.role, id],
+      "UPDATE users SET username = ?, password = ?, firstName = ?, lastName = ?, role = ?, industry = ? WHERE id = ?", // changey table name after UPDATE
+      [updateObj.username, updateObj.password, updateObj.firstName, updateObj.lastName, updateObj.role, updateObj.industry, id],
       (err, res) => { 
         if (err) {
           console.log("error: ", err);
