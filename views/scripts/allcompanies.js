@@ -14,7 +14,7 @@ $(document).ready(function () {
                 window.location.href = "./loginTest.html"
             }, 3000);
         }
-    }).done(function (user) {
+    }).done(function (user) { //front end authentication: not enough, authentication complete for DELETE requests on backend
         if (user.role == 'user') {
             $("#addNewCompany").hide();
             $("#updateCompany").hide();

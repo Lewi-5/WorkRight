@@ -137,7 +137,7 @@ exports.update = (req, res) => {
 
 // Delete a job with the specified id in the request
 exports.delete = (req, res) => {
-  Auth.execIfAuthValid(req, res, ['admin'], (req, res, user) => {
+  Auth.execIfAuthValid(req, res, ['admin', 'employer'], (req, res, user) => { //FIXME security issue, with an employer credential in e.g. Postman anyone could delete any job posting, they should only be able to delete their own
   Jobs.remove(req.params.id, (err, data) => {
     if (err) {
       if (err.kind === "not_found") {

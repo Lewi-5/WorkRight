@@ -4,9 +4,6 @@ const User = require("../models/user.model");
 const Auth = require("../utils/auth");
 
 
-//TODO have not validated that last bid price is higher than database last bid price, seems asynchronous, how to check database before executing UPDATE commnand?
-//TODO have not implemented logger yet? morgan? custom logger?
-
 //Create and Save a new User
 exports.create = function (req, res) {
     if (req.body.role == 'admin') {
@@ -124,7 +121,7 @@ exports.findOne = (req, res) => {
 //Update a User by id
 exports.update = (req, res) => {
     Auth.execIfAuthValid(req, res, ['admin', 'user'], (req, res, user) => { // FIXME technically this means someone with user credentials could update an account other than their own
-        // User.findByUsername(req.headers['x-auth-username'], function (err, dbResult) { ATTEMPT : cannot get this to work, even being role other than admin i can still update accounts not my own with postman and I get ERR HTTP HEADERS SENT
+        // User.findByUsername(req.headers['x-auth-username'], function (err, dbResult) { ATTEMPT : cannot get this to work, even being role other than admin i can still update accounts not my own with Postman and I get ERR HTTP HEADERS SENT which crashes server
         //     console.log("calling HERE" + res);
         //     if (err) {
         //         if (err) {
@@ -317,54 +314,52 @@ function someEmpty(obj) {
 };
 
 
-//TODO: what should we be allowed to patch in a given row?
-// username should be unique, password can change, first and last name cannot change
+//PATCH validation - now largely incorporated into above, but is nice for copy paste
+// function isValidPatch(req, res) {
 
-function isValidPatch(req, res) {
+//     if (isNaN(req.params.id)) {
+//         console.log('invalid id format entered');
+//         res.status(400).send({
+//             message: "ids of Users are always numbers - invalid id format entered",
+//             result: false
+//         });
 
-    if (isNaN(req.params.id)) {
-        console.log('invalid id format entered');
-        res.status(400).send({
-            message: "ids of Users are always numbers - invalid id format entered",
-            result: false
-        });
-
-        return false;
-    }
+//         return false;
+//     }
 
 
-    if (req.body.id) {
-        res.status(400).send({
-            message: "you cannot change the id of an existing record ;)",
-            result: false
-        });
+//     if (req.body.id) {
+//         res.status(400).send({
+//             message: "you cannot change the id of an existing record ;)",
+//             result: false
+//         });
 
-        return false;
-    }
-    if (req.body.username) {
-        res.status(400).send({ message: "you cannot change your username" });
-        return false;
-    }
-    if (req.body.firstName) {
-        res.status(400).send({ message: "you cannot change your first name" });
-        return false;
-    }
-    if (req.body.lastName) {
-        res.status(400).send({ message: "you cannot change your last name" });
-        return false;
-    }
+//         return false;
+//     }
+//     if (req.body.username) {
+//         res.status(400).send({ message: "you cannot change your username" });
+//         return false;
+//     }
+//     if (req.body.firstName) {
+//         res.status(400).send({ message: "you cannot change your first name" });
+//         return false;
+//     }
+//     if (req.body.lastName) {
+//         res.status(400).send({ message: "you cannot change your last name" });
+//         return false;
+//     }
 
-    // let regex= /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-    // let email = req.body.lastBidderEmail;
-    // if(!email.match(regex)){
-    //     console.log('denied request to post an invalid last bidder email');
-    //     res.status(400).send({
-    //         message: "Please enter a valid email address",
-    //         result: false
-    //     });
-    //     //console.log("if cond: ",res.send.result);
-    //     return false;
-    // }
-    return true;
+//     // let regex= /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+//     // let email = req.body.lastBidderEmail;
+//     // if(!email.match(regex)){
+//     //     console.log('denied request to post an invalid last bidder email');
+//     //     res.status(400).send({
+//     //         message: "Please enter a valid email address",
+//     //         result: false
+//     //     });
+//     //     //console.log("if cond: ",res.send.result);
+//     //     return false;
+//     // }
+//     return true;
 
-}
+// }

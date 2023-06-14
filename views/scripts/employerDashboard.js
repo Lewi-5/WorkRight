@@ -1,9 +1,12 @@
 let currId = 0;
+let companyId = 0;
 
 $(document).ready(function () {
 
     refreshPage();
-    
+
+
+
     $.ajax({
         url: "/api/users/me",
         headers: { 'x-auth-username': sessionStorage.getItem('username'), 'x-auth-password': sessionStorage.getItem('password') },
@@ -27,34 +30,21 @@ $(document).ready(function () {
         // if the user is trying to update a user other than their own and they are not
         // an admin, the authentication will fail
         $("#welcomeBack").html("Welcome back " + account.username);
-        $("#nameP").html("<em>Job Finder</em>,<br>" + account.firstName + " " + account.lastName);
+        $("#nameP").html("<em>Company Representative</em>,<br>" + account.firstName + " " + account.lastName);
         $("#rolePane").fadeIn(3000);
         $("#userIndustry").html("Your Industry: " + account.industry);
+        companyId = account.companyId;
     });
 
-    $("#signOut").on("click", function () {
-    sessionStorage.setItem('username', "");
-    sessionStorage.setItem('password', "");
-    window.location.href = "./logintest.html"
-    });
 
-    
-
-    //refreshPage();
-    //const queryString = window.location.search;
-
-    // console.log(sessionStorage.getItem('username'));
-    // console.log(sessionStorage.getItem('password'));
-
-    
+    // const queryString = window.location.search;
 
     // const urlParams = new URLSearchParams(queryString);
     // const id = urlParams.get('id');
     // console.log("id = " + id);
     // getUser(id);
 
-    $("#edit").on("click", function () {
-        $("#currentId").hide();
+    $("#edit").on("click", function(){
         update(id);
 
     });
@@ -65,6 +55,10 @@ $(document).ready(function () {
         $("#firstName").val("");
         $("#lastName").val("");
     });
+
+    $("#toCompanyEdit").on("click", function () {
+        window.location.href = `./companies.html?id=${companyId}`
+    })
 
     $(".linkBtn").css({
         "border": "none",
@@ -84,40 +78,36 @@ $(document).ready(function () {
         $(this).css("background-color", "#ec3d3d")
     })
 
-    $("#toJobs").on("click", function () {
-        window.location.href = "./jobs.html"
-    })
-    $("#toCompanies").on("click", function () {
-        window.location.href = "./allcompanies.html"
-    })
-
-//     $('#delete').on("click", function () {
-//         $("#deletepopupMessage").dialog({
-//             modal: true,
-//             buttons: {
-//                 Yes: function () {
-//                     $.ajax({
-//                         url: "/api/users/" + id,
-//                         type: "delete",
-//                         dataType: "json",
-//                         error: function (jqxhr, status, errorThrown) {
-//                             alert("AJAX error: " + jqxhr.responseText);
-//                         }
-//                     }).done(function (company) {
-//                         refreshPage();
-//                     });
-//                     $(this).dialog("close");
-//                 },
-//                 Cancel: function () {
-//                     $(this).dialog("close");
-//                 }
-//             }
-//         });
-//     });
-
+    $("#signOut").on("click", function() {
+    sessionStorage.setItem('username', "");
+    sessionStorage.setItem('password', "");
+    window.location.href = "./loginTest.html"
+})
+    // need to address authentication of DELETE requests allowed only for one's own account
+    // $('#deleteuser').on("click", function(){
+    //     $("#deletepopupMessage").dialog({
+    //         modal: true,
+    //         buttons: {
+    //             Yes: function() {
+    //                 $.ajax({
+    //                     url:"/api/users/"+id,
+    //                     type:"delete",
+    //                     dataType:"json",
+    //                     error: function (jqxhr, status, errorThrown) {
+    //                     alert("AJAX error: " + jqxhr.responseText);
+    //                 }
+    //                 }).done(function(company){
+    //                     refreshPage();
+    //                 });
+    //                 $(this).dialog("close");
+    //             },
+    //             Cancel: function() {
+    //                 $(this).dialog("close");
+    //             }
+    //         }
+    //     });
+    // });
 });
-
-
 
 function validatePassword(password) {
     const regex = /^(?=.*[A-Za-z])(?=.*\d).{8,}$/;
@@ -136,15 +126,12 @@ function update(currId) {
         $(".nameWarning").show();
         return false;
     }
-    //if (passwordInpt == null || passwordInpt == "") {
-    if (!validatePassword(passwordInpt)) {
+    if(!validatePassword(passwordInpt)){
         $(".passwordWarning").show();
         return false;
-    } else {
+    }else{
         $(".passwordWarning").hide();
     }
-
-    //}
     if (firstNameInpt == null || firstNameInpt == "") {
         $(".fnamedWarning").show();
         return false;
@@ -167,6 +154,9 @@ function update(currId) {
         role: roleInpt
     };
 
+    console.log(sessionStorage.getItem('username'))
+    console.log(sessionStorage.getItem('password'))
+
     $.ajax({
         url: `/api/users/${currId}`,
         headers: { 'x-auth-username': sessionStorage.getItem('username'), 'x-auth-password': sessionStorage.getItem('password') },
@@ -181,7 +171,7 @@ function update(currId) {
         $("#popupMessage").dialog({
             modal: true,
             buttons: {
-                OK: function () {
+                OK: function() {
                     $(this).dialog("close");
                 }
             }
@@ -196,6 +186,7 @@ function refreshPage() {
     $(".fnamedWarning").hide();
     $(".fnameWarning").hide();
     $(".lnameWarning").hide();
+    $(".namedupWarning").hide();
     $(".namepopWarning").hide();
     $("#username").val("");
     $("#password").val("");
@@ -204,15 +195,15 @@ function refreshPage() {
 }
 //get company
 function getUser(id) {
-    //console.log("/api/users/" + id);
+    console.log("/api/users/"+id);
     $.ajax({
-        url: "/api/users/" + id,
-        type: "GET",
-        dataType: "json",
+        url:"/api/users/"+id,
+        type:"GET",
+        dataType:"json",
         error: function (jqxhr, status, errorThrown) {
             alert("AJAX error: " + jqxhr.responseText);
-        }
-    }).done(function (user) {
+            }
+    }).done(function(user){
         $("#username").val(user.username);
         $("#password").val(user.password);
         $("#firstName").val(user.firstName);

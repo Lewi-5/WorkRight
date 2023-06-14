@@ -115,6 +115,8 @@ $(document).ready(function () {
             $("#lastName").val("");
             $("#role").val("user");
             $("#industry").val("Finance");
+            $("#companyId").val("");
+
             currId = 0;
             $("#currentId").hide();
             refreshUserList();
@@ -136,6 +138,7 @@ $(document).ready(function () {
         $("#lastName").val("");
         $("#role").val("user");
         $("#industry").val("Finance");
+        $("#companyId").val("");
         currId = 0;
         $("#currentId").hide();
     });
@@ -300,6 +303,8 @@ function refreshInputs() {
     $("#password").val("");
     $("#firstName").val("");
     $("#lastName").val("");
+    $("#companyId").val("");
+    
 }
 
 function addNew() {
@@ -473,6 +478,7 @@ function selectItem(id) {
         $("#lastName").val(user.lastName);
         $("#role").val(user.role);
         $("#industry").val(user.industry);
+        $("#companyId").val(user.companyId);
         currId = id;
 
     });
