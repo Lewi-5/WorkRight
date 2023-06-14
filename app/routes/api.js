@@ -1,5 +1,3 @@
-// api.js //
-
 const express = require('express');
 const router = express.Router();
 const bodyParser = require('body-parser');
@@ -12,13 +10,13 @@ const companiesController = require('../controllers/companies.controller');
 const applicationsController = require('../controllers/applications.controller');
 
 router.route('^/$|/index.html')
-  .get((req, res) => {
-    res.sendFile('index.html', { root: 'views' });
-  });
+    .get((req, res) => {
+        res.sendFile('index.html', { root: 'views' });
+    });
 
 router
-  .route('/users/findName')
-  .get(users.findByName)
+    .route('/users/findName')
+    .get(users.findByName)
 
 // ROUTER for USERS
 router
@@ -31,7 +29,7 @@ router
     .get(users.findOne)
     .patch(users.update)
     .delete(users.delete)
-    
+
 
 // user gets their specific account
 router
@@ -45,7 +43,7 @@ router
     .route('/jobs')
     .get(jobsController.getJobs)
     .post(jobsController.createJob)
-    
+
 
 router
     .route('/jobs/:id([0-9]+)')
@@ -75,12 +73,12 @@ router
     .post(companiesController.create)
 
 router
-  .route('/companies/:id([0-9]+)')
-  .get(companiesController.findOne)
-  .put(companiesController.update)
-  .delete(companiesController.delete)
+    .route('/companies/:id([0-9]+)')
+    .get(companiesController.findOne)
+    .put(companiesController.update)
+    .delete(companiesController.delete)
 
-  router
+router
     .route('/application')
     .post(applicationsController.submitApplication);
 

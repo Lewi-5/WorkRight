@@ -1,10 +1,9 @@
-// applications.model.js //
 
 
 const { response } = require('express');
 const sql = require('./db.js');
 
-const Application = function(newApplication) {
+const Application = function (newApplication) {
     this.fullname = newApplication.fullname;
     this.email = newApplication.email;
     this.phone = newApplication.phone;

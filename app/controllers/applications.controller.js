@@ -1,5 +1,3 @@
-// applications.controller.js //
-
 const Application = require('../models/applications.model');
 
 function validateApplication(application) {

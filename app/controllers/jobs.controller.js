@@ -58,7 +58,7 @@ exports.getJobs = (req, res) => {
 };
 
 exports.adminLoad = (req, res) => {
-  
+
   Jobs.load((err, data) => {
     //console.log("jobs load called");
     if (err)
@@ -66,8 +66,8 @@ exports.adminLoad = (req, res) => {
         message:
           err.message || "Some error occurred while retrieving jobs."
       });
-      
-    else{ 
+
+    else {
       //console.log("data being sent" + data)
       res.send(data);
     }
@@ -103,7 +103,6 @@ exports.getJobById = (req, res) => {
 };
 
 exports.update = (req, res) => {
-  // Validate Request
   if (!req.body) {
     res.status(400).send({
       message: "Content can not be empty!"
@@ -134,24 +133,23 @@ exports.update = (req, res) => {
 
 };
 
-// Delete a job with the specified id in the request
 exports.delete = (req, res) => {
   Auth.execIfAuthValid(req, res, ['admin', 'employer'], (req, res, user) => { //FIXME security issue, with an employer credential in e.g. Postman anyone could delete any job posting, they should only be able to delete their own
-  Jobs.remove(req.params.id, (err, data) => {
-    if (err) {
-      if (err.kind === "not_found") {
-        res.status(404).send({
-          message: `Not found Job posting with id ${req.params.id}.`
-        });
+    Jobs.remove(req.params.id, (err, data) => {
+      if (err) {
+        if (err.kind === "not_found") {
+          res.status(404).send({
+            message: `Not found Job posting with id ${req.params.id}.`
+          });
+        } else {
+          res.status(500).send({
+            message: "Could not delete Job posting with id " + req.params.id
+          });
+        }
       } else {
-        res.status(500).send({
-          message: "Could not delete Job posting with id " + req.params.id
-        });
+        res.status(200);
+        res.send({ message: `Job posting was deleted successfully!` });
       }
-    } else {
-      res.status(200);
-      res.send({ message: `Job posting was deleted successfully!` });
-    }
-  });
+    });
   });
 };
