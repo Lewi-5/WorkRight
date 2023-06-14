@@ -37,10 +37,50 @@ $(document).ready(function () {
           $('#createDate').text(formattedDatetime);
         },
         error: function() {
-          // Handle error if the request fails
           console.log('Error occurred while fetching job details');
         }
       });
+
+
+
+      // upload file
+//       $("#addResume").click(function () { // add or update
+//         let titleVal = $("input[name=title]").val();
+//         console.log($("input[name=file]").prop('files'));
+//         let file = $("input[name=file]").prop('files')[0];
+//         let mimeTypeVal = file.type;
+//         // https://javascript.info/file  (about FileReader, see readAsDataURL )
+//         let reader = new FileReader();
+//         reader.onload = function () {
+//             docObj = { title: titleVal, mimeType: mimeTypeVal, data: btoa(reader.result) }
+//             $.ajax({ // FIXME: escape special characters using urlencode
+//                 url: "/api/applications",
+//                 type: "POST",
+//                 dataType: "json",
+//                 data: docObj,
+//                 error: function (jqxhr, status, errorThrown) {
+//                     alert("AJAX error: " + jqxhr.responseText);
+//                 }
+//             }).done(function () {
+//                 alert("Thanks for Applying");
+//                 refreshList();
+//             });
+//         };
+//         reader.onerror = function () {
+//             console.log(reader.error);
+//             alert(reader.error);
+//         };
+//         reader.readAsDataURL(file); // read file and trigger one of the above handlers
+//         reader.readAsBinaryString(file);
+
+//         return;
+//     });
+// });
+
+
+
+
+
 
       function submitApplication() {
         const fullname = document.getElementById('fullname').value;
@@ -55,7 +95,7 @@ $(document).ready(function () {
             const base64Resume = reader.result.split(",")[1];
     
             fetch('/api/submitApplication', {
-                method: 'POST',
+                type: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
@@ -72,7 +112,10 @@ $(document).ready(function () {
         reader.onerror = function (error) {
             console.log('Error: ', error);
         };
+
+
+
+
     }
-    
-    });
-    
+});
+

@@ -1,3 +1,5 @@
+// api.js //
+
 const express = require('express');
 const router = express.Router();
 const bodyParser = require('body-parser');
@@ -7,7 +9,7 @@ router.use(bodyParser.text());
 const users = require("../controllers/user.controller.js");
 const jobsController = require('../controllers/jobs.controller');
 const companiesController = require('../controllers/companies.controller');
-
+const applicationsController = require('../controllers/applications.controller');
 
 router.route('^/$|/index.html')
   .get((req, res) => {
@@ -77,6 +79,11 @@ router
   .get(companiesController.findOne)
   .put(companiesController.update)
   .delete(companiesController.delete)
+
+  router
+    .route('/application')
+    .post(applicationsController.submitApplication);
+
 
 
 module.exports = router;

@@ -38,25 +38,23 @@
 <main>
     <!-- search -->
     <div class="search-bar" style="width: 90%; margin: auto;">
-        <form id="searchForm">
-            <div class="input-group">
-                <input type="text" id="postcodeSearchBox" class="form-control" placeholder="Search postcode" maxlength="10">
-                <select id="industrySearchBox" class="form-control">
-                    <option value="">All Industries</option>
-                    <option value="Medical">Medical</option>
-                    <option value="Agriculture">Agriculture</option>
-                    <option value="Finance">Finance</option>
-                    <option value="Information">Information</option>
-                    <option value="Catering">Catering</option>
-                    <option value="Transportation">Transportation</option>
-                    <option value="Insurance">Publishing</option>
-                    <option value="Customer Service">Technology</option>
-                </select>
-                <div class="input-group-append">
-                    <button type="submit" id="searchBtn" class="btn btn-secondary">Search</button> <!--we havent learned ajax for forms (submit button implies form data)-->
-                </div>
+        <div class="input-group">
+            <input type="text" id="postcodeSearchBox" class="form-control" placeholder="Search postcode" maxlength="10">
+            <select id="industrySearchBox" class="form-control">
+                <option value="">All Industries</option>
+                <option value="Medical">Medical</option>
+                <option value="Agriculture">Agriculture</option>
+                <option value="Finance">Finance</option>
+                <option value="Information">Information</option>
+                <option value="Catering">Catering</option>
+                <option value="Transportation">Transportation</option>
+                <option value="Publishing">Publishing</option>
+                <option value="Technology">Technology</option>
+            </select>
+            <div class="input-group-append">
+                <button type="button" id="searchBtn" class="btn btn-secondary">Search</button>
             </div>
-        </form>
+        </div>
     </div>
     
     <!-- TODO: Get loadmore to work on search-bar too --> 

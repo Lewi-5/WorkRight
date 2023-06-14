@@ -2,7 +2,6 @@ const Jobs = require('../models/jobs.model');
 const Auth = require("../utils/auth");
 
 
-// validation function
 function validateJob(job) {
   const industries = ["Medical", "Agriculture", "Finance", "Information", "Catering", "Transportation", "Insurance", "Customer Service"];
   if (!job.title || job.title.trim() === '') return 'Job title is required.';
