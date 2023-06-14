@@ -20,19 +20,17 @@ $(document).ready(function() {
         window.location.href = "../job.html?id=" + currId;
     });
 
-    //doesn't word this way, job_listing doesn't trigger click event
     $(".job-listing").on("click", function() {
         const jobID = $(this).data('id');
         window.location.href = '../job.html?id=' + jobID;
     });
 
-
-    $("#searchForm").on("submit", function(e) {
-        e.preventDefault();  // prevent the default form submission
+    $("#searchBtn").click(function(e) {
+        e.preventDefault();
         page = 0; // reset to 0
         var postcode = $("#postcodeSearchBox").val();
         var industry = $("#industrySearchBox").val();
-    
+
         $.ajax({
             url: "/api/jobs/",
             data: {
@@ -45,7 +43,7 @@ $(document).ready(function() {
             success: function(jobs) {
                 // clear current listings
                 $("#jobListings").empty();
-    
+
                 // append new listings
                 jobs.forEach(job => {
                     $("#jobListings").append(`
@@ -60,7 +58,7 @@ $(document).ready(function() {
                         </div>
                     `);
                 });
-    
+
                 // add click event for job listing
                 $(".job-listing").click(function() {
                     const jobID = $(this).data('id');
@@ -72,26 +70,10 @@ $(document).ready(function() {
             }
         });
     });  
-
-
 });
 
 function selectItem(id) {
     window.location.href = '../job.html?id='+id;
-
-    // $.ajax({
-    //     url: "/api/jobs/" + id,
-    //     //headers: { 'x-auth-username': sessionStorage.getItem('username'), 'x-auth-password': sessionStorage.getItem('password') },
-    //     type: "GET",
-    //     dataType: "json",
-    //     error: function (jqxhr, status, errorThrown) {
-    //         alert("AJAX error: " + jqxhr.responseText);
-    //     }
-    // }).done(function (job) {
-    //     currId = id;
-        
-       
-    // });
 }
 
 function loadJobs() {
@@ -108,13 +90,8 @@ function loadJobs() {
         dataType: "json",
         error: function (jqxhr, status, errorThrown) {
             alert("AJAX error: " + jqxhr.responseText);
-            //FIXME
-            // add click event for job listing
         }
         }).done(function(data) {
-            //console.log(data);
-            //<div class="job-card col-md-6 job-listing" data-id="${job.jobId}" onmouseover="selectItem(${job.jobId})">'>
-                
             data.forEach(job => {
                 $('#jobListings').append(`
                 <div class="job-card col-md-6 job-listing" data-id="${job.jobId}" onclick="selectItem(${job.jobId})">
@@ -128,56 +105,5 @@ function loadJobs() {
                     </div>
                 `);
             });
-        });
-        
+        });        
 }
-
-
-// $(document).ready(function () {
-//     $("#searchForm").on("submit", function(e) {
-//         e.preventDefault();  // prevent the default form submission
-//         page = 0; // reset to 0
-//         var postcode = $("#postcodeSearchBox").val();
-//         var industry = $("#industrySearchBox").val();
-    
-//         $.ajax({
-//             url: "/api/jobs/",
-//             data: {
-//                 page: page,
-//                 postcode: postcode,
-//                 industry: industry
-//             },
-//             type: "GET",
-//             dataType: "json",
-//             success: function(jobs) {
-//                 // clear current listings
-//                 $("#jobListings").empty();
-    
-//                 // append new listings
-//                 jobs.forEach(job => {
-//                     $("#jobListings").append(`
-//                     <div class="job-card col-md-6 job-listing" data-id="${job.jobID}">
-//                             <div class="card">
-//                                 <div class="card-header">${job.title}</div>
-//                                 <div class="card-body">
-//                                     <h5 class="card-title">${job.industry}</h5>
-//                                     <p class="card-text">${job.description}</p>
-//                                 </div>
-//                             </div>
-//                         </div>
-//                     `);
-//                 });
-    
-//                 // add click event for job listing
-//                 $(".job-listing").click(function() {
-//                     const jobID = $(this).data('id');
-//                     window.location.href = '/job.html?id=' + jobID;
-//                 });
-//             },
-//             error: function(error) {
-//                 console.error("Error:", error);
-//             }
-//         });
-//     });  
-// });
-    

@@ -5,17 +5,17 @@ const sql = require('./db.js');
 
 
 const Job = function(newJob) {
-    // this.id = newJob.id;
+    this.id = newJob.id;
     this.company_id = newJob.company_id;
     this.title = newJob.title;
-    // this.description = newJob.description;
+    this.description = newJob.description;
     this.postcode = newJob.postcode; //wrote it as all lower case one word in test db
     this.industry = newJob.industry; // test db field... will it also be in real db?
-    // this.salary = newJob.salary;
-    // this.type = newJob.type;
-    // this.status = newJob.status;
-    // this.create_date = newJob.create_date;
-    // this.last_update = newJob.last_update;
+    this.salary = newJob.salary;
+    this.type = newJob.type;
+    this.status = newJob.status;
+    this.create_date = newJob.create_date;
+    this.last_update = newJob.last_update;
 };
 
 
