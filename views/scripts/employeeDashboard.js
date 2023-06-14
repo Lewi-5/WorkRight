@@ -35,7 +35,7 @@ $(document).ready(function () {
     $("#signOut").on("click", function () {
     sessionStorage.setItem('username', "");
     sessionStorage.setItem('password', "");
-    window.location.href = "./loginTest.html"
+    window.location.href = "../loginTest.html"
     });
 
     
@@ -91,6 +91,7 @@ $(document).ready(function () {
         window.location.href = "./allcompanies.html"
     })
 
+    //commenting out until authentication complete
 //     $('#delete').on("click", function () {
 //         $("#deletepopupMessage").dialog({
 //             modal: true,

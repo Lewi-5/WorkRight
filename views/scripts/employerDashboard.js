@@ -44,7 +44,7 @@ $(document).ready(function () {
     // console.log("id = " + id);
     // getUser(id);
 
-    $("#edit").on("click", function(){
+    $("#edit").on("click", function () {
         update(id);
 
     });
@@ -81,11 +81,11 @@ $(document).ready(function () {
         $(this).css("background-color", "#ec3d3d")
     })
 
-    $("#signOut").on("click", function() {
-    sessionStorage.setItem('username', "");
-    sessionStorage.setItem('password', "");
-    window.location.href = "../loginTest.html"
-})
+    $("#signOut").on("click", function () {
+        sessionStorage.setItem('username', "");
+        sessionStorage.setItem('password', "");
+        window.location.href = "../loginTest.html"
+    })
     // need to address authentication of DELETE requests allowed only for one's own account
     // $('#deleteuser').on("click", function(){
     //     $("#deletepopupMessage").dialog({
@@ -129,10 +129,10 @@ function update(currId) {
         $(".nameWarning").show();
         return false;
     }
-    if(!validatePassword(passwordInpt)){
+    if (!validatePassword(passwordInpt)) {
         $(".passwordWarning").show();
         return false;
-    }else{
+    } else {
         $(".passwordWarning").hide();
     }
     if (firstNameInpt == null || firstNameInpt == "") {
@@ -174,7 +174,7 @@ function update(currId) {
         $("#popupMessage").dialog({
             modal: true,
             buttons: {
-                OK: function() {
+                OK: function () {
                     $(this).dialog("close");
                 }
             }
@@ -198,15 +198,15 @@ function refreshPage() {
 }
 //get company
 function getUser(id) {
-    console.log("/api/users/"+id);
+    console.log("/api/users/" + id);
     $.ajax({
-        url:"/api/users/"+id,
-        type:"GET",
-        dataType:"json",
+        url: "/api/users/" + id,
+        type: "GET",
+        dataType: "json",
         error: function (jqxhr, status, errorThrown) {
             alert("AJAX error: " + jqxhr.responseText);
-            }
-    }).done(function(user){
+        }
+    }).done(function (user) {
         $("#username").val(user.username);
         $("#password").val(user.password);
         $("#firstName").val(user.firstName);

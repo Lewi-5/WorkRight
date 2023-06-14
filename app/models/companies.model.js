@@ -4,10 +4,10 @@ const { response } = require('express');
 const sql = require('./db.js');
 
 
-const Company = function(company) {
+const Company = function (company) {
     this.name = company.name;
-    this.description = company.description; 
-    this.industry = company.industry; 
+    this.description = company.description;
+    this.industry = company.industry;
     this.streetNo = company.streetno;
     this.street = company.street;
     this.city = company.city;
@@ -19,53 +19,53 @@ const Company = function(company) {
 
 
 // POST /api/Company - create a record, 
-Company.create = (newData , result) =>{
-    sql.query("INSERT INTO companies set ?", newData, (err, res)=>{
-        if(err){
-            console.log("error: ",err);
+Company.create = (newData, result) => {
+    sql.query("INSERT INTO companies set ?", newData, (err, res) => {
+        if (err) {
+            console.log("error: ", err);
             if (err.code === "ER_DUP_ENTRY") {
                 result({ message: err.sqlMessage }, null);
                 return;
             }
-            console.log("error: ",err);
+            console.log("error: ", err);
             result(err, null);
             return;
         }
-        result(null, {id: result.insertCode, ...newData});
+        result(null, { id: result.insertCode, ...newData });
     });
 }
 
 
 // id template literal needs to be replaced by ? 
-Company.findById = (id, result) =>{
-    sql.query(`SELECT * FROM companies WHERE id = ?`,[id], (err, res) =>{
-        if(err){
-            console.log("error: " ,err);
+Company.findById = (id, result) => {
+    sql.query(`SELECT * FROM companies WHERE id = ?`, [id], (err, res) => {
+        if (err) {
+            console.log("error: ", err);
             result(err, null);
         }
-        if(res.length){
+        if (res.length) {
             result(null, res[0]);
             return;
         }
-        result({kind: "not_found"}, null);
+        result({ kind: "not_found" }, null);
     });
 }
 
 
-Company.findJobsByCompanyId = (id, result) =>{
+Company.findJobsByCompanyId = (id, result) => {
     console.log("id = " + id);
     sql.query(`select b.name as name, jobId, title, a.description, a.postCode, a.industry, 
-                salary, type, status, a.createDate from jobs a, companies b where a.companyId = b.ID and b.id = ?`,[id], (err, res) =>{
-        if(err){
-            console.log("error: " ,err);
+                salary, type, status, a.createDate from jobs a, companies b where a.companyId = b.ID and b.id = ?`, [id], (err, res) => {
+        if (err) {
+            console.log("error: ", err);
             result(err, null);
 
         }
-        if(res.length){
+        if (res.length) {
             result(null, res);
             return;
         }
-        result({kind: "not_found"}, null);
+        result({ kind: "not_found" }, null);
     });
 }
 
@@ -92,10 +92,10 @@ Company.remove = (id, result) => {
 // PATCH /api/Company
 Company.updateById = (id, data, result) => {
     sql.query(
-        "UPDATE companies SET name = ?, description = ?, industry = ?, streetNo = ?, street = ?, city = ?, province = ?, lastUpdate = ? WHERE id = ?", 
-        [data.name, data.description, data.industry, data.street_no , data.street, data.city, data.province, data.lastUpdate, id], 
+        "UPDATE companies SET name = ?, description = ?, industry = ?, streetNo = ?, street = ?, city = ?, province = ?, lastUpdate = ? WHERE id = ?",
+        [data.name, data.description, data.industry, data.street_no, data.street, data.city, data.province, data.lastUpdate, id],
         (err, res) => {
-            if(err){
+            if (err) {
                 console.log("error: ", err);
                 result(err, null);
                 return;
@@ -105,18 +105,18 @@ Company.updateById = (id, data, result) => {
                 result({ kind: "not_found" }, null);
                 return;
             }
-            
+
             console.log("updated Company: ", { id: id, ...data });
             result(null, { id: id, ...data });
         });
 };
 
 //get all companies
-Company.getAll = (sortby, result) =>{
+Company.getAll = (sortby, result) => {
     var query = sql.format("SELECT * FROM companies ORDER BY ?? ", [sortby]);
     sql.query(query, (err, res) => {
-        if(err){
-            console.log("error: " ,err);
+        if (err) {
+            console.log("error: ", err);
             retult(err, null);
             return;
         }
@@ -125,7 +125,8 @@ Company.getAll = (sortby, result) =>{
 };
 
 Company.find = (offset, limit, result) => {
-    sql.query(`SELECT * FROM companies LIMIT ${limit} OFFSET ${offset}`, (err, res) => { // changey dont forget to change the table name
+    var query = sql.format(`SELECT * FROM companies LIMIT ? OFFSET ?`, [limit, offset]);
+    sql.query(query, (err, res) => { // changey dont forget to change the table name
         if (err) {
             console.log("error: ", err);
             result(err, null);

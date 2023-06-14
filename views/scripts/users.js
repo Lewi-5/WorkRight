@@ -16,12 +16,13 @@ $(document).ready(function () {
         "border-radius": "2%",
         "text-align": "center",
         "cursor": "pointer"
-      });
-      $("#toPostings, #toCompanies").hover(function () {
+    });
+    $("#toPostings, #toCompanies").hover(function () {
         $(this).css("background-color", "#a01c1c")
-    },function () {
-        $(this).css("background-color", "#ec3d3d") })
-      
+    }, function () {
+        $(this).css("background-color", "#ec3d3d")
+    })
+
     $("#toPostings").on("click", function () {
         window.location.href = "../adminJobs.html"
     })
@@ -66,7 +67,7 @@ $(document).ready(function () {
     $('.lnameWarning').hide();
     $('.namedupWarning').hide();
 
-    $("#signOut").on("click", function() {
+    $("#signOut").on("click", function () {
         sessionStorage.setItem('username', "");
         sessionStorage.setItem('password', "");
         window.location.href = "../loginTest.html"
@@ -187,7 +188,7 @@ $(document).ready(function () {
 
     $('#password').on('blur', function () {
         let passwordInpt = $("#password").val();
-        if(!validatePassword(passwordInpt)){
+        if (!validatePassword(passwordInpt)) {
             $(".passwordWarning").show();
             return false;
         } else {
@@ -304,7 +305,7 @@ function refreshInputs() {
     $("#firstName").val("");
     $("#lastName").val("");
     $("#companyId").val("");
-    
+
 }
 
 function addNew() {
@@ -392,11 +393,11 @@ function update() {
         $(".nameWarning").show();
         return false;
     }
-    if(!validatePassword(passwordInpt)){
+    if (!validatePassword(passwordInpt)) {
         $(".passwordWarning").show();
         return false;
     }
-     
+
     if (firstNameInpt == null || firstNameInpt == "") {
         $(".fnamedWarning").show();
         return false;
@@ -496,19 +497,19 @@ function refreshUserList() {
         error: function (jqxhr, status, errorThrown) {
             alert("AJAX error: " + jqxhr.responseText);
         }
-    }).done (function(data) {
-            for (let i = 0; i < data.length; i++) {
-                let tableRow = $(`<tr id="${data[i].ID}" onclick="selectItem(${data[i].ID})">'><th id="th${i}" scope="row">${data[i].ID}</th></tr>`); // not working yet to create cards of each row
+    }).done(function (data) {
+        for (let i = 0; i < data.length; i++) {
+            let tableRow = $(`<tr id="${data[i].ID}" onclick="selectItem(${data[i].ID})">'><th id="th${i}" scope="row">${data[i].ID}</th></tr>`); // not working yet to create cards of each row
 
-                let usernameCell = $("<td></td>").text(data[i].username);
-                let firstNameCell = $("<td></td>").text(data[i].firstName);
-                let lastNameCell = $("<td></td>").text(data[i].lastName);
-                let industryCell = $("<td></td>").text(data[i].industry); // INDUSTRY CELL IS HERE
-                let roleCell = $("<td></td>").text(data[i].role);
+            let usernameCell = $("<td></td>").text(data[i].username);
+            let firstNameCell = $("<td></td>").text(data[i].firstName);
+            let lastNameCell = $("<td></td>").text(data[i].lastName);
+            let industryCell = $("<td></td>").text(data[i].industry); // INDUSTRY CELL IS HERE
+            let roleCell = $("<td></td>").text(data[i].role);
 
-                tableRow.append(usernameCell, firstNameCell, lastNameCell, industryCell, roleCell);
-                tableRow.css("background-color", "#f0f0f0");
-                tableBody.append(tableRow);
-            }
-        });
-    }
+            tableRow.append(usernameCell, firstNameCell, lastNameCell, industryCell, roleCell);
+            tableRow.css("background-color", "#f0f0f0");
+            tableBody.append(tableRow);
+        }
+    });
+}

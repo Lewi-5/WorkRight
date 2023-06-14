@@ -1,12 +1,12 @@
 let currId = 0;
 let topPage = 0;
-let bottomPage = 0;
+let bottomPage = 0; // for turning pages in the job postings table
 
 $(document).ready(function () {
 
     refreshJobsList();
 
-    $("#signOut").on("click", function() {
+    $("#signOut").on("click", function () {
         sessionStorage.setItem('username', "");
         sessionStorage.setItem('password', "");
         window.location.href = "../loginTest.html"
@@ -23,12 +23,13 @@ $(document).ready(function () {
         "border-radius": "2%",
         "text-align": "center",
         "cursor": "pointer"
-      });
-      $("#toUsers, #toCompanies").hover(function () {
+    });
+    $("#toUsers, #toCompanies").hover(function () {
         $(this).css("background-color", "#a01c1c")
-    },function () {
-        $(this).css("background-color", "#ec3d3d") })
-      
+    }, function () {
+        $(this).css("background-color", "#ec3d3d")
+    })
+
     $("#toUsers").on("click", function () {
         window.location.href = "../users.html"
     })
@@ -70,11 +71,11 @@ $(document).ready(function () {
         update();
     });
 
-    $("#previousPage").on("click", function() {
+    $("#previousPage").on("click", function () {
         pageChange("previous");
     });
 
-    $("#nextPage").on("click", function() {
+    $("#nextPage").on("click", function () {
         pageChange("next");
     });
 
@@ -224,34 +225,34 @@ function refreshJobsList() {
         error: function (jqxhr, status, errorThrown) {
             alert("AJAX error: " + jqxhr.responseText);
         }
-    }).done (function(data) {
-            topPage = data[0].jobId;
-            bottomPage = data[data.length - 1].jobId; // that -1 array length ruined me...
-            for (let i = 0; i < data.length; i++) {
-                let tableRow = $(`<tr id="${data[i].jobId}" onclick="selectItem(${data[i].jobId})">'><th id="th${i}" scope="row">${data[i].jobId}</th></tr>`); // not working yet to create cards of each row
+    }).done(function (data) {
+        topPage = data[0].jobId;
+        bottomPage = data[data.length - 1].jobId; // that -1 array length ruined me...
+        for (let i = 0; i < data.length; i++) {
+            let tableRow = $(`<tr id="${data[i].jobId}" onclick="selectItem(${data[i].jobId})">'><th id="th${i}" scope="row">${data[i].jobId}</th></tr>`); // not working yet to create cards of each row
 
-                // let idCell = $(`#th${i}`).text(data[i].ID);
+            // let idCell = $(`#th${i}`).text(data[i].ID);
 
-                // let idCell = $("<td></td>").text(data[i].ID);
-                //let jobIdCell = $("<td></td>").text(data[i].jobId);
-                let companyIdCell = $("<td></td>").text(data[i].companyId);
-                let titleCell = $("<td></td>").text(data[i].title);
-                let industryCell = $("<td></td>").text(data[i].industry);
+            // let idCell = $("<td></td>").text(data[i].ID);
+            //let jobIdCell = $("<td></td>").text(data[i].jobId);
+            let companyIdCell = $("<td></td>").text(data[i].companyId);
+            let titleCell = $("<td></td>").text(data[i].title);
+            let industryCell = $("<td></td>").text(data[i].industry);
 
-                tableRow.append(companyIdCell, titleCell, industryCell);
-                tableRow.css("background-color", "#f0f0f0");
-                tableBody.append(tableRow);
-            }
-        });
-    }
-
-
-    function pageChange(previousOrNextPage){
-        const tableBody = $("#tableBody");
-        if (tableBody.children().length === 0){
-            alert("You have reached the end of the pages.")
-            return;
+            tableRow.append(companyIdCell, titleCell, industryCell);
+            tableRow.css("background-color", "#f0f0f0");
+            tableBody.append(tableRow);
         }
+    });
+}
+
+
+function pageChange(previousOrNextPage) {
+    const tableBody = $("#tableBody");
+    if (tableBody.children().length === 0) {
+        alert("You have reached the end of the pages.")
+        return;
+    }
     $.ajax({
         url: previousOrNextPage == "previous" ? "/api/jobs/page" + "" + (topPage * -1) : "/api/jobs/page/" + "" + bottomPage, // try to use positive or negative param to tell controller and model if this page forward or page back
         headers: { 'x-auth-username': sessionStorage.getItem('username'), 'x-auth-password': sessionStorage.getItem('password') },
@@ -260,25 +261,25 @@ function refreshJobsList() {
         error: function (jqxhr, status, errorThrown) {
             alert("AJAX error: " + jqxhr.responseText);
         }
-    }).done(function(data) {
-            const tableBody = $("#tableBody");
-            $("#tableBody").html("");
-            for (let i = 0; i < data.length; i++) {
-                let tableRow = $(`<tr id="${data[i].jobId}" onclick="selectItem(${data[i].jobId})">'><th id="th${i}" scope="row">${data[i].jobId}</th></tr>`); // not working yet to create cards of each row
+    }).done(function (data) {
+        const tableBody = $("#tableBody");
+        $("#tableBody").html("");
+        for (let i = 0; i < data.length; i++) {
+            let tableRow = $(`<tr id="${data[i].jobId}" onclick="selectItem(${data[i].jobId})">'><th id="th${i}" scope="row">${data[i].jobId}</th></tr>`); // not working yet to create cards of each row
 
-                // let idCell = $(`#th${i}`).text(data[i].ID);
+            // let idCell = $(`#th${i}`).text(data[i].ID);
 
-                // let idCell = $("<td></td>").text(data[i].ID);
-                //let jobIdCell = $("<td></td>").text(data[i].jobId);
-                let companyIdCell = $("<td></td>").text(data[i].companyId);
-                let titleCell = $("<td></td>").text(data[i].title);
-                let industryCell = $("<td></td>").text(data[i].industry);
+            // let idCell = $("<td></td>").text(data[i].ID);
+            //let jobIdCell = $("<td></td>").text(data[i].jobId);
+            let companyIdCell = $("<td></td>").text(data[i].companyId);
+            let titleCell = $("<td></td>").text(data[i].title);
+            let industryCell = $("<td></td>").text(data[i].industry);
 
-                tableRow.append(companyIdCell, titleCell, industryCell);
-                tableRow.css("background-color", "#f0f0f0");
-                tableBody.append(tableRow);
-            }
-            topPage = data[0].jobId;
-            bottomPage = data[data.length - 1].jobId;
+            tableRow.append(companyIdCell, titleCell, industryCell);
+            tableRow.css("background-color", "#f0f0f0");
+            tableBody.append(tableRow);
+        }
+        topPage = data[0].jobId;
+        bottomPage = data[data.length - 1].jobId;
     })
 }

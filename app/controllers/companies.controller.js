@@ -161,7 +161,7 @@ exports.getCompanies = (req, res) => {
     let page = req.query.page || 0;
     let offset = page * 10;
 
-    Companies.find(offset, 10, (err, data) => {
+    Company.find(offset, 10, (err, data) => {
         if (err) {
             res.status(500).send({
                 message: err.message || "Some error occurred while retrieving Companies."

@@ -2,7 +2,7 @@
 var companyid = "";
 $(document).ready(function () {
 
-    
+
     $.ajax({
         url: "/api/users/me",
         headers: { 'x-auth-username': sessionStorage.getItem('username'), 'x-auth-password': sessionStorage.getItem('password') },
@@ -32,10 +32,10 @@ $(document).ready(function () {
                 window.location.href = "../loginTest.html"
             }, 3000);
         }
-        
+
     });
 
-    $("#signOut").on("click", function() {
+    $("#signOut").on("click", function () {
         sessionStorage.setItem('username', "");
         sessionStorage.setItem('password', "");
         window.location.href = "../loginTest.html"
@@ -44,83 +44,83 @@ $(document).ready(function () {
     const selectedOption = $("#sortSelect").val();
     refreshCompaniesList(selectedOption);
     //if new button click pass id=0
-    $('#addNewCompany').on("click", function(){
+    $('#addNewCompany').on("click", function () {
         window.open('./companies.html?id=0', '_self');
     });
 
     //update button clicked
-    $('#updateCompany').on("click", function(){
-        if(companyid == null || companyid == ""){
+    $('#updateCompany').on("click", function () {
+        if (companyid == null || companyid == "") {
             $("#popupMessage").dialog({
                 modal: true,
                 buttons: {
-                    OK: function() {
+                    OK: function () {
                         $(this).dialog("close");
                     }
                 }
             });
-            
-        }else{
-            window.open('./companies.html?id='+companyid, '_self');
+
+        } else {
+            window.open('./companies.html?id=' + companyid, '_self');
         }
     });
 
     //delete button clicked
-    $('#deleteCompany').on("click", function(){
-        if(companyid == null || companyid == ""){
+    $('#deleteCompany').on("click", function () {
+        if (companyid == null || companyid == "") {
             //popup message 
             $("#popupMessage").dialog({
                 modal: true,
                 buttons: {
-                    OK: function() {
+                    OK: function () {
                         $(this).dialog("close");
                     }
                 }
             });
-        }else{
+        } else {
             $("#deletepopupMessage").dialog({ //popup message 
                 modal: true,
                 buttons: {
-                    Yes: function() {
+                    Yes: function () {
                         $.ajax({
-                            url:"/api/companies/"+companyid,
-                            type:"delete",
-                            dataType:"json",
+                            url: "/api/companies/" + companyid,
+                            type: "delete",
+                            dataType: "json",
                             error: function (jqxhr, status, errorThrown) {
-                            alert("AJAX error: " + jqxhr.responseText);
-                        }
-                        }).done(function(company){
+                                alert("AJAX error: " + jqxhr.responseText);
+                            }
+                        }).done(function (company) {
                             refreshCompaniesList();
                         });
                         $(this).dialog("close");
                     },
-                    Cancel: function() {
+                    Cancel: function () {
                         $(this).dialog("close");
                     }
                 }
             });
-            
+
         }
     });
 
     //get job button clicked
-    $('#getJobs').on("click", function(){
-        if(companyid == null || companyid == ""){
+    $('#getJobs').on("click", function () {
+        if (companyid == null || companyid == "") {
             $("#popupMessage").dialog({
                 modal: true,
                 buttons: {
-                    OK: function() {
+                    OK: function () {
                         $(this).dialog("close");
                     }
                 }
             });
-        }else{
-            window.open('./companyJobs.html?id='+companyid, '_blank');
+        } else {
+            window.open('./companyJobs.html?id=' + companyid, '_blank');
         }
     });
 
     // Perform sorting based on the selected option
-    $('#sortSelect').change(function() {                  
+    $('#sortSelect').change(function () {
         var selectedOption = $("#sortSelect").val();
         refreshCompaniesList(selectedOption)
     });
@@ -132,18 +132,18 @@ function refreshCompaniesList(params) {
     $("#jobListings").empty();
     const sortBy = params ? params : "id";
     $.ajax({
-        url:"/api/allcompanies?sortBy="+sortBy,
-        type:"GET",
-        dataType:"json",
+        url: "/api/allcompanies?sortBy=" + sortBy,
+        type: "GET",
+        dataType: "json",
         error: function (jqxhr, status, errorThrown) {
             alert("AJAX error: " + jqxhr.responseText);
-            }
-    }).done(function(companiesList){
+        }
+    }).done(function (companiesList) {
 
         for (var i = 0; i < companiesList.length; i++) {
             var company = companiesList[i];
             console.log("company.createDate = " + company.createDate);
-            if(company.createDate){
+            if (company.createDate) {
                 //formatting the datetiem display
                 var datetime = new Date(company.createDate);
                 var formattedDatetime = datetime.toLocaleString('en-US', {
@@ -154,7 +154,7 @@ function refreshCompaniesList(params) {
                     minute: '2-digit',
                     second: '2-digit'
                 });
-            }else{
+            } else {
                 formattedDatetime = "";
             }
 
