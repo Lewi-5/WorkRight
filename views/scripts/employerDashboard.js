@@ -59,6 +59,9 @@ $(document).ready(function () {
     $("#toCompanyEdit").on("click", function () {
         window.location.href = `./companies.html?id=${companyId}`
     })
+    $("#toCompanies").on("click", function () {
+        window.location.href = "./allcompanies.html"
+    })
 
     $(".linkBtn").css({
         "border": "none",
@@ -81,7 +84,7 @@ $(document).ready(function () {
     $("#signOut").on("click", function() {
     sessionStorage.setItem('username', "");
     sessionStorage.setItem('password', "");
-    window.location.href = "./loginTest.html"
+    window.location.href = "../loginTest.html"
 })
     // need to address authentication of DELETE requests allowed only for one's own account
     // $('#deleteuser').on("click", function(){

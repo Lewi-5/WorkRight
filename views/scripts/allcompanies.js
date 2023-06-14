@@ -20,16 +20,16 @@ $(document).ready(function () {
             $("#updateCompany").hide();
             $("#deleteCompany").hide();
         } else if (user.role == 'employer') {
-            $("#addNewCompany").hide();
             $("#updateCompany").hide();
             $("#deleteCompany").hide();
+            $("#getJobs").hide();
         } else if (user.role == 'admin') {
             $("#adminTitle").html(`Hello, ${user.username}, Welcome to WorkRight Company Administration`)
         }
         else {
             alert("authentication invalid");
             setTimeout(() => {
-                window.location.href = "./loginTest.html"
+                window.location.href = "../loginTest.html"
             }, 3000);
         }
         
