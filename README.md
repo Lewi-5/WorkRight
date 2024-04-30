@@ -16,9 +16,14 @@ npm i nodemon -D (on macOS: npm install nodemon --save-dev)
 -change script "start": "node server","dev": "nodemon server"
 npm run dev
 
-
+<!-- 
 DATABASE:
 hostname=fsd08workright.mysql.database.azure.com
 username=workright01
 password=FYxskC0aeL1pjh9t
-dbName=workrightdb
+dbName=workrightdb -->
+
+    HOST: "fsd08workright1.mysql.database.azure.com",
+    USER: "workright01",
+    PASSWORD: "FYxskC0aeL1pjh9t",
+    DB: "authworkright"
